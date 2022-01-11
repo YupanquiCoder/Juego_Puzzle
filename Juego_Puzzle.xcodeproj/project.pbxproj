@@ -25,6 +25,7 @@
 /* Begin PBXFileReference section */
 		86234550278DB15F00758EB7 /* Juego_Puzzle */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Juego_Puzzle; sourceTree = BUILT_PRODUCTS_DIR; };
 		86234553278DB15F00758EB7 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
+		8623455A278DFE0800758EB7 /* piezas.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = piezas.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +59,7 @@
 			isa = PBXGroup;
 			children = (
 				86234553278DB15F00758EB7 /* main.c */,
+				8623455A278DFE0800758EB7 /* piezas.h */,
 			);
 			path = Juego_Puzzle;
 			sourceTree = "<group>";
