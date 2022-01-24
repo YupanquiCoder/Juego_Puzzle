@@ -11,13 +11,14 @@
 /* VARIABLES GLOBALES USADAS*/
 int Tablero[7][7];
 
-#define NUMMAXPRUEBAS 30
+#define NUMMAXPRUEBAS 200
 #define NUMMAXPIEZASPROBADAS 400
 #define NUMMAXPRUEBACOMBINACION 2 /* El número de veces que se probará la misma combinación tras una PIEZA COLOCADA*/
 
 struct ListaPruebas {
     int NumPrueba;
     int Piezascolocadas[9];
+    int NumPiezasColocadas;
     struct {
         int PiezaColocada;
         int OrientaColocada;
@@ -29,6 +30,8 @@ struct ListaPruebas {
         int ResultadoPieza;
     }PiezaProbada[NUMMAXPIEZASPROBADAS];
     int ResultadoPrueba;
+    int RevisionPrueba;
+    int RevisandoPrueba;
 }ListaPruebas[NUMMAXPRUEBAS];
 
 int PuntPruebas; /* Indica en qué prueba estamos ejecutando*/
@@ -37,6 +40,13 @@ int PuntOri; /* Indica el puntero a la orientación de la pieza que se va a colo
 int PuntPiezas; /*Es el número de piezas que se ha probado */
 int PuntOrdenPieza; /* Es el Orden la pieza que se quiere colocar*/
 int PuntContColocadas; /*cuenta el número de piezas colocadas en la prueba en curso */
+
+struct{
+    int BuffPieza;
+    int BuffOri;
+}BufferPiezasAColocar[9];
+int PuntBuf=0xff;
+
 
 
 int LimpiaTablero(int pTablero[][7]){
@@ -205,7 +215,31 @@ int BuscaHuecoEnTablero(int pTablero[][7],int* pFila, int* pColumna){
     
     return 1;
 }
-
+int MuestraListaResultPruebas()
+{
+    /* Muestra el listado de los resultados de todas las pruebas realizadas*/
+    int TmpContPrueba,i,j,ContPiezas=0;
+    
+    
+    for(TmpContPrueba=0;TmpContPrueba<NUMMAXPRUEBAS;TmpContPrueba++){
+        
+        printf(" PRUEBA: %u Resultado: %u Revis: [%u] Test: %u ", TmpContPrueba,ListaPruebas[TmpContPrueba].ResultadoPrueba,ListaPruebas[TmpContPrueba].RevisandoPrueba,ListaPruebas[TmpContPrueba].RevisionPrueba);
+        for (i=0,ContPiezas=0;i<9;i++)
+        {
+            if(ListaPruebas[TmpContPrueba].Piezascolocadas[i]==0xff)
+                ContPiezas=ContPiezas+1;
+        }
+        printf("   %u Piezas colocadas: ",ContPiezas);
+        for (i=0;i<ContPiezas;i++)
+        {
+            printf("[%u-%u] ",ListaPruebas[TmpContPrueba].CombinacionColocadas[i].PiezaColocada,ListaPruebas[TmpContPrueba].CombinacionColocadas[i].OrientaColocada);
+        }
+        printf( "\r");
+        
+    }
+    return 0;
+    
+}
 int MuestraListado (int NumPrueba){
     /* lista el resultado de una prueba*/
     int i,tmp;
@@ -214,6 +248,7 @@ int MuestraListado (int NumPrueba){
      struct ListaPruebas {
          int NumPrueba;
          int Piezascolocadas[9];
+         int NumPiezasColocadas;
          struct {
              int PiezaColocada;
              int OrientaColocada;
@@ -225,6 +260,8 @@ int MuestraListado (int NumPrueba){
              int ResultadoPieza;
          }PiezaProbada[NUMMAXPIEZASPROBADAS];
          int ResultadoPrueba;
+         int RevisionPrueba;
+         int RevisandoPrueba;
      }ListaPruebas[NUMMAXPRUEBAS];*/
     
     if(NumPrueba<NUMMAXPRUEBAS)
@@ -237,7 +274,7 @@ int MuestraListado (int NumPrueba){
             if(ListaPruebas[NumPrueba].Piezascolocadas[i]==0xff) {
                 ContPiezas=ContPiezas+1;
                 printf("Sí");
-                }
+            }
             
             else printf("No");
             printf("\n");
@@ -298,6 +335,13 @@ int MuestraListado (int NumPrueba){
 }
 
 int ResuelveTableroAvance(){
+    /* La función devuelve:
+     200: Se han probado NUMMAXPIEZASPROBADAS sin tener resultado final -> Este no debería pasar, lo normal es salir con 400
+     400: Desde colocar una pieza, se ha probado NUMMAXPRUEBACOMBINACION la misma combinación
+     500: Se han probado el resto de piezas y no caben
+     55: Esta prueba se debe parar porque el Tablero resultante se ha bloqueado
+     99: El Tablero se ha terminado ¡ÉXITO!
+     */
     int tmpfilaTab,tmpcolTab;/*Usados para buscar hueco*/
     int tmp=0,tmpTab=0;
     int i,j;
@@ -308,18 +352,29 @@ int ResuelveTableroAvance(){
     int IndPiezaColocada=0;
     int ContadorMismaPrueba=0;
     
+    /* Comprobamos primero Si el buffer de piezas a colocar hay algo*/
+    if(PuntBuf!=0xff){
+        /* Hay algo que colocar*/
+       /* El puntero apunta a la pieza a colocar*/
+        
+        PuntPieza=BufferPiezasAColocar[PuntBuf].BuffPieza;
+        PuntOri=BufferPiezasAColocar[PuntBuf].BuffOri;
+        if(PuntBuf==0) PuntBuf=0xff;
+        else PuntBuf=PuntBuf-1;
+    }
+    
     if(ListaPruebas[PuntPruebas].Piezascolocadas[PuntPieza]==0)
     {
         /* Revisamos si la siguiente combinación ya se ha probado al menos NUMMAXPRUEBACOMBINACION*/
         /* la última fila probada está en: PuntPiezas */
-       
+        
         /* Salvo la situación actual de los punteros*/
         ActPuntPruebas=PuntPruebas;
         ActPuntPieza=PuntPieza;
         ActPuntOri=PuntOri;
         ActPuntPiezas=PuntPiezas;
         ActPuntOrdenPieza=PuntOrdenPieza;
-
+        
         for(i=PuntPiezas;i!=0;i--){
             /* Buscamos la última pieza Colocada (Resultado Prueba =0*/
             if(ListaPruebas[PuntPruebas].PiezaProbada[i].ResultadoPieza==0)
@@ -333,9 +388,10 @@ int ResuelveTableroAvance(){
                ListaPruebas[PuntPruebas].PiezaProbada[i].ResultadoPieza!=0)
                 ContadorMismaPrueba=ContadorMismaPrueba+1;
             if(ContadorMismaPrueba==NUMMAXPRUEBACOMBINACION){
-                break;
+                ListaPruebas[PuntPruebas].ResultadoPrueba=400;
+                return 400;
             }
-
+            
         }
         BuscaHuecoEnTablero(Tablero,&tmpfilaTab,&tmpcolTab);
         printf("Coloca la pieza en fila:%u, columna%u\r\n",tmpfilaTab,tmpcolTab);
@@ -352,6 +408,7 @@ int ResuelveTableroAvance(){
         PuntPiezas=PuntPiezas+1;
         if(PuntPiezas>NUMMAXPIEZASPROBADAS)
         {/*paramos de probar piezas*/
+            ListaPruebas[PuntPruebas].ResultadoPrueba=200;
             return 200;
         }else{
             if(tmp==0) {
@@ -363,6 +420,7 @@ int ResuelveTableroAvance(){
                 ListaPruebas[PuntPruebas].CombinacionColocadas[PuntContColocadas].PiezaColocada=PuntPieza;
                 ListaPruebas[PuntPruebas].CombinacionColocadas[PuntContColocadas].OrientaColocada=PuntOri;
                 PuntContColocadas=PuntContColocadas+1;
+                ListaPruebas[PuntPruebas].NumPiezasColocadas=PuntContColocadas;
                 
                 PuntOri=0; /*Para que vuelva a la orientación*/
                 /*Si la pieza se ha colocado pasamos a la siguiente pieza*/
@@ -395,15 +453,20 @@ int ResuelveTableroAvance(){
         PuntOrdenPieza=PuntOrdenPieza+1;
         
     }else{ /*No se ha colocado*/
-        if(PuntPieza==8){
-            if(PuntOri==3) PuntPieza=0;
-            else PuntOri=PuntOri+1;
-        }else{
-            if(PuntOri==3) {
-                PuntPieza=PuntPieza+1;
-                PuntOri=0;
-            }else PuntOri=PuntOri+1;
-            
+        if(PuntPieza>8){
+            ListaPruebas[PuntPruebas].ResultadoPrueba=500;
+            return 500; /*Fin cambiando la primera pieza */
+        } else{
+            if(PuntPieza==8){
+                if(PuntOri==3) PuntPieza=0;
+                else PuntOri=PuntOri+1;
+            }else{
+                if(PuntOri==3) {
+                    PuntPieza=PuntPieza+1;
+                    PuntOri=0;
+                }else PuntOri=PuntOri+1;
+                
+            }
         }
     }
     
@@ -411,48 +474,191 @@ int ResuelveTableroAvance(){
     return ptmpResultadoFunc;
 }
 
+int InicializaTablero()
+{
+    LimpiaTablero(Tablero);
+    /*Definimos el reto*/
+    Tablero[3][2]=9; /*Donde está el 9 es la Chincheta*/
+    PintaTablero();
+    return 0;
+}
+
+int BuscaPrueba55(){
+    /* Busca la primera prueba cuyo resultado es 55 y que no se haya revisada ya (las revisadas se marcan como 33 o 44*/
+    int i;
+    for(i=0;i<PuntPruebas;i++){
+        if(ListaPruebas[i].ResultadoPrueba==55 && ListaPruebas[i].RevisionPrueba==0)
+            return i;
+    }
+    return 0xFF; /* NO hay ninguna prueba 55 que no se haya probado*/
+}
+
+int BuscaPruebasRepetidas(){
+    /* Busca de todas las pruebas que No se han revisado (RevisiónPrueba !=33 cuales no están repetidas
+     Si está repetida Se marca como 44 => Repetidas NO se vuelven a tratar*/
+    int PuntTestRev;
+    int PuntRevis;
+    int i=0;
+    int SonIguales=1;
+    
+    for(PuntTestRev=0;PuntTestRev<PuntPruebas;PuntTestRev++){
+        for(PuntRevis=PuntTestRev+1;PuntRevis<PuntPruebas;PuntRevis++){
+            if(ListaPruebas[PuntTestRev].RevisionPrueba==0){
+                for(i=0,SonIguales=1;i<9;i++)
+                {
+                    if(ListaPruebas[PuntTestRev].CombinacionColocadas[i].PiezaColocada!=ListaPruebas[PuntRevis].CombinacionColocadas[i].PiezaColocada && ListaPruebas[PuntTestRev].CombinacionColocadas[i].OrientaColocada!=ListaPruebas[PuntRevis].CombinacionColocadas[i].OrientaColocada)
+                        SonIguales=0;
+                }
+                if(SonIguales){
+                    ListaPruebas[PuntRevis].RevisionPrueba=44;
+                    SonIguales=1;
+                }
+        }
+        }
+    }
+    
+    return 0;
+}
+
+int ResuelveTablero55(){
+    int i,j,k;
+    int PuntTestPrueba=0;
+    int tmpResultadoFunc=0;
+    
+    MuestraListaResultPruebas();
+    BuscaPruebasRepetidas();
+    MuestraListaResultPruebas();
+    PuntTestPrueba=BuscaPrueba55();
+    while (PuntTestPrueba!=0xff){
+        PuntBuf=0;
+        for(k=ListaPruebas[PuntTestPrueba].NumPiezasColocadas,i=ListaPruebas[PuntTestPrueba].NumPiezasColocadas-1,j=0;k>0;i--,j++,k--){
+            BufferPiezasAColocar[j].BuffPieza=ListaPruebas[PuntTestPrueba].CombinacionColocadas[i].PiezaColocada;
+            BufferPiezasAColocar[j].BuffOri=ListaPruebas[PuntTestPrueba].CombinacionColocadas[i].OrientaColocada;
+            PuntBuf=PuntBuf+1;
+        }
+        
+        /*la pieza Indice 0 hay que pasar a la siguiente */
+        if(BufferPiezasAColocar[0].BuffOri==3){
+            if(BufferPiezasAColocar[0].BuffPieza<8){
+                BufferPiezasAColocar[0].BuffPieza=BufferPiezasAColocar[0].BuffPieza+1;
+                BufferPiezasAColocar[0].BuffOri=0;
+            } else{
+                BufferPiezasAColocar[0].BuffPieza=0;
+                BufferPiezasAColocar[0].BuffOri=0;
+            }
+        }else BufferPiezasAColocar[0].BuffOri=BufferPiezasAColocar[0].BuffOri+1;
+        PuntBuf=PuntBuf-1;
+        PuntPiezas=0; /* El índice marca el número de pieza que se ha probado */
+        PuntOrdenPieza=1;
+        PuntContColocadas=0;
+        ListaPruebas[PuntPruebas].RevisandoPrueba=PuntTestPrueba;
+        
+        printf("COMIENZO PRUEBA [%u] **********\n",PuntPruebas);
+        tmpResultadoFunc=ResuelveTableroAvance();
+        ListaPruebas[PuntTestPrueba].RevisionPrueba=33;
+        switch(tmpResultadoFunc){
+            case 99:
+            case 55:
+                printf("Se ha acabado el tablero [%u]\r\n",tmpResultadoFunc);
+                break;
+            case 200:
+                printf("Paramos las pruebas [%u]\r\n",tmpResultadoFunc);
+                break;
+            case 400:
+                printf("Se para porque ya se ha probado la misma combinación %u veces [%u]\r\n",NUMMAXPRUEBACOMBINACION, tmpResultadoFunc);
+                break;
+            case 500:
+                printf("Se ha terminado las 8 piezas de inicio [%u]\r\n",tmpResultadoFunc);
+                break;
+            default:
+                break;
+        }
+        BuscaPruebasRepetidas();
+        PuntTestPrueba=BuscaPrueba55();
+        /* Preparamos la siguiente Prueba*/
+        PuntPruebas=PuntPruebas+1;
+        if(PuntPruebas==NUMMAXPRUEBAS){
+            MuestraListado(PuntPruebas);
+            return 900;
+        }
+        ListaPruebas[PuntPruebas].RevisandoPrueba=0xff;
+        InicializaTablero();
+        
+        
+    }
+
+    
+    MuestraListado(PuntPruebas);
+    return 0;
+}
+
 int main(int argc, const char * argv[]) {
     
     int tmpfilaTab,tmpcolTab;/*Usados para buscar hueco*/
     int Piezainicio=0;
     int tmpResultadoFunc=0;
+    int PuntPiezaComienzo,PuntOriComienzo;
+  
+    int i,j;
     
     tmpfilaTab=0;
     tmpcolTab=0;
     
-    LimpiaTablero(Tablero);
-    /*Definimos el reto*/
-    Tablero[3][2]=9; /*Donde está el 9 es la Chincheta*/
-    //    Tablero[0][2]=9; /*Donde está el 9 es la Chincheta*/
-    
-    PintaTablero();
-    //    PintaPieza(0,3);
-    
-    /* Comenzamos pruebas*/
+    InicializaTablero();
     PuntPruebas=0;
     PuntPiezas=0; /* El índice marca el número de pieza que se ha probado */
-    PuntOri=0;
-    PuntPieza=4;
     PuntOrdenPieza=1;
     PuntContColocadas=0;
     
-    tmpResultadoFunc=ResuelveTableroAvance();
-    switch(tmpResultadoFunc){
-        case 99:
-        case 55:
-            printf("Se ha acabado el tablero %u\r\n",tmpResultadoFunc);
+    /* Comenzamos pruebas*/
+    for(PuntPiezaComienzo=0;PuntPiezaComienzo<8;PuntPiezaComienzo++){
+        for(PuntOriComienzo=0;PuntOriComienzo<4;PuntOriComienzo++){
+            printf("COMIENZO PRUEBA [%u] **********\n",PuntPruebas);
+            PuntPieza=PuntPiezaComienzo;
+            PuntOri=PuntOriComienzo;
+            tmpResultadoFunc=ResuelveTableroAvance();
+            switch(tmpResultadoFunc){
+                case 99:
+                case 55:
+                    printf("Se ha acabado el tablero [%u]\r\n",tmpResultadoFunc);
+                    break;
+                case 200:
+                    printf("Paramos las pruebas [%u]\r\n",tmpResultadoFunc);
+                    break;
+                case 400:
+                    printf("Se para porque ya se ha probado la misma combinación %u veces [%u]\r\n",NUMMAXPRUEBACOMBINACION, tmpResultadoFunc);
+                    break;
+                case 500:
+                    printf("Se ha terminado las 8 piezas de inicio [%u]\r\n",tmpResultadoFunc);
+                    break;
+                default:
+                    break;
+            }
+            MuestraListado(PuntPruebas);
+            /* Preparamos la siguiente Prueba*/
             PuntPruebas=PuntPruebas+1;
-            break;
-        case 200:
-            printf("Paramos las pruebas %u\r\n",tmpResultadoFunc);
-            PuntPruebas=PuntPruebas+1;
-            break;
-        defalt:
-            break;
+            ListaPruebas[PuntPruebas].RevisandoPrueba=0xff;
+            PuntPiezas=0; /* El índice marca el número de pieza que se ha probado */
+            PuntOrdenPieza=1;
+            PuntContColocadas=0;
+            InicializaTablero();
+            
+        }
     }
-    MuestraListado(PuntPruebas-1);
+    MuestraListaResultPruebas();
+
+    printf("COMENZAMOS 2ª FASE :*********************\n");
+    /* Comenzamos 2ª FASE
+     1o Los que han dado Resultado 55 (La última pieza ha Bloqueado el tablero Quitamos solo la última pieza y seguimos con la siguiente */
     
+    ResuelveTablero55();
+    
+    
+    MuestraListaResultPruebas();
+
     return 0;
+    
+    
     
     /* 15/01/22 - Solución al tablero
      BuscaHuecoEnTablero(Tablero,&tmpfilaTab,&tmpcolTab);
@@ -495,11 +701,11 @@ int main(int argc, const char * argv[]) {
      return 0;*/
     
     
-        
+    
     printf("¿Por cual pieza empezamos?:");
     scanf("%u",&Piezainicio);
     
-        
+    
     
     /* Solución POSIBLE
      ColocaPieza(0,0,0,0);
