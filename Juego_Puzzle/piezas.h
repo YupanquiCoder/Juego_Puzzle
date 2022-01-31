@@ -8,9 +8,11 @@
 //
 #define FilPiezas 5
 #define ColPiezas 5
+#define CANTIDADPIEZAS 9
+#define CANTIDADORIENTACIONES 4
 
 
-int Piezas [9][4][FilPiezas][ColPiezas]={
+int Piezas [CANTIDADPIEZAS][CANTIDADORIENTACIONES][FilPiezas][ColPiezas]={
     {//    Pieza 0
     /*N*/  {{01,01,01,00,00},
             {00,01,00,00,00},
@@ -69,7 +71,7 @@ int Piezas [9][4][FilPiezas][ColPiezas]={
     /*E*/  {{00,22,00,00,00},
             {22,22,00,00,00},
             {22,22,00,00,00},
-            {00,00,00,00,00},
+            {00,22,00,00,00},
             {00,00,00,00,00},},
     /*O*/  {{00,23,23,00,00},
             {23,23,23,23,00},
