@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		86234554278DB15F00758EB7 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 86234553278DB15F00758EB7 /* main.c */; };
+		8695FCED27B71D7300AED420 /* Rutinas.c in Sources */ = {isa = PBXBuildFile; fileRef = 8695FCEC27B71D7300AED420 /* Rutinas.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -26,6 +27,7 @@
 		86234550278DB15F00758EB7 /* Juego_Puzzle */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Juego_Puzzle; sourceTree = BUILT_PRODUCTS_DIR; };
 		86234553278DB15F00758EB7 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		8623455A278DFE0800758EB7 /* piezas.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = piezas.h; sourceTree = "<group>"; };
+		8695FCEC27B71D7300AED420 /* Rutinas.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = Rutinas.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +61,7 @@
 			isa = PBXGroup;
 			children = (
 				86234553278DB15F00758EB7 /* main.c */,
+				8695FCEC27B71D7300AED420 /* Rutinas.c */,
 				8623455A278DFE0800758EB7 /* piezas.h */,
 			);
 			path = Juego_Puzzle;
@@ -121,6 +124,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8695FCED27B71D7300AED420 /* Rutinas.c in Sources */,
 				86234554278DB15F00758EB7 /* main.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
