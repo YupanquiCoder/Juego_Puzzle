@@ -7,150 +7,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "90634802-E073-4CA6-90AA-9CDE773670D7"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Juego_Puzzle/main.c"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "119"
-            endingLineNumber = "119"
-            landmarkName = "PintaPieza(NumPieza, NumOrienta)"
-            landmarkType = "9">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "EEFEBF14-72D0-4427-9F5A-B64906ACCBBD"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Juego_Puzzle/main.c"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "267"
-            endingLineNumber = "267"
-            landmarkName = "ColocaPieza(tFil, tCol, pNum, pOri)"
-            landmarkType = "9">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "E45B4821-BC5C-4B5B-83BA-450D99181462"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Juego_Puzzle/main.c"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "263"
-            endingLineNumber = "263"
-            landmarkName = "ColocaPieza(tFil, tCol, pNum, pOri)"
-            landmarkType = "9">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "BC852347-6E3E-4F25-B3DD-B675D91324A2"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Juego_Puzzle/main.c"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "268"
-            endingLineNumber = "268"
-            landmarkName = "ColocaPieza(tFil, tCol, pNum, pOri)"
-            landmarkType = "9">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "DB6EF5EF-9BA3-49E2-868D-13A139B8C92B"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Juego_Puzzle/main.c"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "264"
-            endingLineNumber = "264"
-            landmarkName = "ColocaPieza(tFil, tCol, pNum, pOri)"
-            landmarkType = "9">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "677242A7-BF64-41FC-BB96-4948435F506C"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Juego_Puzzle/main.c"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "314"
-            endingLineNumber = "314"
-            landmarkName = "RevisaTablero()"
-            landmarkType = "9">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "D015D526-FC58-4CE7-B803-4978DCADF0F0"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Juego_Puzzle/main.c"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "299"
-            endingLineNumber = "299"
-            landmarkName = "RevisaTablero()"
-            landmarkType = "9">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "682F5A86-B5B3-4B81-A8B8-3A08F4B38950"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Juego_Puzzle/main.c"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "303"
-            endingLineNumber = "303"
-            landmarkName = "RevisaTablero()"
-            landmarkType = "9">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "552D6A07-E6A8-42E5-8A79-4ADDFD6B5498"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Juego_Puzzle/main.c"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "336"
-            endingLineNumber = "336"
-            landmarkName = "BuscaHuecoEnTablero(, pFila, pColumna)"
-            landmarkType = "9">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "A9309FEE-9A20-48A5-8D82-D1BCA2B3031E"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -158,8 +14,8 @@
             filePath = "Juego_Puzzle/main.c"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1378"
-            endingLineNumber = "1378"
+            startingLineNumber = "1153"
+            endingLineNumber = "1153"
             landmarkName = "main(argc, argv)"
             landmarkType = "9">
          </BreakpointContent>
@@ -174,25 +30,9 @@
             filePath = "Juego_Puzzle/main.c"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1362"
-            endingLineNumber = "1362"
+            startingLineNumber = "1137"
+            endingLineNumber = "1137"
             landmarkName = "main(argc, argv)"
-            landmarkType = "9">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "4A72CBA6-11FE-48AF-AB95-B6267EFB0145"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Juego_Puzzle/main.c"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "338"
-            endingLineNumber = "338"
-            landmarkName = "BuscaHuecoEnTablero(, pFila, pColumna)"
             landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
@@ -206,8 +46,8 @@
             filePath = "Juego_Puzzle/main.c"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1377"
-            endingLineNumber = "1377"
+            startingLineNumber = "1152"
+            endingLineNumber = "1152"
             landmarkName = "main(argc, argv)"
             landmarkType = "9">
          </BreakpointContent>
@@ -222,8 +62,8 @@
             filePath = "Juego_Puzzle/main.c"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1336"
-            endingLineNumber = "1336"
+            startingLineNumber = "1111"
+            endingLineNumber = "1111"
             landmarkName = "main(argc, argv)"
             landmarkType = "9">
          </BreakpointContent>
@@ -238,25 +78,9 @@
             filePath = "Juego_Puzzle/main.c"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1340"
-            endingLineNumber = "1340"
+            startingLineNumber = "1115"
+            endingLineNumber = "1115"
             landmarkName = "main(argc, argv)"
-            landmarkType = "9">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "4DFC07AC-415B-4B74-B4FA-3677477FB8F1"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Juego_Puzzle/main.c"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "257"
-            endingLineNumber = "257"
-            landmarkName = "ColocaPieza(tFil, tCol, pNum, pOri)"
             landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
@@ -270,25 +94,9 @@
             filePath = "Juego_Puzzle/main.c"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1352"
-            endingLineNumber = "1352"
+            startingLineNumber = "1127"
+            endingLineNumber = "1127"
             landmarkName = "main(argc, argv)"
-            landmarkType = "9">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "295EC78E-378A-4212-82CA-177DF1A1582E"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Juego_Puzzle/main.c"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "250"
-            endingLineNumber = "250"
-            landmarkName = "ColocaPieza(tFil, tCol, pNum, pOri)"
             landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
@@ -302,8 +110,8 @@
             filePath = "Juego_Puzzle/main.c"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1356"
-            endingLineNumber = "1356"
+            startingLineNumber = "1131"
+            endingLineNumber = "1131"
             landmarkName = "main(argc, argv)"
             landmarkType = "9">
          </BreakpointContent>
@@ -318,8 +126,8 @@
             filePath = "Juego_Puzzle/main.c"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1355"
-            endingLineNumber = "1355"
+            startingLineNumber = "1130"
+            endingLineNumber = "1130"
             landmarkName = "main(argc, argv)"
             landmarkType = "9">
          </BreakpointContent>
@@ -334,8 +142,8 @@
             filePath = "Juego_Puzzle/main.c"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "642"
-            endingLineNumber = "642"
+            startingLineNumber = "394"
+            endingLineNumber = "394"
             landmarkName = "ResuelveTableroAvance()"
             landmarkType = "9">
          </BreakpointContent>
@@ -350,8 +158,8 @@
             filePath = "Juego_Puzzle/main.c"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1334"
-            endingLineNumber = "1334"
+            startingLineNumber = "1109"
+            endingLineNumber = "1109"
             landmarkName = "main(argc, argv)"
             landmarkType = "9">
          </BreakpointContent>
@@ -366,8 +174,8 @@
             filePath = "Juego_Puzzle/main.c"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "538"
-            endingLineNumber = "538"
+            startingLineNumber = "290"
+            endingLineNumber = "290"
             landmarkName = "ResuelveTableroAvance()"
             landmarkType = "9">
          </BreakpointContent>
@@ -382,8 +190,8 @@
             filePath = "Juego_Puzzle/main.c"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "582"
-            endingLineNumber = "582"
+            startingLineNumber = "334"
+            endingLineNumber = "334"
             landmarkName = "ResuelveTableroAvance()"
             landmarkType = "9">
          </BreakpointContent>
@@ -398,8 +206,8 @@
             filePath = "Juego_Puzzle/main.c"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "562"
-            endingLineNumber = "562"
+            startingLineNumber = "314"
+            endingLineNumber = "314"
             landmarkName = "ResuelveTableroAvance()"
             landmarkType = "9">
          </BreakpointContent>
@@ -414,8 +222,8 @@
             filePath = "Juego_Puzzle/main.c"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1329"
-            endingLineNumber = "1329"
+            startingLineNumber = "1104"
+            endingLineNumber = "1104"
             landmarkName = "main(argc, argv)"
             landmarkType = "9">
          </BreakpointContent>
@@ -430,8 +238,8 @@
             filePath = "Juego_Puzzle/main.c"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "579"
-            endingLineNumber = "579"
+            startingLineNumber = "331"
+            endingLineNumber = "331"
             landmarkName = "ResuelveTableroAvance()"
             landmarkType = "9">
          </BreakpointContent>
@@ -446,8 +254,8 @@
             filePath = "Juego_Puzzle/main.c"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "542"
-            endingLineNumber = "542"
+            startingLineNumber = "294"
+            endingLineNumber = "294"
             landmarkName = "ResuelveTableroAvance()"
             landmarkType = "9">
          </BreakpointContent>
@@ -462,8 +270,8 @@
             filePath = "Juego_Puzzle/main.c"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "637"
-            endingLineNumber = "637"
+            startingLineNumber = "389"
+            endingLineNumber = "389"
             landmarkName = "ResuelveTableroAvance()"
             landmarkType = "9">
          </BreakpointContent>
@@ -478,8 +286,8 @@
             filePath = "Juego_Puzzle/main.c"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1311"
-            endingLineNumber = "1311"
+            startingLineNumber = "1086"
+            endingLineNumber = "1086"
             landmarkName = "main(argc, argv)"
             landmarkType = "9">
          </BreakpointContent>
@@ -494,8 +302,8 @@
             filePath = "Juego_Puzzle/main.c"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "532"
-            endingLineNumber = "532"
+            startingLineNumber = "284"
+            endingLineNumber = "284"
             landmarkName = "ResuelveTableroAvance()"
             landmarkType = "9">
          </BreakpointContent>
@@ -510,8 +318,8 @@
             filePath = "Juego_Puzzle/main.c"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1325"
-            endingLineNumber = "1325"
+            startingLineNumber = "1100"
+            endingLineNumber = "1100"
             landmarkName = "main(argc, argv)"
             landmarkType = "9">
          </BreakpointContent>
@@ -526,8 +334,8 @@
             filePath = "Juego_Puzzle/main.c"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "660"
-            endingLineNumber = "660"
+            startingLineNumber = "404"
+            endingLineNumber = "404"
             landmarkName = "BuscaPrueba55()"
             landmarkType = "9">
          </BreakpointContent>
@@ -542,8 +350,8 @@
             filePath = "Juego_Puzzle/main.c"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "526"
-            endingLineNumber = "526"
+            startingLineNumber = "278"
+            endingLineNumber = "278"
             landmarkName = "ResuelveTableroAvance()"
             landmarkType = "9">
          </BreakpointContent>
@@ -558,8 +366,8 @@
             filePath = "Juego_Puzzle/main.c"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "682"
-            endingLineNumber = "682"
+            startingLineNumber = "426"
+            endingLineNumber = "426"
             landmarkName = "BuscaPruebasRepetidas()"
             landmarkType = "9">
          </BreakpointContent>
@@ -574,8 +382,8 @@
             filePath = "Juego_Puzzle/main.c"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "673"
-            endingLineNumber = "673"
+            startingLineNumber = "417"
+            endingLineNumber = "417"
             landmarkName = "BuscaPruebasRepetidas()"
             landmarkType = "9">
          </BreakpointContent>
@@ -590,25 +398,9 @@
             filePath = "Juego_Puzzle/main.c"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "690"
-            endingLineNumber = "690"
+            startingLineNumber = "434"
+            endingLineNumber = "434"
             landmarkName = "BuscaPruebasRepetidas()"
-            landmarkType = "9">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "09627212-2125-4390-B089-4D3677D93A51"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Juego_Puzzle/main.c"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "319"
-            endingLineNumber = "319"
-            landmarkName = "RevisaTablero()"
             landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
@@ -622,8 +414,8 @@
             filePath = "Juego_Puzzle/main.c"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "578"
-            endingLineNumber = "578"
+            startingLineNumber = "330"
+            endingLineNumber = "330"
             landmarkName = "ResuelveTableroAvance()"
             landmarkType = "9">
          </BreakpointContent>
@@ -638,8 +430,8 @@
             filePath = "Juego_Puzzle/main.c"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "679"
-            endingLineNumber = "679"
+            startingLineNumber = "423"
+            endingLineNumber = "423"
             landmarkName = "BuscaPruebasRepetidas()"
             landmarkType = "9">
          </BreakpointContent>
@@ -654,25 +446,9 @@
             filePath = "Juego_Puzzle/main.c"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "536"
-            endingLineNumber = "536"
+            startingLineNumber = "288"
+            endingLineNumber = "288"
             landmarkName = "ResuelveTableroAvance()"
-            landmarkType = "9">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "3A1BAB0C-79AB-493F-924E-1287B1EF2511"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Juego_Puzzle/main.c"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "315"
-            endingLineNumber = "315"
-            landmarkName = "RevisaTablero()"
             landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
@@ -686,8 +462,8 @@
             filePath = "Juego_Puzzle/main.c"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1327"
-            endingLineNumber = "1327"
+            startingLineNumber = "1102"
+            endingLineNumber = "1102"
             landmarkName = "main(argc, argv)"
             landmarkType = "9">
          </BreakpointContent>
@@ -702,8 +478,8 @@
             filePath = "Juego_Puzzle/main.c"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "715"
-            endingLineNumber = "715"
+            startingLineNumber = "459"
+            endingLineNumber = "459"
             landmarkName = "BuscaSiLaPruebaEsRepetida(NumPrueba)"
             landmarkType = "9">
          </BreakpointContent>
@@ -718,8 +494,8 @@
             filePath = "Juego_Puzzle/main.c"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "534"
-            endingLineNumber = "534"
+            startingLineNumber = "286"
+            endingLineNumber = "286"
             landmarkName = "ResuelveTableroAvance()"
             landmarkType = "9">
          </BreakpointContent>
@@ -734,8 +510,8 @@
             filePath = "Juego_Puzzle/main.c"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "566"
-            endingLineNumber = "566"
+            startingLineNumber = "318"
+            endingLineNumber = "318"
             landmarkName = "ResuelveTableroAvance()"
             landmarkType = "9">
          </BreakpointContent>
@@ -750,8 +526,8 @@
             filePath = "Juego_Puzzle/main.c"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "630"
-            endingLineNumber = "630"
+            startingLineNumber = "382"
+            endingLineNumber = "382"
             landmarkName = "ResuelveTableroAvance()"
             landmarkType = "9">
          </BreakpointContent>
@@ -766,8 +542,8 @@
             filePath = "Juego_Puzzle/main.c"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1138"
-            endingLineNumber = "1138"
+            startingLineNumber = "854"
+            endingLineNumber = "854"
             landmarkName = "ResuelveTablero()"
             landmarkType = "9">
          </BreakpointContent>
@@ -782,25 +558,9 @@
             filePath = "Juego_Puzzle/main.c"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1113"
-            endingLineNumber = "1113"
+            startingLineNumber = "829"
+            endingLineNumber = "829"
             landmarkName = "ResuelveTablero()"
-            landmarkType = "9">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "CB559CF0-8B69-4580-9A21-E21ECED4784F"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Juego_Puzzle/main.c"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "200"
-            endingLineNumber = "200"
-            landmarkName = "PintaTestResumen(NumTest)"
             landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
@@ -814,8 +574,8 @@
             filePath = "Juego_Puzzle/main.c"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1049"
-            endingLineNumber = "1049"
+            startingLineNumber = "765"
+            endingLineNumber = "765"
             landmarkName = "ResuelveTablero()"
             landmarkType = "9">
          </BreakpointContent>
@@ -830,8 +590,8 @@
             filePath = "Juego_Puzzle/main.c"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "495"
-            endingLineNumber = "495"
+            startingLineNumber = "247"
+            endingLineNumber = "247"
             landmarkName = "RellenaBuffPiezasAColocar(NumPrueba, numPiezas)"
             landmarkType = "9">
          </BreakpointContent>
@@ -846,8 +606,8 @@
             filePath = "Juego_Puzzle/main.c"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "849"
-            endingLineNumber = "849"
+            startingLineNumber = "565"
+            endingLineNumber = "565"
             landmarkName = "BuscaLaSiguienteCombinacion(NumPrueba, pPieza, pOrienta)"
             landmarkType = "9">
          </BreakpointContent>
@@ -862,8 +622,8 @@
             filePath = "Juego_Puzzle/main.c"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "860"
-            endingLineNumber = "860"
+            startingLineNumber = "576"
+            endingLineNumber = "576"
             landmarkName = "BuscaLaSiguienteCombinacion(NumPrueba, pPieza, pOrienta)"
             landmarkType = "9">
          </BreakpointContent>
@@ -878,8 +638,8 @@
             filePath = "Juego_Puzzle/main.c"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "869"
-            endingLineNumber = "869"
+            startingLineNumber = "585"
+            endingLineNumber = "585"
             landmarkName = "BuscaLaSiguienteCombinacion(NumPrueba, pPieza, pOrienta)"
             landmarkType = "9">
          </BreakpointContent>
@@ -894,8 +654,8 @@
             filePath = "Juego_Puzzle/main.c"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1148"
-            endingLineNumber = "1148"
+            startingLineNumber = "864"
+            endingLineNumber = "864"
             landmarkName = "ResuelveTablero()"
             landmarkType = "9">
          </BreakpointContent>
@@ -910,8 +670,8 @@
             filePath = "Juego_Puzzle/main.c"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "881"
-            endingLineNumber = "881"
+            startingLineNumber = "597"
+            endingLineNumber = "597"
             landmarkName = "BuscaLaSiguienteCombinacion(NumPrueba, pPieza, pOrienta)"
             landmarkType = "9">
          </BreakpointContent>
@@ -926,8 +686,8 @@
             filePath = "Juego_Puzzle/main.c"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1150"
-            endingLineNumber = "1150"
+            startingLineNumber = "866"
+            endingLineNumber = "866"
             landmarkName = "ResuelveTablero()"
             landmarkType = "9">
          </BreakpointContent>
@@ -942,8 +702,8 @@
             filePath = "Juego_Puzzle/main.c"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "505"
-            endingLineNumber = "505"
+            startingLineNumber = "257"
+            endingLineNumber = "257"
             landmarkName = "RellenaBuffPiezasAColocar(NumPrueba, numPiezas)"
             landmarkType = "9">
          </BreakpointContent>
@@ -958,8 +718,8 @@
             filePath = "Juego_Puzzle/main.c"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "838"
-            endingLineNumber = "838"
+            startingLineNumber = "554"
+            endingLineNumber = "554"
             landmarkName = "BuscaLaSiguienteCombinacion(NumPrueba, pPieza, pOrienta)"
             landmarkType = "9">
          </BreakpointContent>
@@ -974,8 +734,8 @@
             filePath = "Juego_Puzzle/main.c"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "839"
-            endingLineNumber = "839"
+            startingLineNumber = "555"
+            endingLineNumber = "555"
             landmarkName = "BuscaLaSiguienteCombinacion(NumPrueba, pPieza, pOrienta)"
             landmarkType = "9">
          </BreakpointContent>
@@ -990,8 +750,8 @@
             filePath = "Juego_Puzzle/main.c"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "478"
-            endingLineNumber = "478"
+            startingLineNumber = "230"
+            endingLineNumber = "230"
             landmarkName = "LimpiaBuffPiezasAColocar()"
             landmarkType = "9">
          </BreakpointContent>
@@ -1006,8 +766,8 @@
             filePath = "Juego_Puzzle/main.c"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "483"
-            endingLineNumber = "483"
+            startingLineNumber = "235"
+            endingLineNumber = "235"
             landmarkName = "LimpiaBuffPiezasAColocar()"
             landmarkType = "9">
          </BreakpointContent>
@@ -1022,8 +782,8 @@
             filePath = "Juego_Puzzle/main.c"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "834"
-            endingLineNumber = "834"
+            startingLineNumber = "550"
+            endingLineNumber = "550"
             landmarkName = "BuscaLaSiguienteCombinacion(NumPrueba, pPieza, pOrienta)"
             landmarkType = "9">
          </BreakpointContent>
@@ -1038,25 +798,9 @@
             filePath = "Juego_Puzzle/main.c"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1079"
-            endingLineNumber = "1079"
+            startingLineNumber = "795"
+            endingLineNumber = "795"
             landmarkName = "ResuelveTablero()"
-            landmarkType = "9">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "48A69540-79C6-4437-9F7F-ACEBABE2DCE6"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Juego_Puzzle/main.c"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "322"
-            endingLineNumber = "322"
-            landmarkName = "RevisaTablero()"
             landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1070,8 +814,8 @@
             filePath = "Juego_Puzzle/main.c"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "909"
-            endingLineNumber = "909"
+            startingLineNumber = "625"
+            endingLineNumber = "625"
             landmarkName = "BuscaLaSiguienteCombinacion(NumPrueba, pPieza, pOrienta)"
             landmarkType = "9">
          </BreakpointContent>
@@ -1086,8 +830,8 @@
             filePath = "Juego_Puzzle/main.c"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "914"
-            endingLineNumber = "914"
+            startingLineNumber = "630"
+            endingLineNumber = "630"
             landmarkName = "BuscaLaSiguienteCombinacion(NumPrueba, pPieza, pOrienta)"
             landmarkType = "9">
          </BreakpointContent>
@@ -1102,8 +846,8 @@
             filePath = "Juego_Puzzle/main.c"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1151"
-            endingLineNumber = "1151"
+            startingLineNumber = "867"
+            endingLineNumber = "867"
             landmarkName = "ResuelveTablero()"
             landmarkType = "9">
          </BreakpointContent>
@@ -1118,8 +862,8 @@
             filePath = "Juego_Puzzle/main.c"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1029"
-            endingLineNumber = "1029"
+            startingLineNumber = "745"
+            endingLineNumber = "745"
             landmarkName = "MuestraPanelPruebasClave()"
             landmarkType = "9">
          </BreakpointContent>
@@ -1134,8 +878,8 @@
             filePath = "Juego_Puzzle/main.c"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1048"
-            endingLineNumber = "1048"
+            startingLineNumber = "764"
+            endingLineNumber = "764"
             landmarkName = "ResuelveTablero()"
             landmarkType = "9">
          </BreakpointContent>
@@ -1150,8 +894,8 @@
             filePath = "Juego_Puzzle/main.c"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1130"
-            endingLineNumber = "1130"
+            startingLineNumber = "846"
+            endingLineNumber = "846"
             landmarkName = "ResuelveTablero()"
             landmarkType = "9">
          </BreakpointContent>
@@ -1166,8 +910,8 @@
             filePath = "Juego_Puzzle/main.c"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1081"
-            endingLineNumber = "1081"
+            startingLineNumber = "797"
+            endingLineNumber = "797"
             landmarkName = "ResuelveTablero()"
             landmarkType = "9">
          </BreakpointContent>
@@ -1182,25 +926,9 @@
             filePath = "Juego_Puzzle/main.c"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "844"
-            endingLineNumber = "844"
+            startingLineNumber = "560"
+            endingLineNumber = "560"
             landmarkName = "BuscaLaSiguienteCombinacion(NumPrueba, pPieza, pOrienta)"
-            landmarkType = "9">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "73675860-1126-44EE-86A3-E0850C987A90"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Juego_Puzzle/main.c"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "216"
-            endingLineNumber = "216"
-            landmarkName = "PintaCombinacionColocadas(NumTest)"
             landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1214,8 +942,8 @@
             filePath = "Juego_Puzzle/main.c"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1207"
-            endingLineNumber = "1207"
+            startingLineNumber = "923"
+            endingLineNumber = "923"
             landmarkName = "ResuelveTablero()"
             landmarkType = "9">
          </BreakpointContent>
@@ -1230,8 +958,8 @@
             filePath = "Juego_Puzzle/main.c"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1201"
-            endingLineNumber = "1201"
+            startingLineNumber = "917"
+            endingLineNumber = "917"
             landmarkName = "ResuelveTablero()"
             landmarkType = "9">
          </BreakpointContent>
@@ -1246,8 +974,8 @@
             filePath = "Juego_Puzzle/main.c"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "900"
-            endingLineNumber = "900"
+            startingLineNumber = "616"
+            endingLineNumber = "616"
             landmarkName = "BuscaLaSiguienteCombinacion(NumPrueba, pPieza, pOrienta)"
             landmarkType = "9">
          </BreakpointContent>
@@ -1262,8 +990,8 @@
             filePath = "Juego_Puzzle/main.c"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "484"
-            endingLineNumber = "484"
+            startingLineNumber = "236"
+            endingLineNumber = "236"
             landmarkName = "unknown"
             landmarkType = "0">
          </BreakpointContent>
@@ -1278,8 +1006,8 @@
             filePath = "Juego_Puzzle/main.c"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1077"
-            endingLineNumber = "1077"
+            startingLineNumber = "793"
+            endingLineNumber = "793"
             landmarkName = "ResuelveTablero()"
             landmarkType = "9">
          </BreakpointContent>
@@ -1294,26 +1022,10 @@
             filePath = "Juego_Puzzle/main.c"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1177"
-            endingLineNumber = "1177"
+            startingLineNumber = "893"
+            endingLineNumber = "893"
             landmarkName = "ResuelveTablero()"
             landmarkType = "9">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "C9ACDB19-8A8B-41C9-9416-A1FDA01020B3"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Juego_Puzzle/main.c"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "217"
-            endingLineNumber = "217"
-            landmarkName = "unknown"
-            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1326,8 +1038,8 @@
             filePath = "Juego_Puzzle/main.c"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "845"
-            endingLineNumber = "845"
+            startingLineNumber = "561"
+            endingLineNumber = "561"
             landmarkName = "BuscaLaSiguienteCombinacion(NumPrueba, pPieza, pOrienta)"
             landmarkType = "9">
          </BreakpointContent>
@@ -1342,8 +1054,8 @@
             filePath = "Juego_Puzzle/main.c"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1167"
-            endingLineNumber = "1167"
+            startingLineNumber = "883"
+            endingLineNumber = "883"
             landmarkName = "ResuelveTablero()"
             landmarkType = "9">
          </BreakpointContent>
@@ -1358,9 +1070,121 @@
             filePath = "Juego_Puzzle/main.c"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "885"
-            endingLineNumber = "885"
+            startingLineNumber = "601"
+            endingLineNumber = "601"
             landmarkName = "BuscaLaSiguienteCombinacion(NumPrueba, pPieza, pOrienta)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "14631B3E-8CA7-407A-BEBC-FDA4B7948C17"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Juego_Puzzle/Punteros.c"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "187"
+            endingLineNumber = "187"
+            landmarkName = "PunteroEsPosible(BuffCheck)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E90FB7C2-7083-459C-B253-1DB96430C60D"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Juego_Puzzle/Punteros.c"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "200"
+            endingLineNumber = "200"
+            landmarkName = "PunteroEsPosible(BuffCheck)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "EB1B46BC-1628-49DC-8B00-EDBDF6C6B237"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Juego_Puzzle/main.c"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1028"
+            endingLineNumber = "1028"
+            landmarkName = "main(argc, argv)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2FBADCF0-6D08-45A0-8342-A4B6E40D5AFA"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Juego_Puzzle/main.c"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1020"
+            endingLineNumber = "1020"
+            landmarkName = "main(argc, argv)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A7F30705-811A-46EA-91CA-922FFB3BC172"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Juego_Puzzle/main.c"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1007"
+            endingLineNumber = "1007"
+            landmarkName = "main(argc, argv)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "51E7A137-1C19-440D-B64F-1D7D57F30DA3"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Juego_Puzzle/Punteros.c"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "217"
+            endingLineNumber = "217"
+            landmarkName = "MeteEnListaNegra(BuffCheck, NumPiezas)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "834CBECA-5E0E-4D64-9FEC-24B9A6B968E9"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Juego_Puzzle/Punteros.c"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "198"
+            endingLineNumber = "198"
+            landmarkName = "PunteroEsPosible(BuffCheck)"
             landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>

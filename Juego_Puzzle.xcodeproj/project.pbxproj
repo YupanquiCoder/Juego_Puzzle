@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		86234554278DB15F00758EB7 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 86234553278DB15F00758EB7 /* main.c */; };
 		8695FCED27B71D7300AED420 /* Rutinas.c in Sources */ = {isa = PBXBuildFile; fileRef = 8695FCEC27B71D7300AED420 /* Rutinas.c */; };
+		86F49EC727CA2E4200D52900 /* Punteros.c in Sources */ = {isa = PBXBuildFile; fileRef = 86F49EC627CA2E4200D52900 /* Punteros.c */; };
+		86F49EC927CBD9BA00D52900 /* piezas.c in Sources */ = {isa = PBXBuildFile; fileRef = 86F49EC827CBD9B900D52900 /* piezas.c */; };
+		86F49ECC27CBDFB300D52900 /* Tablero.c in Sources */ = {isa = PBXBuildFile; fileRef = 86F49ECB27CBDFB200D52900 /* Tablero.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -28,6 +31,12 @@
 		86234553278DB15F00758EB7 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		8623455A278DFE0800758EB7 /* piezas.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = piezas.h; sourceTree = "<group>"; };
 		8695FCEC27B71D7300AED420 /* Rutinas.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = Rutinas.c; sourceTree = "<group>"; };
+		86F49EC427CA2C7C00D52900 /* main.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = main.h; sourceTree = "<group>"; };
+		86F49EC527CA2E2C00D52900 /* Punteros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Punteros.h; sourceTree = "<group>"; };
+		86F49EC627CA2E4200D52900 /* Punteros.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Punteros.c; sourceTree = "<group>"; };
+		86F49EC827CBD9B900D52900 /* piezas.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = piezas.c; sourceTree = "<group>"; };
+		86F49ECA27CBDFB200D52900 /* Tablero.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Tablero.h; sourceTree = "<group>"; };
+		86F49ECB27CBDFB200D52900 /* Tablero.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = Tablero.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +72,12 @@
 				86234553278DB15F00758EB7 /* main.c */,
 				8695FCEC27B71D7300AED420 /* Rutinas.c */,
 				8623455A278DFE0800758EB7 /* piezas.h */,
+				86F49EC527CA2E2C00D52900 /* Punteros.h */,
+				86F49EC627CA2E4200D52900 /* Punteros.c */,
+				86F49EC427CA2C7C00D52900 /* main.h */,
+				86F49EC827CBD9B900D52900 /* piezas.c */,
+				86F49ECA27CBDFB200D52900 /* Tablero.h */,
+				86F49ECB27CBDFB200D52900 /* Tablero.c */,
 			);
 			path = Juego_Puzzle;
 			sourceTree = "<group>";
@@ -124,8 +139,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				86F49ECC27CBDFB300D52900 /* Tablero.c in Sources */,
 				8695FCED27B71D7300AED420 /* Rutinas.c in Sources */,
+				86F49EC927CBD9BA00D52900 /* piezas.c in Sources */,
 				86234554278DB15F00758EB7 /* main.c in Sources */,
+				86F49EC727CA2E4200D52900 /* Punteros.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

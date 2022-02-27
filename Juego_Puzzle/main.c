@@ -9,22 +9,17 @@
 #include <wchar.h>
 #include <locale.h>
 
+#include "main.h"
 #include "piezas.h" // Definición de las Piezas
-
-/* VARIABLES GLOBALES USADAS*/
-#define FILTABLERO 7
-#define COLTABLERO 7
-int Tablero[FILTABLERO][COLTABLERO];
+#include "Punteros.h"
+#include "Tablero.h"
 
 
-#define NUMMAXPRUEBAS 9000
-#define NUMMAXPIEZASPROBADAS 400
-#define NUMMAXPRUEBACOMBINACION 2 /* El número de veces que se probará la misma combinación tras una PIEZA COLOCADA*/
-
-int MuestraListaResultPruebas();
+int MuestraListaResultPruebas(void);
 int MuestraListado (int NumPrueba);
 int BuscaLaSiguienteCombinacion(int NumPrueba,int* pPieza, int* pOrienta);
 
+int contTestDemo=0;
 
 struct ListaPruebas {
     int NumPrueba;
@@ -55,129 +50,15 @@ int FaseProceso=0;
 int ProfundidadFunc=0;
 int PrepararNuevaPrueba=0;
 
-struct{
-    int BuffPieza;
-    int BuffOri;
-}BufferPiezasAColocar[9];
+
+struct CasillaPieza_ BufferPiezasAColocar[9];
 int PuntBuf=0xffff;
 
-struct{
-    int BuffPieza;
-    int BuffOri;
-}BuffPiezasActual[CANTIDADPIEZAS-1];
+struct CasillaPieza_ BuffPiezasActual[CANTIDADPIEZAS-1];
 int PuntBufActual=0xffff;
 
-/* DEMO */
-#define DEBUGPINTAFICHAS 1
-#define TESTDEDEMO 2
-int contTestDemo=1;
 
-int LimpiaTablero(int pTablero[][7]){
-    int i,j;
-    
-    for(i=0;i<7;i++)
-        for(j=0;j<7;j++)
-            pTablero[i][j]=0x0;
-    return 0;
-}
-
-int PintaTablero(){
-    int fila=0;
-    int col=0;
-    int tmp;
-    
-    printf(" TABLERO\r");
-    printf(" ┌─────────────────────┐\r");
-    for(fila=0;fila<7;fila++){
-        printf(" │");
-        for(col=0;col<7;col++){
-            tmp=Tablero[fila][col];
-            if(tmp<10) printf(" ");
-            if(!tmp) printf("° ");
-            else printf("%u ",tmp);
-        }
-        printf("│\r\n");
-    }
-    printf(" └─────────────────────┘\n\r");
-    return 0;
-    
-}
-
-int PintaPieza(int NumPieza,int NumOrienta){
-    int fila=0;
-    int col=0;
-    int caracter;
-    if(NumPieza>8 || NumOrienta>3){
-        printf("PintaPieza:ERROR Parametros\r\n");
-        return 1;
-    }
-    printf("Pieza: [%u-%u]\r", NumPieza, NumOrienta);
-    printf("┌─────────────────┐\r");
-    for(fila=0;fila<FilPiezas;fila++){
-        printf("│ ");
-        for(col=0;col<ColPiezas;col++){
-            caracter=Piezas[NumPieza][NumOrienta][fila][col];
-            if(caracter<10) printf(" ");
-            if(!caracter) printf("° ");
-            else printf("%u ",caracter);
-        }
-        printf(" │\r\n");
-    }
-    printf("└─────────────────┘\r");
-    
-    return 0;
-}
-
-void PintaTodasPiezas()
-{
-    int fila=0;
-    int col=0;
-    int caracter;
-    int tmpNumPieza=0,tmpNumOrienta=0;
-    
-    for(tmpNumPieza=0;tmpNumPieza<9;tmpNumPieza++)
-    {
-        printf("Pieza: [%u]\r", tmpNumPieza);
-        printf("Orienta [%u-0]        [%u-1]                [%u-2]                [%u-3] \r",tmpNumPieza,tmpNumPieza,tmpNumPieza,tmpNumPieza);
-        printf("┌─────────────────┐  ┌─────────────────┐  ┌─────────────────┐  ┌─────────────────┐ \r");
-        
-        for(fila=0;fila<FilPiezas;fila++)
-        {
-            printf("│ ");
-            for(col=0;col<ColPiezas;col++){
-                caracter=Piezas[tmpNumPieza][tmpNumOrienta][fila][col];
-                if(caracter<10) printf(" ");
-                if(!caracter) printf("° ");
-                else printf("%u ",caracter);
-            }
-            printf(" │  │ ");
-            for(col=0;col<ColPiezas;col++){
-                caracter=Piezas[tmpNumPieza][tmpNumOrienta+1][fila][col];
-                if(caracter<10) printf(" ");
-                if(!caracter) printf("° ");
-                else printf("%u ",caracter);
-            }
-            printf(" │  │ ");
-            for(col=0;col<ColPiezas;col++){
-                caracter=Piezas[tmpNumPieza][tmpNumOrienta+2][fila][col];
-                if(caracter<10) printf(" ");
-                if(!caracter) printf("° ");
-                else printf("%u ",caracter);
-            }
-            printf(" │  │ ");
-            for(col=0;col<ColPiezas;col++){
-                caracter=Piezas[tmpNumPieza][tmpNumOrienta+3][fila][col];
-                if(caracter<10) printf(" ");
-                if(!caracter) printf("° ");
-                else printf("%u ",caracter);
-            }
-            printf(" │\r\n");
-        }
-        
-        printf("└─────────────────┘  └─────────────────┘  └─────────────────┘  └─────────────────┘\r");
-    }
-    
-}
+/***************/
 
 int PintaTestResumen(int NumTest)
 {
@@ -215,135 +96,6 @@ void PintaCombinacionColocadas(int NumTest){
     printf( "\r");
 }
 
-int ColocaPieza(int tFil, int tCol, int pNum, int pOri){
-    /*
-     Coloca una pieza en el Tablero:
-     Parámetros:
-     Posición del Tablero (Fila y columna) tFil, tCol
-     Número de Pieza (Numero y Orientación) pNum, pOri
-     Return.
-     0 - Pieza colocada
-     <>0- No cabe
-     Resultado <100 = Número de casillas que no caben
-     Resultado >100 = La casilla queda fuera del tablero y hay x-100 casillas que no caben
-     */
-    //    Punteros
-    int ptFil,ptCol;
-    int i,j,tmp1,tmp2;
-    int Entra=0;
-    int DesplaIzq=0;
-    
-    ptFil=tFil;
-    ptCol=tCol;
-    
-    
-    if( contTestDemo<TESTDEDEMO || DEBUGPINTAFICHAS)
-    {
-        //            printf("Tablero Antes:\n");
-        //            PintaTablero();
-        
-        printf("Pieza a Colocar\n");
-        PintaPieza(pNum,pOri);
-    }
-    
-    /* Se calcula el desplazamiento de la pieza a la izquierda para que la primera pieza ocupada coincida con el hueco*/
-    for(j=0;j<ColPiezas;j++){
-        
-        if(Piezas[pNum][pOri][0][j]==0)DesplaIzq++; /*solo se comprueba la primera fila*/
-        else break;
-    }
-    /* Comprueba si se va a poder colocar (todos los valores !=0 de Pieza están libres en tablero
-     Si una casilla <>0 de la pieza está fuera del tablero=> NO Cabe*/
-    for(i=0;i<FilPiezas;i++)
-        for(j=0;j<ColPiezas;j++){
-            tmp1=Piezas[pNum][pOri][i][j];
-            if(tmp1!=0){
-                if(tFil+i>6||tCol-DesplaIzq+j>6||tCol-DesplaIzq+j<0) Entra+=100;/*si se sale por la derecha*/
-            }
-            tmp2=Tablero[tFil+i][tCol+j-DesplaIzq];
-            if(tmp1!=0 && tmp2!=0) Entra++; /* Entra dirá el número de piezas que NO entran */
-            //            printf("Tablero [%u][%u]=%u\r",tFil+i,tCol+j,tmp2 );
-            //            printf("Pieza[%u][%u][%u][%u]=%u\r",pNum,pOri,i,j,tmp1);
-        }
-    if(contTestDemo<TESTDEDEMO || DEBUGPINTAFICHAS)
-    {
-        if(Entra!=0) printf("Hay %u Casillas que no entran\n\r",Entra);
-        else printf("Sí entra\n\r");
-    }
-    if(Entra==0){
-        /* Cabe, entonces la colocamos*/
-        for(i=0;i<FilPiezas;i++)
-            for(j=0;j<ColPiezas;j++){
-                tmp1=Piezas[pNum][pOri][i][j];
-                if(tmp1!=0) Tablero[tFil+i][tCol+j-DesplaIzq]=tmp1;
-            }
-    }
-    if( contTestDemo<TESTDEDEMO || DEBUGPINTAFICHAS){
-        printf("Tablero Después:\n");
-        PintaTablero();
-    }
-    return Entra;
-}
-
-int RevisaTablero(int pTablero[][7]){
-    /* Revisa la situación del tablero
-     Devuelve:
-     0=ERROR;
-     1-50=Número de casillas en 0
-     >50 número de casillas en 0 y HAY ALGUNA AISLADA-Solución imposible
-     99=Tablero Terminado EXITO*/
-    int resultado=0;
-    int imposible=0;
-    int i,j,tmp,contImposible;
-    
-    for(i=0;i<7;i++)
-        for(j=0;j<7;j++){
-            tmp=pTablero[i][j];
-            if(tmp==0) {
-                resultado++;
-                contImposible=0;
-                /*la casilla Tablero[i][j] está a 0 ¿Está aislada?*/
-                if(i!=0) if(Tablero[i-1][j]==0)contImposible++;
-                if(i<6) if(Tablero[i+1][j]==0)contImposible++;
-                if(j!=0) if(Tablero[i][j-1]==0)contImposible++;
-                if(j<6) if(Tablero[i][j+1]==0)contImposible++;
-                if(contImposible==0) imposible=1;
-            }
-        }
-    
-    if(resultado==0) {
-        resultado=99; /* Tablero completado EXITO*/
-        printf("!!! Solución !!!!!\n");
-        MuestraListado(PuntPruebas);
-        PintaTablero();
-    }
-    else if(imposible==1)resultado+=50;
-    
-    return resultado;
-}
-
-int BuscaHuecoEnTablero(int pTablero[][7],int* pFila, int* pColumna){
-    /* Busca en el tablero, desde la casilla 0,0 hasta la 7,7 el primer hueco (que hay aun 0)
-     Devuelve:
-     0=NO hay ningúna casilla en 0
-     1=Encontrada casilla
-     */
-    int i=0,j=0,tmp=0;
-    
-    tmp=1;
-    for(i=0;i<7 && tmp!=0;i++)
-        for(j=0;j<7 && tmp!=0;j++){
-            tmp=pTablero[i][j];
-            if(!tmp) {
-                *pFila=i;
-                *pColumna=j;
-                break;
-            }
-        }
-    if(tmp!=0)return 0;
-    
-    return 1;
-}
 int MuestraListaResultPruebas()
 {
     /* Muestra el listado de los resultados de todas las pruebas realizadas*/
@@ -643,14 +395,6 @@ int ResuelveTableroAvance(){
     return ptmpResultadoFunc;
 }
 
-int InicializaTablero()
-{
-    LimpiaTablero(Tablero);
-    /*Definimos el reto*/
-    Tablero[3][2]=9; /*Donde está el 9 es la Chincheta*/
-    return 0;
-}
-
 int BuscaPrueba55()
 {
     /* Busca la primera prueba cuyo resultado es 55 y que no se haya revisada ya (las revisadas se marcan como 33 o 44*/
@@ -719,22 +463,6 @@ int BuscaSiLaPruebaEsRepetida(int NumPrueba){
     return 0;
 }
 
-int PiezaEsMayor(int NumPieza1,int NumOrienta1,int NumPieza2, int NumOrienta2){
-    /* Se le pasan dos piezas y devuelve:
-     0 - La pieza 1 NO es mayor que la Pieza 2
-     1 - La Pieza 1 Sí es mayor que la pieza 2
-     55 - Las dos piezas son iguales
-     22 - Resultado Erróneo*/
-    if(NumPieza1>CANTIDADPIEZAS-1 || NumOrienta1>CANTIDADORIENTACIONES-1 ||NumPieza2>CANTIDADPIEZAS-1 || NumOrienta2>CANTIDADORIENTACIONES-1 ) return 22; /* Parámetros erróneos*/
-    
-    if(NumPieza1==NumPieza2 && NumOrienta1==NumOrienta2) return 55;
-    if(NumPieza1>NumPieza2) return 1;
-    if(NumPieza1<NumPieza2) return 0;
-    /*Piezas son iguales*/
-    if(NumOrienta1>NumOrienta2) return 1;
-    if(NumOrienta1<NumOrienta2) return 0;
-    return 0x22; /*Esto no debería pasar*/
-}
 
 
 void IncrementaOrienta(int* pPieza, int* pOrienta)
@@ -754,18 +482,6 @@ void IncrementaOrienta(int* pPieza, int* pOrienta)
     }
 }
 
-
-void IncrementaPieza(int* pPieza, int* pOrienta)
-{ /* Incrementa la Pieza OJO solo incrementa la Pieza y la deja en la orientación 0 y si llega a la Pieza [8-?] pasa a la [0-0]*/
-    if(*pPieza==8){
-        *pPieza=0;
-    }
-    else
-    {
-        *pPieza=*pPieza+1;
-        *pOrienta=0;
-    }
-}
 
 struct  {
     int NumPrueba;
@@ -1254,11 +970,71 @@ int ResuelveTablero()
 
 int main(int argc, const char * argv[]) {
     
+    float i,j,k;
+    
+    struct ListaNegraPunteros_ CeldaListaNegra;
+    
+    InicializaPunteros();
+    InicializaTablero();
+    MuestraTitulosCredito();
+    
+   
+    
+    
+    PintaBufferPuntero();
+    /* PRUEBA PARA PROBAR LISTANEGRA [0-0] [1-0] [2-0] [3-0] [4-0] [5-0] [6-0] [8-3] [7-0]
+     */
+    CeldaListaNegra.CombinacionNegra[0].BuffPieza=0;
+    CeldaListaNegra.CombinacionNegra[0].BuffOri=0;
+    CeldaListaNegra.CombinacionNegra[1].BuffPieza=1;
+    CeldaListaNegra.CombinacionNegra[1].BuffOri=0;
+    CeldaListaNegra.CombinacionNegra[2].BuffPieza=2;
+    CeldaListaNegra.CombinacionNegra[2].BuffOri=0;
+    CeldaListaNegra.CombinacionNegra[3].BuffPieza=3;
+    CeldaListaNegra.CombinacionNegra[3].BuffOri=0;
+    CeldaListaNegra.CombinacionNegra[4].BuffPieza=4;
+    CeldaListaNegra.CombinacionNegra[4].BuffOri=0;
+    CeldaListaNegra.CombinacionNegra[5].BuffPieza=5;
+    CeldaListaNegra.CombinacionNegra[5].BuffOri=0;
+    CeldaListaNegra.CombinacionNegra[6].BuffPieza=6;
+    CeldaListaNegra.CombinacionNegra[6].BuffOri=0;
+    CeldaListaNegra.CombinacionNegra[7].BuffPieza=8;
+    CeldaListaNegra.CombinacionNegra[7].BuffOri=3;
+    CeldaListaNegra.CombinacionNegra[8].BuffPieza=7;
+    CeldaListaNegra.CombinacionNegra[8].BuffOri=0;
+    MeteEnListaNegra(CeldaListaNegra,9);
+    
+    while(1){
+      
+        IncrementaPunteros();
+        switch (PunteroEsPosible(BufferPuntero))
+        {
+            case 0:
+                printf("Solución posible: ");
+                PintaBufferPuntero();
+                break;
+            case 1:
+//            printf("Solución NO posible - Se repiten piezas\n");
+            break;
+            case 2:
+                printf("Solución NO posible - En Lista Negra:");
+                PintaBufferPuntero();
+            break;
+                
+        };
+        
+    }
+    PintaBufferPuntero();
+    return 0;
+    
+    
+    
+    
     int tmpfilaTab,tmpcolTab;/*Usados para buscar hueco*/
     int Piezainicio=0;
     
     
-    int i,j;
+    
     int P1,O1,P2,O2;
     int OrdenPieza=0;
     
@@ -1293,8 +1069,7 @@ int main(int argc, const char * argv[]) {
     return 0;
     
     
-    InicializaTablero();
-    MuestraTitulosCredito();
+
     
     PuntPruebas=0;
     PuntPiezas=0; /* El índice marca el número de pieza que se ha probado */
