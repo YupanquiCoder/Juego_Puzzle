@@ -386,3 +386,20 @@ void IncrementaPieza(int* pPieza, int* pOrienta)
         *pOrienta=0;
     }
 }
+
+void IncrementaOrienta(int* pPieza, int* pOrienta)
+{ /* Incrementa la Pieza a la siguiente orientación y si llega a la Pieza [8-3] paas a la [0-0]*/
+    if(*pPieza==8){
+        if(*pOrienta==3) *pPieza=0;
+        else *pOrienta=*pOrienta+1;
+    }
+    else
+    {
+        if(*pOrienta==3)
+        {
+            *pPieza=*pPieza+1;
+            *pOrienta=0;
+        }
+        else *pOrienta=*pOrienta+1;
+    }
+}

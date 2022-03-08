@@ -13,8 +13,8 @@
 #define COLTABLERO 7
 
 
-#define NUMMAXPRUEBAS 9000
-#define NUMMAXPIEZASPROBADAS 400
+#define NUMMAXPRUEBAS 99999
+#define NUMMAXPIEZASPROBADAS 10
 #define NUMMAXPRUEBACOMBINACION 2 /* El número de veces que se probará la misma combinación tras una PIEZA COLOCADA*/
 
 #define FilPiezas 5
@@ -23,15 +23,37 @@
 #define CANTIDADORIENTACIONES 4
 
 /* DEMO */
-#define DEBUGPINTAFICHAS 1
+#define DEBUGPINTAFICHAS 0
 #define TESTDEDEMO 2
 extern int contTestDemo;
+extern int MostrarCadaIncrementoDePuntero;
+extern int MostrarCadaPunteroValido;
 
+struct ListaPruebas_ {
+    double NumPrueba;
+    int Piezascolocadas[9];
+    int NumPiezasColocadas;
+    struct {
+        int PiezaColocada;
+        int OrientaColocada;
+    } CombinacionColocadas[9];
+    struct {
+        int OrdenPieza;
+        int numPieza;
+        int OrientaPieza;
+        int ResultadoPieza;
+    }PiezaProbada[NUMMAXPIEZASPROBADAS];
+    int ResultadoPrueba;
+    int RevisionPrueba;
+    int RevisandoPrueba;
+};
 
-extern int PuntPruebas; /* Indica en qué prueba estamos ejecutando*/
+extern struct ListaPruebas_ ListaPruebas[NUMMAXPRUEBAS];
+
+extern long PuntPruebas; /* Indica en qué prueba estamos ejecutando*/
 extern int PuntPieza; /* Indica el puntero a la pieza que se va a colocar*/
 extern int PuntOri; /* Indica el puntero a la orientación de la pieza que se va a colocar*/
-extern int PuntPiezas; /*Es el número de piezas que se ha probado */
+extern int PuntPiezasProbadas; /*Es el número de piezas que se ha probado */
 extern int PuntOrdenPieza; /* Es el Orden la pieza que se quiere colocar*/
 extern int PuntContColocadas; /*cuenta el número de piezas colocadas en la prueba en curso */
 extern int FaseProceso;
@@ -55,6 +77,6 @@ void MuestraPanelPruebasClave(void);
 int ResuelveTablero(void);
 
 int MuestraListaResultPruebas(void);
-int MuestraListado (int NumPrueba);
+int MuestraListado (long NumPrueba);
 
 #endif /* main_h */

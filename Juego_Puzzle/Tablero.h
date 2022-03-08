@@ -19,5 +19,8 @@ int LimpiaTablero(int pTablero[][7]);
 int PintaTablero(void);
 int RevisaTablero(int pTablero[][7]);
 int BuscaHuecoEnTablero(int pTablero[][7],int* pFila, int* pColumna);
+int ResuelveTablero(void);
+int PintaTestResumen(long NumTest);
+
 
 #endif /* Tablero_h */
