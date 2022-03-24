@@ -12,15 +12,16 @@
 #include "main.h"
 
 extern int Tablero[FILTABLERO][COLTABLERO];
+extern int TableroSoluciones[FILTABLERO][COLTABLERO];
 
 /* Prototipos */
-int InicializaTablero(void);
+int InicializaTablero(int pTablero[][7]);
 int LimpiaTablero(int pTablero[][7]);
-int PintaTablero(void);
+int PintaTablero(int pTablero[][7]);
 int RevisaTablero(int pTablero[][7]);
 int BuscaHuecoEnTablero(int pTablero[][7],int* pFila, int* pColumna);
 int ResuelveTablero(void);
 int PintaTestResumen(long NumTest);
-
+int PintaUnaSolucion(int pNumSolucion, int DebugCompleto);
 
 #endif /* Tablero_h */

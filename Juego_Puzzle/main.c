@@ -16,16 +16,16 @@
 
 
 int MuestraListaResultPruebas(void);
-int MuestraListado (long NumPrueba);
+int MuestraListado (long int NumPrueba);
 
 /* Variables que controlan el DEBUG*/
 int MostrarCadaIncrementoDePuntero=0;
 int MostrarCadaPunteroValido=1;
-int contTestDemo=0;
+int contTestDemo=TESTDEDEMO;
 
 struct ListaPruebas_ ListaPruebas[NUMMAXPRUEBAS];
 
-long PuntPruebas; /* Indica en qué prueba estamos ejecutando*/
+long int PuntPruebas; /* Indica en qué prueba estamos ejecutando*/
 int PuntPieza; /* Indica el puntero a la pieza que se va a colocar*/
 int PuntOri; /* Indica el puntero a la orientación de la pieza que se va a colocar*/
 int PuntPiezasProbadas; /*Es el número de piezas que se ha probado */
@@ -44,15 +44,23 @@ int PuntBuf=0xffff;
 int main(int argc, const char * argv[]) {
  
     int Caracter;
-  
+    int MostrarResumen=0;
+   
     InicializaPunteros();
-    InicializaTablero();
+    InicializaTablero(Tablero);
     MuestraTitulosCredito();
-    
     
     while(1)
     {
         if( !SeHaFinalizadoLaCuenta) ResuelveTablero();
+        
+        if(MostrarResumen || PuntPruebas==NUMMAXPRUEBAS-3){
+            MostrarResumen=0;
+            
+            PintaListaSoluciones();
+//            PintaListaNegra();
+//            MuestraListaResultPruebas();
+        }
 //         
     }
 
@@ -77,13 +85,13 @@ void PintaCombinacionColocadas(int NumTest){
 int MuestraListaResultPruebas()
 {
     /* Muestra el listado de los resultados de todas las pruebas realizadas*/
-    long TmpContPrueba;
-    int i,j,ContPiezas=0;
+    long int TmpContPrueba;
+    int i,ContPiezas=0;
     
     
     for(TmpContPrueba=0;TmpContPrueba<=PuntPruebas;TmpContPrueba++){
         
-        printf(" PRUEBA: %ld Result: %u Revis: [%u] Test: %u ", TmpContPrueba,ListaPruebas[TmpContPrueba].ResultadoPrueba,ListaPruebas[TmpContPrueba].RevisandoPrueba,ListaPruebas[TmpContPrueba].RevisionPrueba);
+        printf(" PRUEBA: %ld Result: %u  ", TmpContPrueba,ListaPruebas[TmpContPrueba].ResultadoPrueba);
         for (i=0,ContPiezas=0;i<9;i++)
         {
             if(ListaPruebas[TmpContPrueba].Piezascolocadas[i]==0xffff)
@@ -100,7 +108,7 @@ int MuestraListaResultPruebas()
     return 0;
     
 }
-int MuestraListado (long NumPrueba){
+int MuestraListado (long int NumPrueba){
     /* lista el resultado de una prueba*/
     int i,tmp;
     int ContPiezas=0;
@@ -120,8 +128,6 @@ int MuestraListado (long NumPrueba){
      int ResultadoPieza;
      }PiezaProbada[NUMMAXPIEZASPROBADAS];
      int ResultadoPrueba;
-     int RevisionPrueba;
-     int RevisandoPrueba;
      }ListaPruebas[NUMMAXPRUEBAS];*/
     
     if(NumPrueba<NUMMAXPRUEBAS)
@@ -210,7 +216,7 @@ void MuestraTitulosCredito()
     printf("en el que hay que colocar %u Piezas, las cuales se pueden colocar en %u Orientaciones\n\r",CANTIDADPIEZAS,CANTIDADORIENTACIONES);
     printf("El Tablero tiene una pieza que se puede colocar en distintas coordenadas (Se marca con '9')\r");
     printf("El tablero es:\n\r");
-    PintaTablero();
+    PintaTablero(Tablero);
     printf("y las piezas son: \n\r");
     PintaTodasPiezas();
     printf("Estan preparadas %u pruebas\n\r",NUMMAXPRUEBAS);
@@ -218,7 +224,6 @@ void MuestraTitulosCredito()
     PintaBufferPuntero();
 
     printf("\n");
-    PintaOpcionesPuntero();
     
     if(ContadorSoluciones!=0)
     {

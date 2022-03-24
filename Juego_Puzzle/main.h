@@ -13,7 +13,7 @@
 #define COLTABLERO 7
 
 
-#define NUMMAXPRUEBAS 99999
+#define NUMMAXPRUEBAS 7250000
 #define NUMMAXPIEZASPROBADAS 10
 #define NUMMAXPRUEBACOMBINACION 2 /* El número de veces que se probará la misma combinación tras una PIEZA COLOCADA*/
 
@@ -44,13 +44,11 @@ struct ListaPruebas_ {
         int ResultadoPieza;
     }PiezaProbada[NUMMAXPIEZASPROBADAS];
     int ResultadoPrueba;
-    int RevisionPrueba;
-    int RevisandoPrueba;
 };
 
 extern struct ListaPruebas_ ListaPruebas[NUMMAXPRUEBAS];
 
-extern long PuntPruebas; /* Indica en qué prueba estamos ejecutando*/
+extern long int PuntPruebas; /* Indica en qué prueba estamos ejecutando*/
 extern int PuntPieza; /* Indica el puntero a la pieza que se va a colocar*/
 extern int PuntOri; /* Indica el puntero a la orientación de la pieza que se va a colocar*/
 extern int PuntPiezasProbadas; /*Es el número de piezas que se ha probado */
@@ -61,15 +59,8 @@ extern int ProfundidadFunc;
 extern int PrepararNuevaPrueba;
 
 /* Prototipos de funciones*/
-int PintaTablero(void);
-void PintaTodasPiezas(void);
 void LimpiaBuffPiezasAColocar(void);
-int ResuelveTableroAvance(void);
-int InicializaTablero(void);
 
-int BuscaPrueba55(void);
-int BuscaPruebasRepetidas(void);
-int BuscaPruebaNoRevisada(void);
 void IniciaBuffActual(void);
 void PintaBuffActual(void);
 void MuestraTitulosCredito(void);
@@ -77,6 +68,6 @@ void MuestraPanelPruebasClave(void);
 int ResuelveTablero(void);
 
 int MuestraListaResultPruebas(void);
-int MuestraListado (long NumPrueba);
+int MuestraListado (long int NumPrueba);
 
 #endif /* main_h */

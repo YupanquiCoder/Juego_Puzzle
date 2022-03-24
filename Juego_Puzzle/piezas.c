@@ -288,7 +288,7 @@ void PintaTodasPiezas()
     
 }
 
-int ColocaPieza(int tFil, int tCol, int pNum, int pOri){
+int ColocaPieza(int tFil, int tCol, int pNum, int pOri, int pTablero[][COLTABLERO],int DebugCompleto){
     /*
      Coloca una pieza en el Tablero:
      Parámetros:
@@ -300,6 +300,8 @@ int ColocaPieza(int tFil, int tCol, int pNum, int pOri){
      Resultado <100 = Número de casillas que no caben
      Resultado >100 = La casilla queda fuera del tablero y hay x-100 casillas que no caben
      */
+    /* DebugCompleto =1: Se muestra todo el proceso de colocación
+       DebugCompleto =0: Sólo se muestra el Tablero completo*/
     //    Punteros
     int ptFil,ptCol;
     int i,j,tmp1,tmp2;
@@ -310,10 +312,10 @@ int ColocaPieza(int tFil, int tCol, int pNum, int pOri){
     ptCol=tCol;
     
     
-    if( contTestDemo<TESTDEDEMO || DEBUGPINTAFICHAS)
+    if( contTestDemo<TESTDEDEMO || DEBUGPINTAFICHAS || DebugCompleto)
     {
         //            printf("Tablero Antes:\n");
-        //            PintaTablero();
+        //            PintaTablero(pTablero);
         
         printf("Pieza a Colocar\n");
         PintaPieza(pNum,pOri);
@@ -333,12 +335,12 @@ int ColocaPieza(int tFil, int tCol, int pNum, int pOri){
             if(tmp1!=0){
                 if(tFil+i>6||tCol-DesplaIzq+j>6||tCol-DesplaIzq+j<0) Entra+=100;/*si se sale por la derecha*/
             }
-            tmp2=Tablero[tFil+i][tCol+j-DesplaIzq];
+            tmp2=pTablero[tFil+i][tCol+j-DesplaIzq];
             if(tmp1!=0 && tmp2!=0) Entra++; /* Entra dirá el número de piezas que NO entran */
             //            printf("Tablero [%u][%u]=%u\r",tFil+i,tCol+j,tmp2 );
             //            printf("Pieza[%u][%u][%u][%u]=%u\r",pNum,pOri,i,j,tmp1);
         }
-    if(contTestDemo<TESTDEDEMO || DEBUGPINTAFICHAS)
+    if(contTestDemo<TESTDEDEMO || DEBUGPINTAFICHAS || DebugCompleto)
     {
         if(Entra!=0) printf("Hay %u Casillas que no entran\n\r",Entra);
         else printf("Sí entra\n\r");
@@ -348,12 +350,12 @@ int ColocaPieza(int tFil, int tCol, int pNum, int pOri){
         for(i=0;i<FilPiezas;i++)
             for(j=0;j<ColPiezas;j++){
                 tmp1=Piezas[pNum][pOri][i][j];
-                if(tmp1!=0) Tablero[tFil+i][tCol+j-DesplaIzq]=tmp1;
+                if(tmp1!=0) pTablero[tFil+i][tCol+j-DesplaIzq]=tmp1;
             }
     }
-    if( contTestDemo<TESTDEDEMO || DEBUGPINTAFICHAS){
+    if( contTestDemo<TESTDEDEMO || DEBUGPINTAFICHAS ||DebugCompleto){
         printf("Tablero Después:\n");
-        PintaTablero();
+        PintaTablero(pTablero);
     }
     return Entra;
 }
@@ -390,7 +392,11 @@ void IncrementaPieza(int* pPieza, int* pOrienta)
 void IncrementaOrienta(int* pPieza, int* pOrienta)
 { /* Incrementa la Pieza a la siguiente orientación y si llega a la Pieza [8-3] paas a la [0-0]*/
     if(*pPieza==8){
-        if(*pOrienta==3) *pPieza=0;
+        if(*pOrienta==3)
+        {
+            *pPieza=0;
+            *pOrienta=0;
+        }
         else *pOrienta=*pOrienta+1;
     }
     else
@@ -401,5 +407,26 @@ void IncrementaOrienta(int* pPieza, int* pOrienta)
             *pOrienta=0;
         }
         else *pOrienta=*pOrienta+1;
+    }
+}
+
+void DecrementaOrienta(int* pPieza, int* pOrienta)
+{ /* Decrementa la Pieza a la siguiente orientación y si llega a la Pieza [0-0] paas a la [8-3]*/
+    if(*pPieza==0){
+        if(*pOrienta==0)
+        {
+            *pPieza=8;
+            *pOrienta=3;
+        }
+        else *pOrienta=*pOrienta-1;
+    }
+    else
+    {
+        if(*pOrienta==0)
+        {
+            *pPieza=*pPieza-1;
+            *pOrienta=3;
+        }
+        else *pOrienta=*pOrienta-1;
     }
 }

@@ -9,12 +9,13 @@
 #include "Punteros.h"
 
 int Tablero[FILTABLERO][COLTABLERO];
+int TableroSoluciones[FILTABLERO][COLTABLERO];
 
-int InicializaTablero()
+int InicializaTablero(int pTablero[][7])
 {
-    LimpiaTablero(Tablero);
+    LimpiaTablero(pTablero);
     /*Definimos el reto*/
-    Tablero[3][2]=9; /*Donde está el 9 es la Chincheta*/
+    pTablero[3][2]=9; /*Donde está el 9 es la Chincheta*/
     return 0;
 }
 
@@ -27,7 +28,8 @@ int LimpiaTablero(int pTablero[][7]){
     return 0;
 }
 
-int PintaTablero(){
+int PintaTablero(int pTablero[][COLTABLERO])
+{
     int fila=0;
     int col=0;
     int tmp;
@@ -37,7 +39,7 @@ int PintaTablero(){
     for(fila=0;fila<7;fila++){
         printf(" │");
         for(col=0;col<7;col++){
-            tmp=Tablero[fila][col];
+            tmp=pTablero[fila][col];
             if(tmp<10) printf(" ");
             if(!tmp) printf("° ");
             else printf("%u ",tmp);
@@ -79,7 +81,7 @@ int RevisaTablero(int pTablero[][7]){
         resultado=99; /* Tablero completado EXITO*/
         //        printf("!!! Solución !!!!!\n");
         //        MuestraListado(PuntPruebas);
-        //        PintaTablero();
+        //        PintaTablero(Tablero);
     }
     else
         if(imposible==1)resultado+=50;
@@ -134,13 +136,13 @@ int ResuelveTablero()
     /*Preparamos la nueva Prueba*/
     PuntPiezasProbadas=0;
     PuntContColocadas=0;
-    if(PuntPruebas==22)
+    if(PuntPruebas==13 || PuntPruebas==7)
         i=i;
     if(!DameSiguientePunteroValido())
     {
         /* el siguiente puntero válido está en: CasillaPieza_ BufferPuntero*/
         /* Comenzamos a probar piezas: son las que apunta PuntBuffColoca*/
-         for(PuntBuffColoca=0;PuntBuffColoca<CANTIDADPIEZAS;PuntBuffColoca++){
+        for(PuntBuffColoca=0;PuntBuffColoca<CANTIDADPIEZAS;PuntBuffColoca++){
             
             PuntPieza=BufferPuntero[PuntBuffColoca].BuffPieza;
             PuntOri=BufferPuntero[PuntBuffColoca].BuffOri;
@@ -148,7 +150,7 @@ int ResuelveTablero()
             BuscaHuecoEnTablero(Tablero,&tmpfilaTab,&tmpcolTab);
             if(contTestDemo<TESTDEDEMO || DEBUGPINTAFICHAS)
                 printf("Coloca la pieza [%u-%u] en fila:%u, columna%u\r\n",PuntPieza,PuntOri,tmpfilaTab,tmpcolTab);
-            tmp=ColocaPieza(tmpfilaTab,tmpcolTab,PuntPieza,PuntOri);
+            tmp=ColocaPieza(tmpfilaTab,tmpcolTab,PuntPieza,PuntOri,Tablero,0);
             
             /*Apuntamos el resultado*/
             /*La pieza [PuntPieza-PuntOri] se ha intentado colocar*/
@@ -205,7 +207,12 @@ int ResuelveTablero()
                     CeldaListaNegra.CombinacionNegra[i].BuffPieza=ListaPruebas[PuntPruebas].CombinacionColocadas[i].PiezaColocada;
                     CeldaListaNegra.CombinacionNegra[i].BuffOri=ListaPruebas[PuntPruebas].CombinacionColocadas[i].OrientaColocada;
                 }
+                if(PuntPruebas==7)
+                    i=i;
                 MeteEnListaNegra(CeldaListaNegra,j);
+                //                printf("Se mete en Lista Negra:");
+                //                PintaCeldaListaNegra(ContCombNegra-1);
+                //                printf("\n");
                 //            PintaListaNegra();
                 
                 /* Incrementamos el puntero para "salvar" la lista negra*/
@@ -224,6 +231,9 @@ int ResuelveTablero()
                 CeldaListaNegra.CombinacionNegra[i].BuffPieza=PuntPieza;
                 CeldaListaNegra.CombinacionNegra[i].BuffOri=PuntOri;
                 MeteEnListaNegra(CeldaListaNegra,j+1);
+                //                printf("Se mete en Lista Negra:");
+                //                PintaCeldaListaNegra(ContCombNegra-1);
+                //                printf("\n");
                 //            PintaListaNegra();
                 
                 /* Incrementamos el puntero para "salvar" la lista negra*/
@@ -239,12 +249,11 @@ int ResuelveTablero()
                 {
                     CeldaSoluciones.CombinacionSolucion[i].BuffPieza=ListaPruebas[PuntPruebas].CombinacionColocadas[i].PiezaColocada;
                     CeldaSoluciones.CombinacionSolucion[i].BuffOri=ListaPruebas[PuntPruebas].CombinacionColocadas[i].OrientaColocada;
-                    CeldaSoluciones.PunteroSolucion[i]=Punteros[i];
                 }
                 MeteEnListaSoluciones(CeldaSoluciones,j);
                 printf("!!! Solución !!!!!\n");
                 MuestraListado(PuntPruebas);
-                PintaTablero();
+                PintaTablero(Tablero);
                 PintaListaSoluciones();
                 break;
         }
@@ -257,7 +266,7 @@ int ResuelveTablero()
         PuntPiezasProbadas=0;
         
         contTestDemo=contTestDemo+1;
-        InicializaTablero();
+        InicializaTablero(Tablero);
         
         return 0;
     }
@@ -265,7 +274,7 @@ int ResuelveTablero()
         return 1; /* Se finalizó la cuenta de punteros*/
 }
 
-int PintaTestResumen(long NumTest)
+int PintaTestResumen(long int NumTest)
 {
     
     int ContPiezas=0;
@@ -274,7 +283,7 @@ int PintaTestResumen(long NumTest)
     if(NumTest<=PuntPruebas)
     {
         /*Se pinta un resumen del Test NumTest*/
-        printf(" PRUEBA: %ld Result: %u Revis: [%u] Test: %u ", NumTest,ListaPruebas[NumTest].ResultadoPrueba,ListaPruebas[NumTest].RevisandoPrueba,ListaPruebas[NumTest].RevisionPrueba);
+        printf(" PRUEBA: %ld Result: %u ", NumTest,ListaPruebas[NumTest].ResultadoPrueba);
         
         ContPiezas=ListaPruebas[NumTest].NumPiezasColocadas;
         printf("   %u Piezas colocadas: ",ContPiezas);
@@ -286,4 +295,54 @@ int PintaTestResumen(long NumTest)
         return 0;
     }
     return 0xffff;/* ERROR de parámetros*/
+}
+
+int PintaUnaSolucion(int pNumSolucion, int DebugCompleto)
+{
+    /* Se pasa una solución de las que están en la Lista de Soluciones */
+    /* DebugCompleto =1: Se muestra todo el proceso de colocación
+       DebugCompleto =0: Sólo se muestra el Tablero completo*/
+    int pfilaTab,pcolTab;
+    int pPuntPieza,pPuntOri;
+    int i,tmp,tmpTab;
+    
+    printf("Mostramos Solución [%u]: ",pNumSolucion);
+    for(i=0;i<CANTIDADPIEZAS;i++)
+        printf("[%u-%u] ",ListaSoluciones[pNumSolucion].CombinacionSolucion[i].BuffPieza, ListaSoluciones[pNumSolucion].CombinacionSolucion[i].BuffOri);
+        printf("\r\n");
+    InicializaTablero(TableroSoluciones);
+    if(!DebugCompleto) printf("Debug reducido- solo Tablero final\r");
+
+    if(DebugCompleto) PintaTablero(TableroSoluciones);
+    for(i=0;i<CANTIDADPIEZAS;i++){
+        pPuntPieza= ListaSoluciones[pNumSolucion].CombinacionSolucion[i].BuffPieza;
+        pPuntOri=ListaSoluciones[pNumSolucion].CombinacionSolucion[i].BuffOri;
+        BuscaHuecoEnTablero(TableroSoluciones,&pfilaTab,&pcolTab);
+        if(DebugCompleto) printf("Coloca la pieza [%u-%u] en fila:%u, columna%u\r\n",pPuntPieza,pPuntOri,pfilaTab,pcolTab);
+        tmp=ColocaPieza(pfilaTab,pcolTab,pPuntPieza,pPuntOri,TableroSoluciones,DebugCompleto);
+        /*Si tmp =0 colocada, otros valores NO cabe*/
+        if(tmp==0)
+        {
+            /*La pieza se ha colocado */
+            /* Vamos a ver si el tablero está bien */
+            tmpTab=RevisaTablero(TableroSoluciones);
+            if(tmpTab==99){
+                /*Tablero terminado!!! Es lo correcto */
+                if(!DebugCompleto) PintaTablero(TableroSoluciones);
+                return 99;
+            }else{
+                if(tmpTab>50){
+                    /*Tablero Bloqueado */
+                    printf("ERROR: Al pintar una solución se bloquea el Tablero\r");
+                    return 55;
+                }
+            }
+        }
+        else{
+            printf("ERROR: Al pintar una solución hay una pieza que no entra\r");
+            return 0xff;
+        }
+    }
+    
+    return 0;
 }

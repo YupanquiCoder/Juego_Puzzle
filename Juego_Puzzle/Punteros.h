@@ -12,8 +12,8 @@
 #include "main.h"
 #include "piezas.h" 
 
-#define NUMMAXLISTANEGRA 999999
-#define NUMMAXSOLUCIONES 50
+#define NUMMAXLISTANEGRA NUMMAXPRUEBAS
+#define NUMMAXSOLUCIONES 300
 
 // Valores de Opciones Punteros
 // <0>: [0-0] <1>: [0-1] <2>: [0-2] <3>: [0-3]
@@ -31,14 +31,14 @@ struct ListaNegraPunteros_ {
     int NumPiezasCombi;
     struct CasillaPieza_ CombinacionNegra[9];
 };
-extern int ContCombNegra; /* Contador de Combinaciones en la Lista Negra*/
+extern long int ContCombNegra; /* Contador de Combinaciones en la Lista Negra*/
 
 struct ListaSoluciones_ {
-    double NumPruebaSolucion;
-    int PunteroSolucion[9];
+    long int NumPruebaSolucion;
     struct CasillaPieza_ CombinacionSolucion[9];
     
 };
+extern struct ListaSoluciones_ ListaSoluciones[NUMMAXSOLUCIONES];
 extern int ContadorSoluciones; /* Indica el número de soluciones encontradas*/
 
 extern struct CasillaPieza_ BufferPuntero[9];
@@ -51,16 +51,16 @@ void InicializaPunteros(void);
 int IncrementaPunteros(void);
 void PintaPunteros(void);
 
-void RellenaOpcionesPuntero(void);
-void PintaOpcionesPuntero(void);
 void RellenaBufferPuntero(void);
 void PintaBufferPuntero(void);
 int PunteroEsPosible(struct CasillaPieza_ BuffCheck[CANTIDADPIEZAS]);
-int MeteEnListaNegra(struct ListaNegraPunteros_ BuffCheck,int NumPiezas);
+long MeteEnListaNegra(struct ListaNegraPunteros_ BuffCheck,int NumPiezas);
 void PintaListaNegra(void);
-int MeteEnListaSoluciones(struct ListaSoluciones_ BuffCheck,int NumPrueba);
+void PintaCeldaListaNegra(long int NumCeldaListaNegra);
+int MeteEnListaSoluciones(struct ListaSoluciones_ BuffCheck,long int NumPrueba);
 void PintaListaSoluciones(void);
-void SaltaCeldasListaNegra(int NumCeldaListaNegra);
+void SaltaCeldasListaNegra(long int NumCeldaListaNegra);
 int DameSiguientePunteroValido(void);
+int IncrementaBufferPuntero(void);
 
 #endif /* Punteros_h */
