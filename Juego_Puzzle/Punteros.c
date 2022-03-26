@@ -327,6 +327,8 @@ void RellenaSolucionesConocidas()
      Solución [185]: [8-3] [7-2] [0-0] [3-3] [5-3] [1-1] [4-0] [2-3] [6-2]
      Solución [186]: [8-3] [7-2] [0-0] [6-0] [1-0] [5-3] [4-0] [3-3] [2-3]
      Solución [187]: [8-3] [7-2] [0-0] [6-2] [1-0] [5-3] [4-0] [3-3] [2-3] */
+    
+    return; /* NO rellenamos ninguna solución */
     /* Rellenamos El puntero */
     /*Solución [0]: [0-0] [3-0] [1-0] [2-0] [5-0] [7-0] [4-0] [6-0] [8-0]*/
     CeldaSoluciones.CombinacionSolucion[0].BuffPieza=0;
@@ -692,11 +694,6 @@ void SaltaCeldasListaNegra(long int NumCeldaListaNegra){
     BufferPuntero[PosicionAIncrementar].BuffPieza=tmpPieza.BuffPieza;
     BufferPuntero[PosicionAIncrementar].BuffOri=tmpPieza.BuffOri;
 
-    if(PuntPruebas==13 ||PuntPruebas==51 ||PuntPruebas==0)
-    {
-      PintaBufferPuntero();
-    }
-
     for(i=0;i<PosicionAIncrementar+1;i++)
     {
         j=BufferPuntero[i].BuffPieza;
@@ -710,19 +707,11 @@ void SaltaCeldasListaNegra(long int NumCeldaListaNegra){
         PuntBuffPiezas=PuntBuffPiezas+1;
     }
     /* Decremento la última pieza para que al incrementar probemos esta última*/
-    if(PuntPruebas==13 ||PuntPruebas==14 ||PuntPruebas==0)
-    {
-      PintaBufferPuntero();
-    }
     tmpPieza.BuffPieza=BufferPuntero[CANTIDADPIEZAS-1].BuffPieza;
     tmpPieza.BuffOri=BufferPuntero[CANTIDADPIEZAS-1].BuffOri;
     DecrementaOrienta(&tmpPieza.BuffPieza,&tmpPieza.BuffOri);
     BufferPuntero[CANTIDADPIEZAS-1].BuffPieza=tmpPieza.BuffPieza;
     BufferPuntero[CANTIDADPIEZAS-1].BuffOri=tmpPieza.BuffOri;
-    if(PuntPruebas==13 ||PuntPruebas==14 ||PuntPruebas==0)
-    {
-      PintaBufferPuntero();
-    }
 }
 
 int MeteEnListaSoluciones(struct ListaSoluciones_ BuffCheck,long int NumPrueba)

@@ -20,7 +20,7 @@ int InicializaTablero(int pTablero[][7])
 {
     LimpiaTablero(pTablero);
     /*Definimos el reto*/
-    pTablero[3][2]=9; /*Donde está el 9 es la Chincheta*/
+    pTablero[3][0]=9; /*Donde está el 9 es la Chincheta*/
     return 0;
 }
 
@@ -269,7 +269,17 @@ int ResuelveTablero()
                 break;
         }
         /* Preparar NUEVA Prueba*/
-        PintaTestResumen(PuntPruebas);
+        if(ContMuestraPruebas!=0)
+        {
+            ContMuestraPruebas=ContMuestraPruebas+1;
+            if(ContMuestraPruebas>NUMMUESTRAPRUEBAS)
+            {
+                PintaTestResumen(PuntPruebas);
+                ContMuestraPruebas=1;
+            }
+        }
+            
+        
         PuntPruebas=PuntPruebas+1;
         
         PuntOrdenPieza=0;

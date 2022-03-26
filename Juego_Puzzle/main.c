@@ -22,6 +22,7 @@ int MuestraListado (long int NumPrueba);
 int MostrarCadaIncrementoDePuntero=0;
 int MostrarCadaPunteroValido=0;
 int contTestDemo=TESTDEDEMO;
+int ContMuestraPruebas=1; /* Si es 0 NO se muestra ninguna prueba*/
 
 struct ListaPruebas_ ListaPruebas[NUMMAXPRUEBAS];
 
@@ -42,28 +43,84 @@ int PuntBuf=0xffff;
 
 /***************/
 int main(int argc, const char * argv[]) {
- 
-    int Caracter;
+    
     int MostrarResumen=0;
-   
+    char opcion;
+    char caracter;
+    
     InicializaPunteros();
     InicializaTablero(Tablero);
     MuestraTitulosCredito();
-    
-    while(1)
+    do
     {
-        if( !SeHaFinalizadoLaCuenta) ResuelveTablero();
+        printf( "\n   1. Pinta los Títulos de Crédito");
+        printf( "\n   2. Muestra Lista de Soluciones Encontradas");
+        printf( "\n   3. Comenzar a encontrar soluciones");
+        printf( "\n   4. Opción 4");
+        printf( "\n   9. Salir");
         
-        if(MostrarResumen || PuntPruebas==NUMMAXPRUEBAS-3){
-            MostrarResumen=0;
+        do
+        {
+            printf( "\n   ¿Qué hacemos? (1-4,9) ");
+            fflush( stdin );
+            scanf( "%c", &opcion );
             
-            PintaListaSoluciones();
-//            PintaListaNegra();
-//            MuestraListaResultPruebas();
+        } while ( opcion != '1' && opcion != '2' && opcion != '3' && opcion != '4' && opcion != '9' );
+        
+        
+        /* Inicio del anidamiento */
+        
+        switch ( opcion )
+        {
+            case '1':
+                MuestraTitulosCredito();
+                break;
+            case '2':
+                if(ContadorSoluciones==0)
+                    printf("No hay Soluciones todavía en listado\r");
+                else
+                    PintaListaSoluciones();
+                break;
+            case '3':
+                ContMuestraPruebas=NUMMUESTRAPRUEBAS;
+                printf( "OJO este proceso va a llevar varias horas hasta que termine de encontrar\r" );
+                printf( "todas las soluciones." );
+                printf( "Se mostrará la solución por la que va cada %u Pruebas. ¿Comenzamos? S/N ",ContMuestraPruebas );
+                
+                fflush( stdin );
+                scanf( "%c", &caracter );
+                if(caracter == 'S' || caracter == 's'){
+                    do
+                    {
+                        ResuelveTablero();
+                        
+                        if(MostrarResumen)
+                        {
+                            MostrarResumen=0;
+                            PintaListaSoluciones();
+                        }
+                        
+                    }while (!SeHaFinalizadoLaCuenta);
+                }
+                
+                break;
+            case '4': printf( "elegida Opción 4" );
+                break;
+            case '9': printf( "¿Realmente quieres salir? (S/N)" );
+                fflush( stdin );
+                scanf( "%c", &caracter );
+                if(caracter == 'S' || caracter == 's') opcion=99;
+                break;
+            default:
+                break;
         }
-//         
-    }
-
+        
+        /* Fin del anidamiento */
+        
+    } while ( opcion != 99 );
+    
+    
+    
     
     return 0;
 }
@@ -222,7 +279,7 @@ void MuestraTitulosCredito()
     printf("Estan preparadas %u pruebas\n\r",NUMMAXPRUEBAS);
     printf("\nComenzamos con el puntero de pruebas en: \n");
     PintaBufferPuntero();
-
+    
     printf("\n");
     
     if(ContadorSoluciones!=0)

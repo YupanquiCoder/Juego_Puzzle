@@ -28,6 +28,8 @@
 extern int contTestDemo;
 extern int MostrarCadaIncrementoDePuntero;
 extern int MostrarCadaPunteroValido;
+#define NUMMUESTRAPRUEBAS 10000 /* Cuando esté probando se mostrará la prueba cada esas pruebas*/
+extern int ContMuestraPruebas; 
 
 struct ListaPruebas_ {
     double NumPrueba;
