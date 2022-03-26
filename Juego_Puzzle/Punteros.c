@@ -16,10 +16,7 @@ int SeHaFinalizadoLaCuenta=0;
 
 struct CasillaPieza_ BufferPuntero[9]; /* Cada vez que se incremente se colocan las piezas en este Buffer */
 
-/* Lista Negra de Combinaciones */
 
-struct ListaNegraPunteros_ ListaNegraPunteros [NUMMAXLISTANEGRA];
-long int ContCombNegra=0; /* Contador de Combinaciones en la Lista Negra*/
 
 struct ListaSoluciones_ ListaSoluciones[NUMMAXSOLUCIONES];
 int ContadorSoluciones=0; /* Indica el número de soluciones encontradas*/
@@ -123,30 +120,6 @@ void InicializaPunteros()
        
     }
     
-    if(0)
-    {
-        /* Inicializamos para continuar con la siguiente combinación ya inicializada
-         [0-0] [3-0] [1-0] [2-0] [8-1] [4-0] [6-1] [7-0] [5-0]  Esta solución se queda "pillada */
- 
-        BufferPuntero[0].BuffPieza=0;/* [0-0]*/
-        BufferPuntero[0].BuffOri=0;
-        BufferPuntero[1].BuffPieza=3;/* [3-0]*/
-        BufferPuntero[1].BuffOri=0;
-        BufferPuntero[2].BuffPieza=1;/* [1-0]*/
-        BufferPuntero[2].BuffOri=0;
-        BufferPuntero[3].BuffPieza=2;/* [2-0]*/
-        BufferPuntero[3].BuffOri=0;
-        BufferPuntero[4].BuffPieza=8;/* [8-1]*/
-        BufferPuntero[4].BuffOri=1;
-        BufferPuntero[5].BuffPieza=4;/* [4-0]*/
-        BufferPuntero[5].BuffOri=0;
-        BufferPuntero[6].BuffPieza=6;/* [6-1]*/
-        BufferPuntero[6].BuffOri=1;
-        BufferPuntero[7].BuffPieza=7;/* [7-0]*/
-        BufferPuntero[7].BuffOri=0;
-        BufferPuntero[8].BuffPieza=5;/* [5-0]*/
-        BufferPuntero[8].BuffOri=0;
-    }
     
     RellenaSolucionesConocidas();
     
@@ -399,7 +372,6 @@ void RellenaSolucionesConocidas()
 
     MeteEnListaSoluciones(CeldaSoluciones,9);
     
-    
 }
 
 int IncrementaPunteros()
@@ -558,6 +530,8 @@ void PintaBufferPuntero()
     printf("\r\n");
 }
 
+
+
 int PunteroEsPosible(struct CasillaPieza_ BuffCheck[CANTIDADPIEZAS]){
     /* Esta función decide si la combinación que se le pasa como parámetro (BuffCheck) es una combinación posible:
      Criterios:
@@ -612,47 +586,7 @@ int PunteroEsPosible(struct CasillaPieza_ BuffCheck[CANTIDADPIEZAS]){
     return 0; /* La combinación es posible*/
 }
 
-long int MeteEnListaNegra(struct ListaNegraPunteros_ BuffCheck,int NumPiezas)
-{
-    int i;
-    for(i=0;i<NumPiezas;i++){
-        ListaNegraPunteros[ContCombNegra].CombinacionNegra[i].BuffPieza=BuffCheck.CombinacionNegra[i].BuffPieza;
-        ListaNegraPunteros[ContCombNegra].CombinacionNegra[i].BuffOri=BuffCheck.CombinacionNegra[i].BuffOri;
-    }
-    for(i=NumPiezas;i<CANTIDADPIEZAS;i++){
-        ListaNegraPunteros[ContCombNegra].CombinacionNegra[i].BuffPieza=0xffff;
-        ListaNegraPunteros[ContCombNegra].CombinacionNegra[i].BuffOri=0xffff;
-    }
-    ListaNegraPunteros[ContCombNegra].NumPiezasCombi=NumPiezas;
-    ContCombNegra=ContCombNegra+1;
-    return ContCombNegra;
-}
 
-void PintaListaNegra(void)
-{
-    long int i,j;
-    printf("Lista Negra: \n");
-    for(j=0;j<ContCombNegra;j++){
-        printf("List [%ld] %u Piezas: ",j,ListaNegraPunteros[j].NumPiezasCombi);
-        for(i=0;i<ListaNegraPunteros[j].NumPiezasCombi;i++)
-            printf("[%u-%u] ",ListaNegraPunteros[j].CombinacionNegra[i].BuffPieza,ListaNegraPunteros[j].CombinacionNegra[i].BuffOri);
-        printf("\r\n");
-    }
-    
-}
-
-void PintaCeldaListaNegra(long int NumCeldaListaNegra)
-{
-    int i;
-    
-    
-        printf("Celda Lista Negra [%u] %u Piezas: ",NumCeldaListaNegra,ListaNegraPunteros[NumCeldaListaNegra].NumPiezasCombi);
-        for(i=0;i<ListaNegraPunteros[NumCeldaListaNegra].NumPiezasCombi;i++)
-            printf("[%u-%u] ",ListaNegraPunteros[NumCeldaListaNegra].CombinacionNegra[i].BuffPieza,ListaNegraPunteros[NumCeldaListaNegra].CombinacionNegra[i].BuffOri);
-        printf("\r\n");
-    
-    
-}
 
 void SaltaCeldasListaNegra(long int NumCeldaListaNegra){
     /* Se invoca cuando se acaba de meter algo en la lista negra.
@@ -667,7 +601,7 @@ void SaltaCeldasListaNegra(long int NumCeldaListaNegra){
     int SeguirBuscando=1;
     int PosicionAIncrementar=0;
     int PiezaRepetida=0;
-    
+
    /* DEBUG*/
 //    if(PuntPruebas==13 ||PuntPruebas==14 ||PuntPruebas==0)
 //    {
@@ -677,15 +611,15 @@ void SaltaCeldasListaNegra(long int NumCeldaListaNegra){
 //    }
     /* DEBUG*/
 
-    
-    
+
+
     k=ListaNegraPunteros[NumCeldaListaNegra].NumPiezasCombi;/* El número de celdas del Punteros que están en la lista negra*/
     PosicionAIncrementar=k-1;
-    
+
     if(ListaNegraPunteros[NumCeldaListaNegra].CombinacionNegra[PosicionAIncrementar].BuffPieza==8 &&
     ListaNegraPunteros[NumCeldaListaNegra].CombinacionNegra[PosicionAIncrementar].BuffOri==3)
         PosicionAIncrementar=PosicionAIncrementar-1; /* Si la pieza que ha causado la lista negra es [8-3] Hay que incrementar la anterior */
-    
+
     /* Incremente en 1 la pieza que ha causado que sea metida en la lista negra*/
     while(SeguirBuscando){
         /* En k tenemos la pieza que ha causado la lista negra
@@ -701,9 +635,9 @@ void SaltaCeldasListaNegra(long int NumCeldaListaNegra){
             j=BufferPuntero[i].BuffPieza;
             PiezasUsadas[j]=0xff;
         }
-        
+
         PiezaRepetida=0;
-        
+
         tmpPieza.BuffPieza=ListaNegraPunteros[NumCeldaListaNegra].CombinacionNegra[PosicionAIncrementar].BuffPieza;
         tmpPieza.BuffOri=ListaNegraPunteros[NumCeldaListaNegra].CombinacionNegra[PosicionAIncrementar].BuffOri;
         do{
@@ -718,7 +652,7 @@ void SaltaCeldasListaNegra(long int NumCeldaListaNegra){
             else
                 PiezaRepetida=0;
         }while(PiezaRepetida);
-            
+
         if(tmpPieza.BuffPieza==0 && tmpPieza.BuffOri==0)
         {
             /* La pieza a incrementar era la 8-3 hay que incrementar la anterior*/
@@ -738,7 +672,7 @@ void SaltaCeldasListaNegra(long int NumCeldaListaNegra){
             SeguirBuscando=0;
         }
     }
-    
+
 //    /* DEBUG*/
 //    /* Limpio Buffer Puntero */
 //    for(i=0;i<CANTIDADPIEZAS;i++)
@@ -747,7 +681,7 @@ void SaltaCeldasListaNegra(long int NumCeldaListaNegra){
 //        BufferPuntero[i].BuffOri=0xff;
 //    }
 //    /* DEBUG*/
-    
+
     /* Rellenamos el buffer de Puntero con la nueva combinación*/
     /* Lista Negra desde 0-> Posición a incrementar*/
     for(i=0;i<PosicionAIncrementar;i++)
@@ -757,18 +691,18 @@ void SaltaCeldasListaNegra(long int NumCeldaListaNegra){
     }
     BufferPuntero[PosicionAIncrementar].BuffPieza=tmpPieza.BuffPieza;
     BufferPuntero[PosicionAIncrementar].BuffOri=tmpPieza.BuffOri;
-    
+
     if(PuntPruebas==13 ||PuntPruebas==51 ||PuntPruebas==0)
     {
       PintaBufferPuntero();
     }
-    
+
     for(i=0;i<PosicionAIncrementar+1;i++)
     {
         j=BufferPuntero[i].BuffPieza;
         PiezasUsadas[j]=0xff;
     }
-    
+
     for(j=PosicionAIncrementar+1,PuntBuffPiezas=0;j<CANTIDADPIEZAS;j++){
         while(PiezasUsadas[PuntBuffPiezas]==0xff) PuntBuffPiezas=PuntBuffPiezas+1;
         BufferPuntero[j].BuffPieza=PuntBuffPiezas;
@@ -793,8 +727,30 @@ void SaltaCeldasListaNegra(long int NumCeldaListaNegra){
 
 int MeteEnListaSoluciones(struct ListaSoluciones_ BuffCheck,long int NumPrueba)
 {
-    int i;
+    int i,j;
+    int SolucionYaExiste=0;
+    /* Mete en lista de soluciones, incrementando el Contador de Soluciones:
+     Devuelve: El número de solución que se ha añadido
+     NUMMAXSOLUCIONES: Si la solución ya existía */
     
+    for(j=0;j<ContadorSoluciones;j++){
+        SolucionYaExiste=1;
+        for(i=0;i<CANTIDADPIEZAS;i++){
+            if(ListaSoluciones[j].CombinacionSolucion[i].BuffPieza != BuffCheck.CombinacionSolucion[i].BuffPieza ||
+               ListaSoluciones[j].CombinacionSolucion[i].BuffOri != BuffCheck.CombinacionSolucion[i].BuffOri)
+            {
+                SolucionYaExiste=0;
+                break;
+            }
+        }
+        if(SolucionYaExiste){
+            printf("Solución ya estaba en la lista -> No se añade\r\n");
+            return NUMMAXSOLUCIONES;
+        }
+           
+    }
+    /* Se han revisado todas las soluciones ya guardadas y NINGUNA es igua a la nueva que se va a añadir
+     Añadimos una nueva solución a la lista */
     ListaSoluciones[ContadorSoluciones].NumPruebaSolucion=PuntPruebas;
     
     

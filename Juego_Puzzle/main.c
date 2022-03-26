@@ -20,7 +20,7 @@ int MuestraListado (long int NumPrueba);
 
 /* Variables que controlan el DEBUG*/
 int MostrarCadaIncrementoDePuntero=0;
-int MostrarCadaPunteroValido=1;
+int MostrarCadaPunteroValido=0;
 int contTestDemo=TESTDEDEMO;
 
 struct ListaPruebas_ ListaPruebas[NUMMAXPRUEBAS];

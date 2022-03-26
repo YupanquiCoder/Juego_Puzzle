@@ -12,7 +12,6 @@
 #include "main.h"
 #include "piezas.h" 
 
-#define NUMMAXLISTANEGRA NUMMAXPRUEBAS
 #define NUMMAXSOLUCIONES 300
 
 // Valores de Opciones Punteros
@@ -27,11 +26,6 @@
 // <32>:[8-0] <33>:[8-1] <34>:[8-2] <35>:[8-3]
 
 
-struct ListaNegraPunteros_ {
-    int NumPiezasCombi;
-    struct CasillaPieza_ CombinacionNegra[9];
-};
-extern long int ContCombNegra; /* Contador de Combinaciones en la Lista Negra*/
 
 struct ListaSoluciones_ {
     long int NumPruebaSolucion;
@@ -62,5 +56,6 @@ void PintaListaSoluciones(void);
 void SaltaCeldasListaNegra(long int NumCeldaListaNegra);
 int DameSiguientePunteroValido(void);
 int IncrementaBufferPuntero(void);
+
 
 #endif /* Punteros_h */

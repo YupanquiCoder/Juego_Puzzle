@@ -31,6 +31,10 @@ extern int MostrarCadaPunteroValido;
 
 struct ListaPruebas_ {
     double NumPrueba;
+    struct {
+        int PiezaPrueba;
+        int OrientaPrueba;
+    } CombinacionPrueba[9];
     int Piezascolocadas[9];
     int NumPiezasColocadas;
     struct {

@@ -10,9 +10,21 @@
 
 #include <stdio.h>
 #include "main.h"
+#include "piezas.h" 
+
+#define NUMMAXLISTANEGRA NUMMAXPRUEBAS
 
 extern int Tablero[FILTABLERO][COLTABLERO];
 extern int TableroSoluciones[FILTABLERO][COLTABLERO];
+
+struct ListaNegraPunteros_ {
+    int NumPiezasCombi;
+    struct CasillaPieza_ CombinacionNegra[9];
+};
+
+extern struct ListaNegraPunteros_ ListaNegraPunteros [NUMMAXLISTANEGRA];
+extern long int ContCombNegra; /* Contador de Combinaciones en la Lista Negra*/
+
 
 /* Prototipos */
 int InicializaTablero(int pTablero[][7]);

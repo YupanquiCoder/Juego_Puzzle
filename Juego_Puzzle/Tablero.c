@@ -11,6 +11,11 @@
 int Tablero[FILTABLERO][COLTABLERO];
 int TableroSoluciones[FILTABLERO][COLTABLERO];
 
+/* Lista Negra de Combinaciones */
+
+struct ListaNegraPunteros_ ListaNegraPunteros [NUMMAXLISTANEGRA];
+long int ContCombNegra=0; /* Contador de Combinaciones en la Lista Negra*/
+
 int InicializaTablero(int pTablero[][7])
 {
     LimpiaTablero(pTablero);
@@ -141,6 +146,12 @@ int ResuelveTablero()
     if(!DameSiguientePunteroValido())
     {
         /* el siguiente puntero válido está en: CasillaPieza_ BufferPuntero*/
+        /* Estamos comenzando una prueba Rellenamos cual es la combinación que se va a probar*/
+        for(i=0;i<CANTIDADPIEZAS;i++){
+            ListaPruebas[PuntPruebas].CombinacionPrueba[i].PiezaPrueba=BufferPuntero[i].BuffPieza;
+            ListaPruebas[PuntPruebas].CombinacionPrueba[i].OrientaPrueba=BufferPuntero[i].BuffOri;
+        }
+        
         /* Comenzamos a probar piezas: son las que apunta PuntBuffColoca*/
         for(PuntBuffColoca=0;PuntBuffColoca<CANTIDADPIEZAS;PuntBuffColoca++){
             
@@ -283,15 +294,20 @@ int PintaTestResumen(long int NumTest)
     if(NumTest<=PuntPruebas)
     {
         /*Se pinta un resumen del Test NumTest*/
-        printf(" PRUEBA: %ld Result: %u ", NumTest,ListaPruebas[NumTest].ResultadoPrueba);
-        
+        printf(" PRUEBA: %ld Result: <%u> ", NumTest,ListaPruebas[NumTest].ResultadoPrueba);
+        printf("Combinación Probada: ");
+        for (i=0;i<CANTIDADPIEZAS;i++)
+        {
+            printf("[%u-%u] ",ListaPruebas[NumTest].CombinacionPrueba[i].PiezaPrueba,ListaPruebas[NumTest].CombinacionPrueba[i].OrientaPrueba);
+        }
+        printf( "\r");
         ContPiezas=ListaPruebas[NumTest].NumPiezasColocadas;
-        printf("   %u Piezas colocadas: ",ContPiezas);
+        printf("                            %u Piezas colocadas: ",ContPiezas);
         for (i=0;i<ContPiezas;i++)
         {
             printf("[%u-%u] ",ListaPruebas[NumTest].CombinacionColocadas[i].PiezaColocada,ListaPruebas[NumTest].CombinacionColocadas[i].OrientaColocada);
         }
-        printf( "\r");
+        printf( "\r\r");
         return 0;
     }
     return 0xffff;/* ERROR de parámetros*/
@@ -345,4 +361,49 @@ int PintaUnaSolucion(int pNumSolucion, int DebugCompleto)
     }
     
     return 0;
+}
+
+
+long int MeteEnListaNegra(struct ListaNegraPunteros_ BuffCheck,int NumPiezas)
+{
+    int i;
+    for(i=0;i<NumPiezas;i++)
+    {
+        ListaNegraPunteros[ContCombNegra].CombinacionNegra[i].BuffPieza=BuffCheck.CombinacionNegra[i].BuffPieza;
+        ListaNegraPunteros[ContCombNegra].CombinacionNegra[i].BuffOri=BuffCheck.CombinacionNegra[i].BuffOri;
+    }
+    for(i=NumPiezas;i<CANTIDADPIEZAS;i++)
+    {
+        ListaNegraPunteros[ContCombNegra].CombinacionNegra[i].BuffPieza=0xffff;
+        ListaNegraPunteros[ContCombNegra].CombinacionNegra[i].BuffOri=0xffff;
+    }
+    ListaNegraPunteros[ContCombNegra].NumPiezasCombi=NumPiezas;
+    ContCombNegra=ContCombNegra+1;
+    return ContCombNegra;
+}
+
+void PintaListaNegra(void)
+{
+    long int i,j;
+    printf("Lista Negra: \n");
+    for(j=0;j<ContCombNegra;j++){
+        printf("List [%ld] %u Piezas: ",j,ListaNegraPunteros[j].NumPiezasCombi);
+        for(i=0;i<ListaNegraPunteros[j].NumPiezasCombi;i++)
+            printf("[%u-%u] ",ListaNegraPunteros[j].CombinacionNegra[i].BuffPieza,ListaNegraPunteros[j].CombinacionNegra[i].BuffOri);
+        printf("\r\n");
+    }
+
+}
+
+void PintaCeldaListaNegra(long int NumCeldaListaNegra)
+{
+    int i;
+
+
+        printf("Celda Lista Negra [%ld] %u Piezas: ",NumCeldaListaNegra,ListaNegraPunteros[NumCeldaListaNegra].NumPiezasCombi);
+        for(i=0;i<ListaNegraPunteros[NumCeldaListaNegra].NumPiezasCombi;i++)
+            printf("[%u-%u] ",ListaNegraPunteros[NumCeldaListaNegra].CombinacionNegra[i].BuffPieza,ListaNegraPunteros[NumCeldaListaNegra].CombinacionNegra[i].BuffOri);
+        printf("\r\n");
+
+
 }
