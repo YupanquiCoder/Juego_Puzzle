@@ -8,12 +8,17 @@
 #ifndef main_h
 #define main_h
 
+struct CasillaPieza_ {
+    int BuffPieza;
+    int BuffOri;
+};
+
 /* VARIABLES GLOBALES USADAS*/
 #define FILTABLERO 7
 #define COLTABLERO 7
 
 
-#define NUMMAXPRUEBAS 7250000
+#define NUMMAXPRUEBAS 4000000
 #define NUMMAXPIEZASPROBADAS 10
 #define NUMMAXPRUEBACOMBINACION 2 /* El número de veces que se probará la misma combinación tras una PIEZA COLOCADA*/
 
@@ -22,6 +27,10 @@
 #define CANTIDADPIEZAS 9
 #define CANTIDADORIENTACIONES 4
 
+
+#define NUMMAXSOLUCIONES 700
+#define NUMMAXPOSCHINCHETA 49
+
 /* DEMO */
 #define DEBUGPINTAFICHAS 0
 #define TESTDEDEMO 2
@@ -29,7 +38,8 @@ extern int contTestDemo;
 extern int MostrarCadaIncrementoDePuntero;
 extern int MostrarCadaPunteroValido;
 #define NUMMUESTRAPRUEBAS 10000 /* Cuando esté probando se mostrará la prueba cada esas pruebas*/
-extern int ContMuestraPruebas; 
+extern int ContMuestraPruebas;
+
 
 struct ListaPruebas_ {
     double NumPrueba;
@@ -73,7 +83,8 @@ void MuestraTitulosCredito(void);
 void MuestraPanelPruebasClave(void);
 int ResuelveTablero(void);
 
-int MuestraListaResultPruebas(void);
+int MuestraListaResultPruebas(long int PuntInicial);
 int MuestraListado (long int NumPrueba);
+void DumpError(void);
 
 #endif /* main_h */

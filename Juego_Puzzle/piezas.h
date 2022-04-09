@@ -9,14 +9,14 @@
 #ifndef piezas_h
 #define piezas_h
 
+#include <stdio.h>
 #include "main.h"
+#include "Soluciones.h"
+#include "Tablero.h"
 
 extern int Piezas [CANTIDADPIEZAS][CANTIDADORIENTACIONES][FilPiezas][ColPiezas];
 
-struct CasillaPieza_{
-    int BuffPieza;
-    int BuffOri;
-};
+
 
 int PintaPieza(int NumPieza,int NumOrienta);
 void PintaTodasPiezas(void);

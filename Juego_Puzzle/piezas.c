@@ -5,9 +5,7 @@
 //  Created by Miguel Ruiz on 27/2/22.
 //
 
-#include <stdio.h>
 #include "piezas.h" // Definición de las Piezas
-#include "Tablero.h"
 
 
 int Piezas [CANTIDADPIEZAS][CANTIDADORIENTACIONES][FilPiezas][ColPiezas]={

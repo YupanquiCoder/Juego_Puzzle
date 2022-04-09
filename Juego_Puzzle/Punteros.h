@@ -10,30 +10,9 @@
 
 #include <stdio.h>
 #include "main.h"
-#include "piezas.h" 
-
-#define NUMMAXSOLUCIONES 300
-
-// Valores de Opciones Punteros
-// <0>: [0-0] <1>: [0-1] <2>: [0-2] <3>: [0-3]
-// <4>: [1-0] <5>: [1-1] <6>: [1-2] <7>: [1-3]
-// <8>: [2-0] <9>: [2-1] <10>:[2-2] <11>:[2-3]
-// <12>:[3-0] <13>:[3-1] <14>:[3-2] <15>:[3-3]
-// <16>:[4-0] <17>:[4-1] <18>:[4-2] <19>:[4-3]
-// <20>:[5-0] <21>:[5-1] <22>:[5-2] <23>:[5-3]
-// <24>:[6-0] <25>:[6-1] <26>:[6-2] <27>:[6-3]
-// <28>:[7-0] <29>:[7-1] <30>:[7-2] <31>:[7-3]
-// <32>:[8-0] <33>:[8-1] <34>:[8-2] <35>:[8-3]
-
-
-
-struct ListaSoluciones_ {
-    long int NumPruebaSolucion;
-    struct CasillaPieza_ CombinacionSolucion[9];
-    
-};
-extern struct ListaSoluciones_ ListaSoluciones[NUMMAXSOLUCIONES];
-extern int ContadorSoluciones; /* Indica el número de soluciones encontradas*/
+#include "Tablero.h"
+#include "piezas.h"
+#include "Soluciones.h"
 
 extern struct CasillaPieza_ BufferPuntero[9];
 
@@ -48,11 +27,7 @@ void PintaPunteros(void);
 void RellenaBufferPuntero(void);
 void PintaBufferPuntero(void);
 int PunteroEsPosible(struct CasillaPieza_ BuffCheck[CANTIDADPIEZAS]);
-long MeteEnListaNegra(struct ListaNegraPunteros_ BuffCheck,int NumPiezas);
-void PintaListaNegra(void);
-void PintaCeldaListaNegra(long int NumCeldaListaNegra);
-int MeteEnListaSoluciones(struct ListaSoluciones_ BuffCheck,long int NumPrueba);
-void PintaListaSoluciones(void);
+
 void SaltaCeldasListaNegra(long int NumCeldaListaNegra);
 int DameSiguientePunteroValido(void);
 int IncrementaBufferPuntero(void);

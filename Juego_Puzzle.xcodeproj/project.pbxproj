@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		86234554278DB15F00758EB7 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 86234553278DB15F00758EB7 /* main.c */; };
+		867B762427F9F62E005E4E6A /* Soluciones.c in Sources */ = {isa = PBXBuildFile; fileRef = 867B762327F9F62E005E4E6A /* Soluciones.c */; };
 		8695FCED27B71D7300AED420 /* Rutinas.c in Sources */ = {isa = PBXBuildFile; fileRef = 8695FCEC27B71D7300AED420 /* Rutinas.c */; };
 		86F49EC727CA2E4200D52900 /* Punteros.c in Sources */ = {isa = PBXBuildFile; fileRef = 86F49EC627CA2E4200D52900 /* Punteros.c */; };
 		86F49EC927CBD9BA00D52900 /* piezas.c in Sources */ = {isa = PBXBuildFile; fileRef = 86F49EC827CBD9B900D52900 /* piezas.c */; };
@@ -27,9 +28,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8615DCF627FABE410023840E /* Juego_Puzzle.profdata */ = {isa = PBXFileReference; lastKnownFileType = file; path = Juego_Puzzle.profdata; sourceTree = "<group>"; };
 		86234550278DB15F00758EB7 /* Juego_Puzzle */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Juego_Puzzle; sourceTree = BUILT_PRODUCTS_DIR; };
 		86234553278DB15F00758EB7 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		8623455A278DFE0800758EB7 /* piezas.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = piezas.h; sourceTree = "<group>"; };
+		867B762227F9F62E005E4E6A /* Soluciones.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Soluciones.h; sourceTree = "<group>"; };
+		867B762327F9F62E005E4E6A /* Soluciones.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = Soluciones.c; sourceTree = "<group>"; };
 		8695FCEC27B71D7300AED420 /* Rutinas.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = Rutinas.c; sourceTree = "<group>"; };
 		86F49EC427CA2C7C00D52900 /* main.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = main.h; sourceTree = "<group>"; };
 		86F49EC527CA2E2C00D52900 /* Punteros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Punteros.h; sourceTree = "<group>"; };
@@ -50,11 +54,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8615DCF527FABE410023840E /* OptimizationProfiles */ = {
+			isa = PBXGroup;
+			children = (
+				8615DCF627FABE410023840E /* Juego_Puzzle.profdata */,
+			);
+			path = OptimizationProfiles;
+			sourceTree = "<group>";
+		};
 		86234547278DB15F00758EB7 = {
 			isa = PBXGroup;
 			children = (
 				86234552278DB15F00758EB7 /* Juego_Puzzle */,
 				86234551278DB15F00758EB7 /* Products */,
+				8615DCF527FABE410023840E /* OptimizationProfiles */,
 			);
 			sourceTree = "<group>";
 		};
@@ -69,15 +82,17 @@
 		86234552278DB15F00758EB7 /* Juego_Puzzle */ = {
 			isa = PBXGroup;
 			children = (
+				86F49EC427CA2C7C00D52900 /* main.h */,
 				86234553278DB15F00758EB7 /* main.c */,
-				8695FCEC27B71D7300AED420 /* Rutinas.c */,
 				8623455A278DFE0800758EB7 /* piezas.h */,
 				86F49EC527CA2E2C00D52900 /* Punteros.h */,
 				86F49EC627CA2E4200D52900 /* Punteros.c */,
-				86F49EC427CA2C7C00D52900 /* main.h */,
 				86F49EC827CBD9B900D52900 /* piezas.c */,
 				86F49ECA27CBDFB200D52900 /* Tablero.h */,
 				86F49ECB27CBDFB200D52900 /* Tablero.c */,
+				867B762227F9F62E005E4E6A /* Soluciones.h */,
+				867B762327F9F62E005E4E6A /* Soluciones.c */,
+				8695FCEC27B71D7300AED420 /* Rutinas.c */,
 			);
 			path = Juego_Puzzle;
 			sourceTree = "<group>";
@@ -144,6 +159,7 @@
 				86F49EC927CBD9BA00D52900 /* piezas.c in Sources */,
 				86234554278DB15F00758EB7 /* main.c in Sources */,
 				86F49EC727CA2E4200D52900 /* Punteros.c in Sources */,
+				867B762427F9F62E005E4E6A /* Soluciones.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -264,6 +280,7 @@
 		86234558278DB15F00758EB7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 72Q5BV643L;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -274,6 +291,7 @@
 		86234559278DB15F00758EB7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 72Q5BV643L;
 				ENABLE_HARDENED_RUNTIME = YES;

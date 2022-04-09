@@ -10,13 +10,10 @@
 #include <locale.h>
 
 #include "main.h"
-#include "piezas.h" // Definición de las Piezas
+#include "Soluciones.h"
 #include "Punteros.h"
 #include "Tablero.h"
-
-
-int MuestraListaResultPruebas(void);
-int MuestraListado (long int NumPrueba);
+#include "piezas.h"
 
 /* Variables que controlan el DEBUG*/
 int MostrarCadaIncrementoDePuntero=0;
@@ -47,25 +44,32 @@ int main(int argc, const char * argv[]) {
     int MostrarResumen=0;
     char opcion;
     char caracter;
+    int NumEntrada;
+    int i,NumSolucion;
+    int SalirBucle;
     
+    InicializaChinchetas();
     InicializaPunteros();
+    InicializaSoluciones();
     InicializaTablero(Tablero);
     MuestraTitulosCredito();
     do
     {
         printf( "\n   1. Pinta los Títulos de Crédito");
         printf( "\n   2. Muestra Lista de Soluciones Encontradas");
-        printf( "\n   3. Comenzar a encontrar soluciones");
-        printf( "\n   4. Opción 4");
+        printf( "\n   3. Cuadro de Soluciones Probadas");
+        printf( "\n   4. Comenzar a encontrar soluciones");
+        printf( "\n   5. Pinta una solución ya encontrada");
+        printf( "\n   6. Demo 1.000 incrementos de puntero");
         printf( "\n   9. Salir");
         
         do
         {
-            printf( "\n   ¿Qué hacemos? (1-4,9) ");
+            printf( "\n   ¿Qué hacemos? (1-6,9) ");
             fflush( stdin );
             scanf( "%c", &opcion );
             
-        } while ( opcion != '1' && opcion != '2' && opcion != '3' && opcion != '4' && opcion != '9' );
+        } while ( opcion != '1' && opcion != '2' && opcion != '3' && opcion != '4' && opcion != '5' && opcion != '6'&& opcion != '9' );
         
         
         /* Inicio del anidamiento */
@@ -76,35 +80,84 @@ int main(int argc, const char * argv[]) {
                 MuestraTitulosCredito();
                 break;
             case '2':
-                if(ContadorSoluciones==0)
+                if(BloquesSoluciones[PosChinchetaActual].ContadorSoluciones==0)
                     printf("No hay Soluciones todavía en listado\r");
                 else
                     PintaListaSoluciones();
                 break;
             case '3':
+                PintaSituacionBloquesSoluciones();
+                break;
+            case '4':
                 ContMuestraPruebas=NUMMUESTRAPRUEBAS;
-                printf( "OJO este proceso va a llevar varias horas hasta que termine de encontrar\r" );
-                printf( "todas las soluciones." );
+                printf( "OJO este proceso continua hasta finalizar todas las pruebas, sin detenerse\r" );
                 printf( "Se mostrará la solución por la que va cada %u Pruebas. ¿Comenzamos? S/N ",ContMuestraPruebas );
-                
+                printf( "¿Qué bloque de soluciones hacemos? (0-%u) ",NUMMAXPOSCHINCHETA-1 );
                 fflush( stdin );
-                scanf( "%c", &caracter );
-                if(caracter == 'S' || caracter == 's'){
-                    do
-                    {
-                        ResuelveTablero();
+                scanf( "%u", &NumEntrada );
+                if(NumEntrada>=0 && NumEntrada<NUMMAXPOSCHINCHETA)
+                {
+                    
+                    if(BloquesSoluciones[NumEntrada].ContadorSoluciones==0){
                         
-                        if(MostrarResumen)
+                        
+                        PosChinchetaActual=NumEntrada;
+                        
+                        InicializaBloque();
+                
+                        do
                         {
-                            MostrarResumen=0;
-                            PintaListaSoluciones();
-                        }
+                            ResuelveTablero();
+                            
+                            if(MostrarResumen)
+                            {
+                                MostrarResumen=0;
+                                PintaListaSoluciones();
+                            }
+                            
+                        }while (!SeHaFinalizadoLaCuenta);
+                        SeHaFinalizadoLaCuenta=0;
+                        BloquesSoluciones[PosChinchetaActual].NumeroPruebasRealizadas=PuntPruebas;
                         
-                    }while (!SeHaFinalizadoLaCuenta);
+                        printf("FIN. Se acaban de buscar las soluciones del Bloque: <%u> Posición [%u-%u] \n",PosChinchetaActual,Chinchetas[PosChinchetaActual].FilaChin,Chinchetas[PosChinchetaActual].FilaChin);
+                        printf(" Se han hecho %ld pruebas. Se han encontrado %u Soluciones \n",BloquesSoluciones[PosChinchetaActual].NumeroPruebasRealizadas, BloquesSoluciones[PosChinchetaActual].ContadorSoluciones);
+                    }
+                    else
+                        printf("La Posición <%u> ya se ha probado y se encontraron %u soluciones\n",NumEntrada,BloquesSoluciones[NumEntrada].ContadorSoluciones);
                 }
                 
                 break;
-            case '4': printf( "elegida Opción 4" );
+            case '5':
+                NumSolucion=0;
+                SalirBucle=0;
+                if(BloquesSoluciones[PosChinchetaActual].ContadorSoluciones==0)
+                    printf("No hay soluciones encontradas!\n");
+                else
+                    do{
+                        PintaUnaSolucion(NumSolucion,1);
+                        PintaArrayUnaSolucion(NumSolucion);
+                        printf( "Esta es la Solución %u ¿Seguimos con la siguiente? S/N ",NumSolucion );
+                        
+                        fflush( stdin );
+                        scanf( "%c", &caracter );
+                        if(caracter == 'N' || caracter == 'n') SalirBucle=1;
+                        
+                        NumSolucion=NumSolucion+1;
+                        
+                    }while(NumSolucion<BloquesSoluciones[PosChinchetaActual].ContadorSoluciones && SalirBucle==0);
+                
+                break;
+                
+            case '6': printf( "Demostración de como se incrementa el puntero 1.000 veces:\n" );
+                i=1000;
+                printf("Empezamos con el Puntero en: ");
+                PintaBufferPuntero();
+                do{
+                    IncrementaBufferPuntero();
+                    PintaBufferPuntero();
+                    i--;
+                }while(i>0);
+                
                 break;
             case '9': printf( "¿Realmente quieres salir? (S/N)" );
                 fflush( stdin );
@@ -139,14 +192,15 @@ void PintaCombinacionColocadas(int NumTest){
     printf( "\r");
 }
 
-int MuestraListaResultPruebas()
+int MuestraListaResultPruebas(long int PuntInicial)
 {
-    /* Muestra el listado de los resultados de todas las pruebas realizadas*/
+    /* Muestra el listado de los resultados de las pruebas realizadas
+     Desde PuntInicial hasta PuntPruebas actual*/
     long int TmpContPrueba;
     int i,ContPiezas=0;
     
     
-    for(TmpContPrueba=0;TmpContPrueba<=PuntPruebas;TmpContPrueba++){
+    for(TmpContPrueba=PuntInicial;TmpContPrueba<=PuntPruebas;TmpContPrueba++){
         
         printf(" PRUEBA: %ld Result: %u  ", TmpContPrueba,ListaPruebas[TmpContPrueba].ResultadoPrueba);
         for (i=0,ContPiezas=0;i<9;i++)
@@ -282,7 +336,7 @@ void MuestraTitulosCredito()
     
     printf("\n");
     
-    if(ContadorSoluciones!=0)
+    if(BloquesSoluciones[PosChinchetaActual].ContadorSoluciones!=0)
     {
         printf("\nSe Inicializa el Array de soluciones con las ya conocidas: \n");
         PintaListaSoluciones();
@@ -292,3 +346,13 @@ void MuestraTitulosCredito()
     
 }
 
+void DumpError(void){
+    /* Se llama cuando hay un error para ver en qué estado está todo*/
+    printf("DUMP ERROR: \n");
+    printf("NúmeroPrueba Actual: %ld\r",PuntPruebas);
+    PintaTestResumen(PuntPruebas);
+    printf("Últimas 5 pruebas realizadas\r");
+    MuestraListaResultPruebas(PuntPruebas-5);
+    printf("Últimas 5 Celdas en la lista negra \r");
+    PintaListaNegra(ContCombNegra-5); /* Mostramos las últimas 5 posiciones de la Lista Negra*/
+}
