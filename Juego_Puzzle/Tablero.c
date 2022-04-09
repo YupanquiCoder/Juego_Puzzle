@@ -33,7 +33,8 @@ void InicializaChinchetas(void)
     for(i=0;i<NUMMAXPOSCHINCHETA;i++){
         BloquesSoluciones[i].PosicionesChincheta.FilaChin=tmpFila;
         BloquesSoluciones[i].PosicionesChincheta.ColumnChin =tmpCol;
-
+/* Acabo de CAMBIAR*/
+        
         /* Incremento las pieza*/
         if(tmpCol<6) tmpCol=tmpCol+1;
         else{ /* tmpCol=6*/
