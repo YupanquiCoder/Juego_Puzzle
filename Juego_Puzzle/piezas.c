@@ -206,7 +206,7 @@ int Piezas [CANTIDADPIEZAS][CANTIDADORIENTACIONES][FilPiezas][ColPiezas]={
                 {83,00,00,00,00},
                 {83,00,00,00,00},
                 {83,00,00,00,00},},
-    }, /*Fin Pieza 8*/
+    }, /*Fin Pieza 8 */
 }; // 9 piezas de 5*5 (4 orientaciones)
 
 
