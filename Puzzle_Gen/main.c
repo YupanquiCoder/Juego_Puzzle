@@ -100,7 +100,6 @@ int main(int argc, const char * argv[]) {
                     
                     if(BloquesSoluciones[NumEntrada].ContadorSoluciones==0){
                         
-                        
                         PosChinchetaActual=NumEntrada;
                         
                         InicializaBloque();
@@ -172,9 +171,6 @@ int main(int argc, const char * argv[]) {
         
     } while ( opcion != 99 );
     
-    
-    
-    
     return 0;
 }
 
@@ -223,23 +219,6 @@ int MuestraListado (long int NumPrueba){
     /* lista el resultado de una prueba*/
     int i,tmp;
     int ContPiezas=0;
-    /* #define NUMMAXPRUEBAS 30
-     struct ListaPruebas {
-     int NumPrueba;
-     int Piezascolocadas[9];
-     int NumPiezasColocadas;
-     struct {
-     int PiezaColocada;
-     int OrientaColocada;
-     } CombinacionColocadas[9];
-     struct {
-     int OrdenPieza;
-     int numPieza;
-     int OrientaPieza;
-     int ResultadoPieza;
-     }PiezaProbada[NUMMAXPIEZASPROBADAS];
-     int ResultadoPrueba;
-     }ListaPruebas[NUMMAXPRUEBAS];*/
     
     if(NumPrueba<NUMMAXPRUEBAS)
     {

@@ -67,7 +67,7 @@ int MeteEnListaSoluciones(struct ListaSoluciones_ BuffCheck,long int NumPrueba)
 
 void PintaSituacionBloquesSoluciones(void)
 {
-    int i,j;
+    int i;
     printf("De las %u Posiciones de la 'chincheta' este es el listado de las probadas:\n\r",NUMMAXPOSCHINCHETA);
     for(i=0;i<NUMMAXPOSCHINCHETA;i++){
         printf("\nPos Chincheta <%u>: [%u-%u] ",i,BloquesSoluciones[i].PosicionesChincheta.FilaChin,BloquesSoluciones[i].PosicionesChincheta.ColumnChin);
