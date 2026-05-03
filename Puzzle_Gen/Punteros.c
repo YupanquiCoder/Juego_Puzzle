@@ -164,7 +164,6 @@ int IncrementaBufferPuntero(void)
     
     Posicion=IncrementaPiezaBuffer(8);
     /* Devuelve la Posición de la última pieza incrementada*/
-//    printf("Posicion:%u\n",Posicion);
     if(Posicion==99)
         SeHaFinalizadoLaCuenta=1;
     else
@@ -176,10 +175,6 @@ int IncrementaBufferPuntero(void)
             j=BufferPuntero[i].BuffPieza;
             PiezasUsadas[j]=0xff;
         }
-//        /* DEBUG*/
-//        printf("Antes de ajuste:");
-//        PintaBufferPuntero();
-//        /* DEBUG*/
         if(Posicion!=8){
             for(j=Posicion+1,PuntBuffPiezas=0;j<CANTIDADPIEZAS;j++){
                 while(PiezasUsadas[PuntBuffPiezas]==0xff) PuntBuffPiezas=PuntBuffPiezas+1;
@@ -188,10 +183,6 @@ int IncrementaBufferPuntero(void)
                 PuntBuffPiezas=PuntBuffPiezas+1;
             }
         }
-//        /* DEBUG*/
-//        printf("Después de ajuste:");
-//        PintaBufferPuntero();
-//        /* DEBUG*/
     }
     return 0;
 }
@@ -221,8 +212,6 @@ int PunteroEsPosible(struct CasillaPieza_ BuffCheck[CANTIDADPIEZAS]){
     long int i,j;
     int HayPiezasIguales=0;
     int tmpBuffPiezas[CANTIDADPIEZAS]={0,0,0,0,0,0,0,0,0};
-    int EstaEnListaNegra=0;
-    int HayAlgunaPiezaDistinta=0;
     
     
     for (i=0;i<CANTIDADPIEZAS;i++)
@@ -239,23 +228,6 @@ int PunteroEsPosible(struct CasillaPieza_ BuffCheck[CANTIDADPIEZAS]){
     }
     if(HayPiezasIguales){
         return 1;
-    }
-    
-    if(0){/* Anulo la prueba de si está en lista negra*/
-        
-        /* Pasamos a probar si esta Combinación está en la lista negra*/
-        for(i=0,HayAlgunaPiezaDistinta=0;i<ContCombNegra && HayAlgunaPiezaDistinta==0;i++){
-            /* Pasamos por todas las combinaciones que están en la lista negra y se comprueba si BuffCheck está*/
-            j=ListaNegraPunteros[i].NumPiezasCombi; /* solo para DEBUG*/
-            for(j=0;j<ListaNegraPunteros[i].NumPiezasCombi && HayAlgunaPiezaDistinta==0;j++){
-                if(BuffCheck[j].BuffPieza!=ListaNegraPunteros[i].CombinacionNegra[j].BuffPieza || BuffCheck[j].BuffOri!=ListaNegraPunteros[i].CombinacionNegra[j].BuffOri)
-                    HayAlgunaPiezaDistinta=1;
-            }
-        }
-        
-        if(HayAlgunaPiezaDistinta==0 && ContCombNegra!=0) EstaEnListaNegra=1;
-        if(EstaEnListaNegra)
-            return 2;
     }
     return 0; /* La combinación es posible*/
 }
@@ -275,19 +247,6 @@ void SaltaCeldasListaNegra(long int NumCeldaListaNegra){
     int SeguirBuscando=1;
     int PosicionAIncrementar=0;
     int PiezaRepetida=0;
-
-   /* DEBUG*/
-//    if(PuntPruebas==13 ||PuntPruebas==14 ||PuntPruebas==0)
-//    {
-//        printf ("Buffer Puntero antes de incrementar tras lista negra: Ceda lista Negra %ld\n",NumCeldaListaNegra);
-//           PintaCeldaListaNegra(NumCeldaListaNegra);
-//           PintaBufferPuntero();
-//    }
-    /* DEBUG*/
-
-//    if(PuntPruebas==1195273){
-//        DumpError();
-//    }
 
     k=ListaNegraPunteros[NumCeldaListaNegra].NumPiezasCombi;/* El número de celdas del Punteros que están en la lista negra*/
     PosicionAIncrementar=k-1;
@@ -359,15 +318,6 @@ void SaltaCeldasListaNegra(long int NumCeldaListaNegra){
             SeguirBuscando=0;
         }
     }
-
-//    /* DEBUG*/
-//    /* Limpio Buffer Puntero */
-//    for(i=0;i<CANTIDADPIEZAS;i++)
-//    {
-//        BufferPuntero[i].BuffPieza=0xff;
-//        BufferPuntero[i].BuffOri=0xff;
-//    }
-//    /* DEBUG*/
 
     /* Rellenamos el buffer de Puntero con la nueva combinación*/
     /* Lista Negra desde 0-> Posición a incrementar*/
