@@ -11,6 +11,13 @@
 #include <stdio.h>
 #include "main.h"
 #include "piezas.h"
+
+/* Definida antes de incluir Punteros.h porque SaltaPunteroTrasFallo la usa en su prototipo */
+struct CombinacionFallida_ {
+    int NumPiezas;
+    struct CasillaPieza_ Combinacion[9];
+};
+
 #include "Punteros.h"
 
 
@@ -20,11 +27,6 @@ extern int TableroSoluciones[FILTABLERO][COLTABLERO];
 
 extern int NumPosChincheta;
 extern int PosChinchetaActual;
-
-struct CombinacionFallida_ {
-    int NumPiezas;
-    struct CasillaPieza_ Combinacion[9];
-};
 
 
 /* Prototipos */
