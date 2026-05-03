@@ -220,27 +220,9 @@ int MuestraListaResultPruebas(long int PuntInicial)
     
 }
 int MuestraListado (long int NumPrueba){
-    /* lista el resultado de una prueba*/
     int i,tmp;
     int ContPiezas=0;
-    /* #define NUMMAXPRUEBAS 30
-     struct ListaPruebas {
-     int NumPrueba;
-     int Piezascolocadas[9];
-     int NumPiezasColocadas;
-     struct {
-     int PiezaColocada;
-     int OrientaColocada;
-     } CombinacionColocadas[9];
-     struct {
-     int OrdenPieza;
-     int numPieza;
-     int OrientaPieza;
-     int ResultadoPieza;
-     }PiezaProbada[NUMMAXPIEZASPROBADAS];
-     int ResultadoPrueba;
-     }ListaPruebas[NUMMAXPRUEBAS];*/
-    
+
     if(NumPrueba<NUMMAXPRUEBAS)
     {
         printf("Mostramos los registros de la prueba [%ld] \n",NumPrueba);

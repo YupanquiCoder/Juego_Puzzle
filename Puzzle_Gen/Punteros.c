@@ -163,8 +163,6 @@ int IncrementaBufferPuntero(void)
     int PuntBuffPiezas=0;
     
     Posicion=IncrementaPiezaBuffer(8);
-    /* Devuelve la Posición de la última pieza incrementada*/
-//    printf("Posicion:%u\n",Posicion);
     if(Posicion==99)
         SeHaFinalizadoLaCuenta=1;
     else
@@ -176,10 +174,6 @@ int IncrementaBufferPuntero(void)
             j=BufferPuntero[i].BuffPieza;
             PiezasUsadas[j]=0xff;
         }
-//        /* DEBUG*/
-//        printf("Antes de ajuste:");
-//        PintaBufferPuntero();
-//        /* DEBUG*/
         if(Posicion!=8){
             for(j=Posicion+1,PuntBuffPiezas=0;j<CANTIDADPIEZAS;j++){
                 while(PiezasUsadas[PuntBuffPiezas]==0xff) PuntBuffPiezas=PuntBuffPiezas+1;
@@ -188,10 +182,6 @@ int IncrementaBufferPuntero(void)
                 PuntBuffPiezas=PuntBuffPiezas+1;
             }
         }
-//        /* DEBUG*/
-//        printf("Después de ajuste:");
-//        PintaBufferPuntero();
-//        /* DEBUG*/
     }
     return 0;
 }
@@ -276,19 +266,6 @@ void SaltaCeldasListaNegra(long int NumCeldaListaNegra){
     int PosicionAIncrementar=0;
     int PiezaRepetida=0;
 
-   /* DEBUG*/
-//    if(PuntPruebas==13 ||PuntPruebas==14 ||PuntPruebas==0)
-//    {
-//        printf ("Buffer Puntero antes de incrementar tras lista negra: Ceda lista Negra %ld\n",NumCeldaListaNegra);
-//           PintaCeldaListaNegra(NumCeldaListaNegra);
-//           PintaBufferPuntero();
-//    }
-    /* DEBUG*/
-
-//    if(PuntPruebas==1195273){
-//        DumpError();
-//    }
-
     k=ListaNegraPunteros[NumCeldaListaNegra].NumPiezasCombi;/* El número de celdas del Punteros que están en la lista negra*/
     PosicionAIncrementar=k-1;
 
@@ -359,15 +336,6 @@ void SaltaCeldasListaNegra(long int NumCeldaListaNegra){
             SeguirBuscando=0;
         }
     }
-
-//    /* DEBUG*/
-//    /* Limpio Buffer Puntero */
-//    for(i=0;i<CANTIDADPIEZAS;i++)
-//    {
-//        BufferPuntero[i].BuffPieza=0xff;
-//        BufferPuntero[i].BuffOri=0xff;
-//    }
-//    /* DEBUG*/
 
     /* Rellenamos el buffer de Puntero con la nueva combinación*/
     /* Lista Negra desde 0-> Posición a incrementar*/

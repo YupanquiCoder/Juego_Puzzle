@@ -269,17 +269,8 @@ int ResuelveTablero()
                     CeldaListaNegra.CombinacionNegra[i].BuffPieza=ListaPruebas[PuntPruebas].CombinacionColocadas[i].PiezaColocada;
                     CeldaListaNegra.CombinacionNegra[i].BuffOri=ListaPruebas[PuntPruebas].CombinacionColocadas[i].OrientaColocada;
                 }
-                if(PuntPruebas==7)
-                    i=i;
                 MeteEnListaNegra(CeldaListaNegra,j);
-                //                printf("Se mete en Lista Negra:");
-                //                PintaCeldaListaNegra(ContCombNegra-1);
-                //                printf("\n");
-                //            PintaListaNegra(0);
-                
-                /* Incrementamos el puntero para "salvar" la lista negra*/
                 SaltaCeldasListaNegra(ContCombNegra-1);
-                
                 break;
             case 66:
                 /* La última Pieza NO se ha colocado*/
@@ -293,14 +284,7 @@ int ResuelveTablero()
                 CeldaListaNegra.CombinacionNegra[i].BuffPieza=PuntPieza;
                 CeldaListaNegra.CombinacionNegra[i].BuffOri=PuntOri;
                 MeteEnListaNegra(CeldaListaNegra,j+1);
-                //                printf("Se mete en Lista Negra:");
-                //                PintaCeldaListaNegra(ContCombNegra-1);
-                //                printf("\n");
-                //            PintaListaNegra(0);
-                
-                /* Incrementamos el puntero para "salvar" la lista negra*/
                 SaltaCeldasListaNegra(ContCombNegra-1);
-                
                 break;
             case 99:
                 /* El tablero se ha completado*/
@@ -315,9 +299,7 @@ int ResuelveTablero()
                 MeteEnListaSoluciones(CeldaSoluciones,j);
                 printf("!!! Solución !!!!!\n");
                 PintaBufferPuntero();
-//                MuestraListado(PuntPruebas);
                 PintaTablero(Tablero);
-//                PintaListaSoluciones();
                 break;
         }
         /* Preparar NUEVA Prueba*/

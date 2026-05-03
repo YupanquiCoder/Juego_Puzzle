@@ -113,19 +113,14 @@ int PintaUnaSolucion(int pNumSolucion, int DebugCompleto)
         BuscaHuecoEnTablero(TableroSoluciones,&pfilaTab,&pcolTab);
         if(DebugCompleto) printf("Coloca la pieza [%u-%u] en fila:%u, columna: %u\r\n",pPuntPieza,pPuntOri,pfilaTab,pcolTab);
         tmp=ColocaPieza(pfilaTab,pcolTab,pPuntPieza,pPuntOri,TableroSoluciones,DebugCompleto);
-        /*Si tmp =0 colocada, otros valores NO cabe*/
         if(tmp==0)
         {
-            /*La pieza se ha colocado */
-            /* Vamos a ver si el tablero está bien */
             tmpTab=RevisaTablero(TableroSoluciones);
             if(tmpTab==99){
-                /*Tablero terminado!!! Es lo correcto */
                 if(!DebugCompleto) PintaTablero(TableroSoluciones);
                 return 99;
             }else{
                 if(tmpTab>50){
-                    /*Tablero Bloqueado */
                     printf("ERROR: Al pintar una solución se bloquea el Tablero\r");
                     return 55;
                 }
@@ -136,7 +131,6 @@ int PintaUnaSolucion(int pNumSolucion, int DebugCompleto)
             return 0xff;
         }
     }
-    
     return 0;
 }
 

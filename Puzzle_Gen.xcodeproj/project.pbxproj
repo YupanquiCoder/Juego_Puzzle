@@ -12,7 +12,6 @@
 		8688A2432A97B518006BCA6C /* Punteros.c in Sources */ = {isa = PBXBuildFile; fileRef = 8688A24B2A97B518006BCA6C /* Punteros.c */; };
 		8688A2442A97B518006BCA6C /* Tablero.c in Sources */ = {isa = PBXBuildFile; fileRef = 8688A24D2A97B518006BCA6C /* Tablero.c */; };
 		8688A2452A97B518006BCA6C /* Soluciones.c in Sources */ = {isa = PBXBuildFile; fileRef = 8688A24F2A97B518006BCA6C /* Soluciones.c */; };
-		8688A2462A97B518006BCA6C /* Rutinas.c in Sources */ = {isa = PBXBuildFile; fileRef = 8688A2512A97B518006BCA6C /* Rutinas.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -39,7 +38,6 @@
 		8688A24E2A97B518006BCA6C /* Tablero.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Tablero.h; sourceTree = "<group>"; };
 		8688A24F2A97B518006BCA6C /* Soluciones.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = Soluciones.c; sourceTree = "<group>"; };
 		8688A2502A97B518006BCA6C /* Soluciones.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Soluciones.h; sourceTree = "<group>"; };
-		8688A2512A97B518006BCA6C /* Rutinas.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = Rutinas.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,7 +80,6 @@
 				8688A24D2A97B518006BCA6C /* Tablero.c */,
 				8688A2502A97B518006BCA6C /* Soluciones.h */,
 				8688A24F2A97B518006BCA6C /* Soluciones.c */,
-				8688A2512A97B518006BCA6C /* Rutinas.c */,
 			);
 			path = Puzzle_Gen;
 			sourceTree = "<group>";
@@ -149,7 +146,6 @@
 				8688A2432A97B518006BCA6C /* Punteros.c in Sources */,
 				8688A2442A97B518006BCA6C /* Tablero.c in Sources */,
 				8688A2452A97B518006BCA6C /* Soluciones.c in Sources */,
-				8688A2462A97B518006BCA6C /* Rutinas.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
