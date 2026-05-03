@@ -211,8 +211,6 @@ int PunteroEsPosible(struct CasillaPieza_ BuffCheck[CANTIDADPIEZAS]){
     long int i,j;
     int HayPiezasIguales=0;
     int tmpBuffPiezas[CANTIDADPIEZAS]={0,0,0,0,0,0,0,0,0};
-    int EstaEnListaNegra=0;
-    int HayAlgunaPiezaDistinta=0;
     
     
     for (i=0;i<CANTIDADPIEZAS;i++)
@@ -229,23 +227,6 @@ int PunteroEsPosible(struct CasillaPieza_ BuffCheck[CANTIDADPIEZAS]){
     }
     if(HayPiezasIguales){
         return 1;
-    }
-    
-    if(0){/* Anulo la prueba de si está en lista negra*/
-        
-        /* Pasamos a probar si esta Combinación está en la lista negra*/
-        for(i=0,HayAlgunaPiezaDistinta=0;i<ContCombNegra && HayAlgunaPiezaDistinta==0;i++){
-            /* Pasamos por todas las combinaciones que están en la lista negra y se comprueba si BuffCheck está*/
-            j=ListaNegraPunteros[i].NumPiezasCombi; /* solo para DEBUG*/
-            for(j=0;j<ListaNegraPunteros[i].NumPiezasCombi && HayAlgunaPiezaDistinta==0;j++){
-                if(BuffCheck[j].BuffPieza!=ListaNegraPunteros[i].CombinacionNegra[j].BuffPieza || BuffCheck[j].BuffOri!=ListaNegraPunteros[i].CombinacionNegra[j].BuffOri)
-                    HayAlgunaPiezaDistinta=1;
-            }
-        }
-        
-        if(HayAlgunaPiezaDistinta==0 && ContCombNegra!=0) EstaEnListaNegra=1;
-        if(EstaEnListaNegra)
-            return 2;
     }
     return 0; /* La combinación es posible*/
 }
