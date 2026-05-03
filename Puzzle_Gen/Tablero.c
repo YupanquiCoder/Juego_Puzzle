@@ -15,10 +15,6 @@ int NumPosChincheta;
 int PosChinchetaActual;
 
 
-/* Lista Negra de Combinaciones */
-
-struct ListaNegraPunteros_ ListaNegraPunteros [NUMMAXLISTANEGRA];
-long int ContCombNegra=0; /* Contador de Combinaciones en la Lista Negra*/
 
 void InicializaChinchetas(void)
 {
@@ -174,7 +170,7 @@ int ResuelveTablero()
     int tmpfilaTab,tmpcolTab;/*Usados para buscar hueco*/
     int tmp,tmpTab;
     int ResultadoColoca=0;
-    struct ListaNegraPunteros_ CeldaListaNegra;
+    struct CombinacionFallida_ CombFallida;
     struct ListaSoluciones_ CeldaSoluciones;
     
     /*Preparamos la nueva Prueba*/
@@ -259,30 +255,28 @@ int ResuelveTablero()
         /* Se ha finalizado */
         switch(ResultadoColoca){
             case 55:
-                /* El Tablero Se ha bloqueado*/
-                /* Tenemos que añadir a la lista negra las piezas colocadas */
+                /* El Tablero Se ha bloqueado - saltamos al siguiente punto a probar*/
                 j=ListaPruebas[PuntPruebas].NumPiezasColocadas;
                 for(i=0;i<j;i++)
                 {
-                    CeldaListaNegra.CombinacionNegra[i].BuffPieza=ListaPruebas[PuntPruebas].CombinacionColocadas[i].PiezaColocada;
-                    CeldaListaNegra.CombinacionNegra[i].BuffOri=ListaPruebas[PuntPruebas].CombinacionColocadas[i].OrientaColocada;
+                    CombFallida.Combinacion[i].BuffPieza=ListaPruebas[PuntPruebas].CombinacionColocadas[i].PiezaColocada;
+                    CombFallida.Combinacion[i].BuffOri=ListaPruebas[PuntPruebas].CombinacionColocadas[i].OrientaColocada;
                 }
-                MeteEnListaNegra(CeldaListaNegra,j);
-                SaltaCeldasListaNegra(ContCombNegra-1);
+                CombFallida.NumPiezas=j;
+                SaltaPunteroTrasFallo(CombFallida);
                 break;
             case 66:
-                /* La última Pieza NO se ha colocado*/
-                /* Tenemos que añadir a la lista negra las piezas colocadas + la que NO se ha colocado*/
+                /* La última pieza NO se ha colocado - saltamos al siguiente punto a probar*/
                 j=ListaPruebas[PuntPruebas].NumPiezasColocadas;
                 for(i=0;i<j;i++)
                 {
-                    CeldaListaNegra.CombinacionNegra[i].BuffPieza=ListaPruebas[PuntPruebas].CombinacionColocadas[i].PiezaColocada;
-                    CeldaListaNegra.CombinacionNegra[i].BuffOri=ListaPruebas[PuntPruebas].CombinacionColocadas[i].OrientaColocada;
+                    CombFallida.Combinacion[i].BuffPieza=ListaPruebas[PuntPruebas].CombinacionColocadas[i].PiezaColocada;
+                    CombFallida.Combinacion[i].BuffOri=ListaPruebas[PuntPruebas].CombinacionColocadas[i].OrientaColocada;
                 }
-                CeldaListaNegra.CombinacionNegra[i].BuffPieza=PuntPieza;
-                CeldaListaNegra.CombinacionNegra[i].BuffOri=PuntOri;
-                MeteEnListaNegra(CeldaListaNegra,j+1);
-                SaltaCeldasListaNegra(ContCombNegra-1);
+                CombFallida.Combinacion[j].BuffPieza=PuntPieza;
+                CombFallida.Combinacion[j].BuffOri=PuntOri;
+                CombFallida.NumPiezas=j+1;
+                SaltaPunteroTrasFallo(CombFallida);
                 break;
             case 99:
                 /* El tablero se ha completado*/
@@ -356,46 +350,3 @@ int PintaTestResumen(long int NumTest)
 }
 
 
-long int MeteEnListaNegra(struct ListaNegraPunteros_ BuffCheck,int NumPiezas)
-{
-    int i;
-    for(i=0;i<NumPiezas;i++)
-    {
-        ListaNegraPunteros[ContCombNegra].CombinacionNegra[i].BuffPieza=BuffCheck.CombinacionNegra[i].BuffPieza;
-        ListaNegraPunteros[ContCombNegra].CombinacionNegra[i].BuffOri=BuffCheck.CombinacionNegra[i].BuffOri;
-    }
-    for(i=NumPiezas;i<CANTIDADPIEZAS;i++)
-    {
-        ListaNegraPunteros[ContCombNegra].CombinacionNegra[i].BuffPieza=0xffff;
-        ListaNegraPunteros[ContCombNegra].CombinacionNegra[i].BuffOri=0xffff;
-    }
-    ListaNegraPunteros[ContCombNegra].NumPiezasCombi=NumPiezas;
-    ContCombNegra=ContCombNegra+1;
-    return ContCombNegra;
-}
-
-void PintaListaNegra(long int CombInicial)
-{ /* Se muestra la listaNegra desde la posición CombInicial hasta la última celda que es ContCombNegra*/
-    long int i,j;
-    printf("Lista Negra: \n");
-    for(j=CombInicial;j<ContCombNegra;j++){
-        printf("List [%ld] %u Piezas: ",j,ListaNegraPunteros[j].NumPiezasCombi);
-        for(i=0;i<ListaNegraPunteros[j].NumPiezasCombi;i++)
-            printf("[%u-%u] ",ListaNegraPunteros[j].CombinacionNegra[i].BuffPieza,ListaNegraPunteros[j].CombinacionNegra[i].BuffOri);
-        printf("\r\n");
-    }
-    
-}
-
-void PintaCeldaListaNegra(long int NumCeldaListaNegra)
-{
-    int i;
-    
-    
-    printf("Celda Lista Negra [%ld] %u Piezas: ",NumCeldaListaNegra,ListaNegraPunteros[NumCeldaListaNegra].NumPiezasCombi);
-    for(i=0;i<ListaNegraPunteros[NumCeldaListaNegra].NumPiezasCombi;i++)
-        printf("[%u-%u] ",ListaNegraPunteros[NumCeldaListaNegra].CombinacionNegra[i].BuffPieza,ListaNegraPunteros[NumCeldaListaNegra].CombinacionNegra[i].BuffOri);
-    printf("\r\n");
-    
-    
-}

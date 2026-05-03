@@ -14,8 +14,6 @@
 #include "Punteros.h"
 
 
-#define NUMMAXLISTANEGRA NUMMAXPRUEBAS
-
 extern int Tablero[FILTABLERO][COLTABLERO];
 extern int TableroSoluciones[FILTABLERO][COLTABLERO];
 
@@ -23,13 +21,10 @@ extern int TableroSoluciones[FILTABLERO][COLTABLERO];
 extern int NumPosChincheta;
 extern int PosChinchetaActual;
 
-struct ListaNegraPunteros_ {
-    int NumPiezasCombi;
-    struct CasillaPieza_ CombinacionNegra[9];
+struct CombinacionFallida_ {
+    int NumPiezas;
+    struct CasillaPieza_ Combinacion[9];
 };
-
-extern struct ListaNegraPunteros_ ListaNegraPunteros [NUMMAXLISTANEGRA];
-extern long int ContCombNegra; /* Contador de Combinaciones en la Lista Negra*/
 
 
 /* Prototipos */
@@ -41,9 +36,6 @@ int RevisaTablero(int pTablero[][7]);
 int BuscaHuecoEnTablero(int pTablero[][7],int* pFila, int* pColumna);
 int ResuelveTablero(void);
 int PintaTestResumen(long NumTest);
-long MeteEnListaNegra(struct ListaNegraPunteros_ BuffCheck,int NumPiezas);
-void PintaListaNegra(long int CombInicial);
-void PintaCeldaListaNegra(long int NumCeldaListaNegra);
 
 
 #endif /* Tablero_h */

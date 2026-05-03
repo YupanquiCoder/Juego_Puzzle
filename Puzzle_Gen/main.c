@@ -330,6 +330,4 @@ void DumpError(void){
     PintaTestResumen(PuntPruebas);
     printf("Últimas 5 pruebas realizadas\r");
     MuestraListaResultPruebas(PuntPruebas-5);
-    printf("Últimas 5 Celdas en la lista negra \r");
-    PintaListaNegra(ContCombNegra-5); /* Mostramos las últimas 5 posiciones de la Lista Negra*/
 }
