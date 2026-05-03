@@ -28,7 +28,6 @@ void RellenaBufferPuntero(void);
 void PintaBufferPuntero(void);
 int PunteroEsPosible(struct CasillaPieza_ BuffCheck[CANTIDADPIEZAS]);
 
-void SaltaPunteroTrasFallo(struct CombinacionFallida_ CombFallida);
 int DameSiguientePunteroValido(void);
 int IncrementaBufferPuntero(void);
 
