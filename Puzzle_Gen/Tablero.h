@@ -20,7 +20,6 @@ extern int Tablero[FILTABLERO][COLTABLERO];
 extern int TableroSoluciones[FILTABLERO][COLTABLERO];
 
 
-extern struct PosicionesChincheta_ Chinchetas[49];
 extern int NumPosChincheta;
 extern int PosChinchetaActual;
 

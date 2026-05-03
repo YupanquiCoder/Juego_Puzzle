@@ -11,8 +11,6 @@ int Tablero[FILTABLERO][COLTABLERO];
 int TableroSoluciones[FILTABLERO][COLTABLERO];
 
 /* Posiciones Chincheta */
-/* Inicialmente el tablero tiene 13 posiciones*/
-struct PosicionesChincheta_ Chinchetas[49];
 int NumPosChincheta;
 int PosChinchetaActual;
 
