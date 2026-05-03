@@ -100,7 +100,6 @@ int main(int argc, const char * argv[]) {
                     
                     if(BloquesSoluciones[NumEntrada].ContadorSoluciones==0){
                         
-                        
                         PosChinchetaActual=NumEntrada;
                         
                         InicializaBloque();
@@ -172,9 +171,6 @@ int main(int argc, const char * argv[]) {
         
     } while ( opcion != 99 );
     
-    
-    
-    
     return 0;
 }
 
@@ -222,7 +218,6 @@ int MuestraListaResultPruebas(long int PuntInicial)
 int MuestraListado (long int NumPrueba){
     int i,tmp;
     int ContPiezas=0;
-
     if(NumPrueba<NUMMAXPRUEBAS)
     {
         printf("Mostramos los registros de la prueba [%ld] \n",NumPrueba);
