@@ -70,7 +70,7 @@ void PintaSituacionBloquesSoluciones(void)
     int i,j;
     printf("De las %u Posiciones de la 'chincheta' este es el listado de las probadas:\n\r",NUMMAXPOSCHINCHETA);
     for(i=0;i<NUMMAXPOSCHINCHETA;i++){
-        printf("\nPos Chincheta <%u>: [%u-%u] ",i,Chinchetas[i].FilaChin,Chinchetas[i].ColumnChin);
+        printf("\nPos Chincheta <%u>: [%u-%u] ",i,BloquesSoluciones[i].PosicionesChincheta.FilaChin,BloquesSoluciones[i].PosicionesChincheta.ColumnChin);
         if(BloquesSoluciones[i].ContadorSoluciones==0)
             printf(" NO se han buscado soluciones");
         else

@@ -119,7 +119,7 @@ int main(int argc, const char * argv[]) {
                         SeHaFinalizadoLaCuenta=0;
                         BloquesSoluciones[PosChinchetaActual].NumeroPruebasRealizadas=PuntPruebas;
                         
-                        printf("FIN. Se acaban de buscar las soluciones del Bloque: <%u> Posición [%u-%u] \n",PosChinchetaActual,Chinchetas[PosChinchetaActual].FilaChin,Chinchetas[PosChinchetaActual].FilaChin);
+                        printf("FIN. Se acaban de buscar las soluciones del Bloque: <%u> Posición [%u-%u] \n",PosChinchetaActual,BloquesSoluciones[PosChinchetaActual].PosicionesChincheta.FilaChin,BloquesSoluciones[PosChinchetaActual].PosicionesChincheta.ColumnChin);
                         printf(" Se han hecho %ld pruebas. Se han encontrado %u Soluciones \n",BloquesSoluciones[PosChinchetaActual].NumeroPruebasRealizadas, BloquesSoluciones[PosChinchetaActual].ContadorSoluciones);
                     }
                     else
