@@ -41,8 +41,6 @@ void InicializaPunteros()
     BufferPuntero[8].BuffPieza=7;/* [7-3] Pongo unas anteriores , para que al incrementar la primera vez se prueba el [8-0]*/
     BufferPuntero[8].BuffOri=3;
     
-    ContCombNegra=0;
-    
     /* inicializo el array de pruebas*/
     PuntPruebas=0;
 
@@ -234,11 +232,11 @@ int PunteroEsPosible(struct CasillaPieza_ BuffCheck[CANTIDADPIEZAS]){
 
 
 
-void SaltaCeldasListaNegra(long int NumCeldaListaNegra){
-    /* Se invoca cuando se acaba de meter algo en la lista negra.
-     Si una Combinación No es buena [0-0] [1-0] y la siguiente [2-0] no se puede colocar
-     Se mete en lista negra [0-0] [1-0] [2-0] y el puntero se coloca en [0-0] [1-0] [2-1] [3-0] [4-0] [5-0] [6-0] [7-0] [7-3].. para
-     que la siguiente incremento pase a la ficha siguiente*/
+void SaltaPunteroTrasFallo(struct CombinacionFallida_ CombFallida){
+    /* Se invoca cuando una combinación ha fallado.
+     Avanza el puntero para saltarse esa combinación y probar la siguiente.
+     Ej: si [0-0][1-0][2-0] falla, coloca el puntero en [0-0][1-0][2-1]...
+     para que el siguiente incremento pase a la pieza siguiente. */
     
     int i,j,k;
     int PiezasUsadas[9]={0,0,0,0,0,0,0,0,0};
@@ -248,27 +246,22 @@ void SaltaCeldasListaNegra(long int NumCeldaListaNegra){
     int PosicionAIncrementar=0;
     int PiezaRepetida=0;
 
-    k=ListaNegraPunteros[NumCeldaListaNegra].NumPiezasCombi;/* El número de celdas del Punteros que están en la lista negra*/
+    k=CombFallida.NumPiezas;
     PosicionAIncrementar=k-1;
 
-    if(ListaNegraPunteros[NumCeldaListaNegra].CombinacionNegra[PosicionAIncrementar].BuffPieza==8 &&
-       ListaNegraPunteros[NumCeldaListaNegra].CombinacionNegra[PosicionAIncrementar].BuffOri==3)
+    if(CombFallida.Combinacion[PosicionAIncrementar].BuffPieza==8 &&
+       CombFallida.Combinacion[PosicionAIncrementar].BuffOri==3)
     {
         if(PosicionAIncrementar>0)
             PosicionAIncrementar=PosicionAIncrementar-1;
         else{
-            /* la primera pieza es la 8-3 -> Se ha temrinado ya, no se puede decrementar*/
+            /* la primera pieza es la 8-3 -> Se ha terminado, no se puede decrementar*/
             SeguirBuscando=0;
             SeHaFinalizadoLaCuenta=1;
         }
-            
-    }/* Si la pieza que ha causado la lista negra es [8-3] Hay que incrementar la anterior */
+    }
 
-    /* Incremente en 1 la pieza que ha causado que sea metida en la lista negra*/
     while(SeguirBuscando){
-        /* En k tenemos la pieza que ha causado la lista negra
-         Ej. [6-2] [8-3] K=2 ya que la 8-3 no ha cabido
-         Tendremos que oncrementar a [6-3][0-0]...*/
         /* Rellenamos el buffer de Piezas Usadas desde el 0 hasta Posición a incrementar*/
         for(i=0;i<CANTIDADPIEZAS;i++)
         {
@@ -282,8 +275,8 @@ void SaltaCeldasListaNegra(long int NumCeldaListaNegra){
 
         PiezaRepetida=0;
 
-        tmpPieza.BuffPieza=ListaNegraPunteros[NumCeldaListaNegra].CombinacionNegra[PosicionAIncrementar].BuffPieza;
-        tmpPieza.BuffOri=ListaNegraPunteros[NumCeldaListaNegra].CombinacionNegra[PosicionAIncrementar].BuffOri;
+        tmpPieza.BuffPieza=CombFallida.Combinacion[PosicionAIncrementar].BuffPieza;
+        tmpPieza.BuffOri=CombFallida.Combinacion[PosicionAIncrementar].BuffOri;
         do{
             
             
@@ -323,8 +316,8 @@ void SaltaCeldasListaNegra(long int NumCeldaListaNegra){
     /* Lista Negra desde 0-> Posición a incrementar*/
     for(i=0;i<PosicionAIncrementar;i++)
     {
-        BufferPuntero[i].BuffPieza=ListaNegraPunteros[NumCeldaListaNegra].CombinacionNegra[i].BuffPieza;
-        BufferPuntero[i].BuffOri=ListaNegraPunteros[NumCeldaListaNegra].CombinacionNegra[i].BuffOri;
+        BufferPuntero[i].BuffPieza=CombFallida.Combinacion[i].BuffPieza;
+        BufferPuntero[i].BuffOri=CombFallida.Combinacion[i].BuffOri;
     }
     BufferPuntero[PosicionAIncrementar].BuffPieza=tmpPieza.BuffPieza;
     BufferPuntero[PosicionAIncrementar].BuffOri=tmpPieza.BuffOri;
