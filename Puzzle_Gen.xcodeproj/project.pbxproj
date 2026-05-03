@@ -7,7 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8688A2292A97B0EF006BCA6C /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8688A2282A97B0EF006BCA6C /* main.cpp */; };
+		8688A2412A97B518006BCA6C /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 8688A2472A97B518006BCA6C /* main.c */; };
+		8688A2422A97B518006BCA6C /* piezas.c in Sources */ = {isa = PBXBuildFile; fileRef = 8688A2492A97B518006BCA6C /* piezas.c */; };
+		8688A2432A97B518006BCA6C /* Punteros.c in Sources */ = {isa = PBXBuildFile; fileRef = 8688A24B2A97B518006BCA6C /* Punteros.c */; };
+		8688A2442A97B518006BCA6C /* Tablero.c in Sources */ = {isa = PBXBuildFile; fileRef = 8688A24D2A97B518006BCA6C /* Tablero.c */; };
+		8688A2452A97B518006BCA6C /* Soluciones.c in Sources */ = {isa = PBXBuildFile; fileRef = 8688A24F2A97B518006BCA6C /* Soluciones.c */; };
+		8688A2462A97B518006BCA6C /* Rutinas.c in Sources */ = {isa = PBXBuildFile; fileRef = 8688A2512A97B518006BCA6C /* Rutinas.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -24,7 +29,17 @@
 
 /* Begin PBXFileReference section */
 		8688A2252A97B0EF006BCA6C /* Puzzle_Gen */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Puzzle_Gen; sourceTree = BUILT_PRODUCTS_DIR; };
-		8688A2282A97B0EF006BCA6C /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		8688A2472A97B518006BCA6C /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
+		8688A2482A97B518006BCA6C /* main.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = main.h; sourceTree = "<group>"; };
+		8688A2492A97B518006BCA6C /* piezas.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = piezas.c; sourceTree = "<group>"; };
+		8688A24A2A97B518006BCA6C /* piezas.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = piezas.h; sourceTree = "<group>"; };
+		8688A24B2A97B518006BCA6C /* Punteros.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = Punteros.c; sourceTree = "<group>"; };
+		8688A24C2A97B518006BCA6C /* Punteros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Punteros.h; sourceTree = "<group>"; };
+		8688A24D2A97B518006BCA6C /* Tablero.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = Tablero.c; sourceTree = "<group>"; };
+		8688A24E2A97B518006BCA6C /* Tablero.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Tablero.h; sourceTree = "<group>"; };
+		8688A24F2A97B518006BCA6C /* Soluciones.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = Soluciones.c; sourceTree = "<group>"; };
+		8688A2502A97B518006BCA6C /* Soluciones.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Soluciones.h; sourceTree = "<group>"; };
+		8688A2512A97B518006BCA6C /* Rutinas.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = Rutinas.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,7 +72,17 @@
 		8688A2272A97B0EF006BCA6C /* Puzzle_Gen */ = {
 			isa = PBXGroup;
 			children = (
-				8688A2282A97B0EF006BCA6C /* main.cpp */,
+				8688A2482A97B518006BCA6C /* main.h */,
+				8688A2472A97B518006BCA6C /* main.c */,
+				8688A24A2A97B518006BCA6C /* piezas.h */,
+				8688A2492A97B518006BCA6C /* piezas.c */,
+				8688A24C2A97B518006BCA6C /* Punteros.h */,
+				8688A24B2A97B518006BCA6C /* Punteros.c */,
+				8688A24E2A97B518006BCA6C /* Tablero.h */,
+				8688A24D2A97B518006BCA6C /* Tablero.c */,
+				8688A2502A97B518006BCA6C /* Soluciones.h */,
+				8688A24F2A97B518006BCA6C /* Soluciones.c */,
+				8688A2512A97B518006BCA6C /* Rutinas.c */,
 			);
 			path = Puzzle_Gen;
 			sourceTree = "<group>";
@@ -119,7 +144,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8688A2292A97B0EF006BCA6C /* main.cpp in Sources */,
+				8688A2412A97B518006BCA6C /* main.c in Sources */,
+				8688A2422A97B518006BCA6C /* piezas.c in Sources */,
+				8688A2432A97B518006BCA6C /* Punteros.c in Sources */,
+				8688A2442A97B518006BCA6C /* Tablero.c in Sources */,
+				8688A2452A97B518006BCA6C /* Soluciones.c in Sources */,
+				8688A2462A97B518006BCA6C /* Rutinas.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -238,9 +268,10 @@
 		8688A22D2A97B0EF006BCA6C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 72Q5BV643L;
-				ENABLE_HARDENED_RUNTIME = YES;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_HARDENED_RUNTIME = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -248,9 +279,10 @@
 		8688A22E2A97B0EF006BCA6C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 72Q5BV643L;
-				ENABLE_HARDENED_RUNTIME = YES;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_HARDENED_RUNTIME = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
