@@ -14,6 +14,8 @@ La pregunta que me hice fue: **¿cuántas soluciones tiene este puzzle, y cuále
 
 Este programa responde exactamente eso.
 
+![El puzzle](images/IMG_4058.JPG)
+
 ---
 
 ## ¿Cómo funciona?
