@@ -70,8 +70,7 @@ int main(int argc, const char * argv[]) {
         do
         {
             printf( "\n   ¿Qué hacemos? (1-9) ");
-            fflush( stdin );
-            scanf( "%c", &opcion );
+            scanf( " %c", &opcion );
 
         } while ( opcion != '1' && opcion != '2' && opcion != '3' && opcion != '4' && opcion != '5' && opcion != '6' && opcion != '7' && opcion != '8' && opcion != '9' );
         
@@ -142,8 +141,7 @@ int main(int argc, const char * argv[]) {
                         PintaArrayUnaSolucion(NumSolucion);
                         printf( "Esta es la Solución %u ¿Seguimos con la siguiente? S/N ",NumSolucion );
                         
-                        fflush( stdin );
-                        scanf( "%c", &caracter );
+                        scanf( " %c", &caracter );
                         if(caracter == 'N' || caracter == 'n') SalirBucle=1;
                         
                         NumSolucion=NumSolucion+1;
@@ -174,8 +172,7 @@ int main(int argc, const char * argv[]) {
                     else {
                         printf("¿Seguro que quieres borrar el bloque <%u> con %u soluciones? (S/N) ",
                                NumEntrada, BloquesSoluciones[NumEntrada].ContadorSoluciones);
-                        fflush( stdin );
-                        scanf( "%c", &caracter );
+                        scanf( " %c", &caracter );
                         if(caracter == 'S' || caracter == 's')
                             BorraBloqueSoluciones(NumEntrada);
                     }
@@ -184,15 +181,13 @@ int main(int argc, const char * argv[]) {
 
             case '8':
                 printf("¿Seguro que quieres borrar TODAS las soluciones? (S/N) ");
-                fflush( stdin );
-                scanf( "%c", &caracter );
+                scanf( " %c", &caracter );
                 if(caracter == 'S' || caracter == 's')
                     BorraArchivoSoluciones();
                 break;
 
-            case '9': printf( "¿Realmente quieres salir? (S/N)" );
-                fflush( stdin );
-                scanf( "%c", &caracter );
+            case '9': printf( "¿Realmente quieres salir? (S/N) ");
+                scanf( " %c", &caracter );
                 if(caracter == 'S' || caracter == 's') opcion=99;
                 break;
             default:
