@@ -14,6 +14,7 @@
 #include "Punteros.h"
 #include "Tablero.h"
 #include "piezas.h"
+#include "Archivo.h"
 
 /* Variables que controlan el DEBUG*/
 int MostrarCadaIncrementoDePuntero=0;
@@ -51,6 +52,7 @@ int main(int argc, const char * argv[]) {
     InicializaChinchetas();
     InicializaPunteros();
     InicializaSoluciones();
+    CargaSoluciones();
     InicializaTablero(Tablero);
     MuestraTitulosCredito();
     do
@@ -61,15 +63,17 @@ int main(int argc, const char * argv[]) {
         printf( "\n   4. Comenzar a encontrar soluciones");
         printf( "\n   5. Pinta una solución ya encontrada");
         printf( "\n   6. Demo 1.000 incrementos de puntero");
+        printf( "\n   7. Borrar soluciones de un bloque (para volver a buscar)");
+        printf( "\n   8. Borrar el archivo completo de soluciones");
         printf( "\n   9. Salir");
-        
+
         do
         {
-            printf( "\n   ¿Qué hacemos? (1-6,9) ");
+            printf( "\n   ¿Qué hacemos? (1-9) ");
             fflush( stdin );
             scanf( "%c", &opcion );
-            
-        } while ( opcion != '1' && opcion != '2' && opcion != '3' && opcion != '4' && opcion != '5' && opcion != '6'&& opcion != '9' );
+
+        } while ( opcion != '1' && opcion != '2' && opcion != '3' && opcion != '4' && opcion != '5' && opcion != '6' && opcion != '7' && opcion != '8' && opcion != '9' );
         
         
         /* Inicio del anidamiento */
@@ -120,6 +124,7 @@ int main(int argc, const char * argv[]) {
                         
                         printf("FIN. Se acaban de buscar las soluciones del Bloque: <%u> Posición [%u-%u] \n",PosChinchetaActual,BloquesSoluciones[PosChinchetaActual].PosicionesChincheta.FilaChin,BloquesSoluciones[PosChinchetaActual].PosicionesChincheta.ColumnChin);
                         printf(" Se han hecho %ld pruebas. Se han encontrado %u Soluciones \n",BloquesSoluciones[PosChinchetaActual].NumeroPruebasRealizadas, BloquesSoluciones[PosChinchetaActual].ContadorSoluciones);
+                        GuardaSoluciones();
                     }
                     else
                         printf("La Posición <%u> ya se ha probado y se encontraron %u soluciones\n",NumEntrada,BloquesSoluciones[NumEntrada].ContadorSoluciones);
@@ -156,8 +161,35 @@ int main(int argc, const char * argv[]) {
                     PintaBufferPuntero();
                     i--;
                 }while(i>0);
-                
                 break;
+
+            case '7':
+                PintaSituacionBloquesSoluciones();
+                printf( "\n   ¿Qué bloque quieres borrar? (0-%u) ", NUMMAXPOSCHINCHETA-1 );
+                fflush( stdin );
+                scanf( "%u", &NumEntrada );
+                if(NumEntrada >= 0 && NumEntrada < NUMMAXPOSCHINCHETA) {
+                    if(BloquesSoluciones[NumEntrada].ContadorSoluciones == 0)
+                        printf("El bloque <%u> ya estaba vacío.\n", NumEntrada);
+                    else {
+                        printf("¿Seguro que quieres borrar el bloque <%u> con %u soluciones? (S/N) ",
+                               NumEntrada, BloquesSoluciones[NumEntrada].ContadorSoluciones);
+                        fflush( stdin );
+                        scanf( "%c", &caracter );
+                        if(caracter == 'S' || caracter == 's')
+                            BorraBloqueSoluciones(NumEntrada);
+                    }
+                }
+                break;
+
+            case '8':
+                printf("¿Seguro que quieres borrar TODAS las soluciones? (S/N) ");
+                fflush( stdin );
+                scanf( "%c", &caracter );
+                if(caracter == 'S' || caracter == 's')
+                    BorraArchivoSoluciones();
+                break;
+
             case '9': printf( "¿Realmente quieres salir? (S/N)" );
                 fflush( stdin );
                 scanf( "%c", &caracter );
