@@ -8,7 +8,9 @@
 #ifndef Archivo_h
 #define Archivo_h
 
-#define NOMBRE_ARCHIVO "/Users/miguelruiz/Library/CloudStorage/ZohoWorkDriveTrueSync-cinkventuring/My Folders/Personal/Trabajos MRR/xCode-Projects/Puzzle_Gen/Archivo_Dat/soluciones.dat"
+/* Debe llamarse al inicio de main() con argv[0].
+   Calcula la ruta del archivo junto al ejecutable. */
+void InicializaRutaArchivo(const char* rutaEjecutable);
 
 /* Guarda BloquesSoluciones completo en binario.
    Devuelve 1 si OK, 0 si error. */

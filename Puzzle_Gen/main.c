@@ -52,6 +52,7 @@ int main(int argc, const char * argv[]) {
     InicializaChinchetas();
     InicializaPunteros();
     InicializaSoluciones();
+    InicializaRutaArchivo(argv[0]);
     CargaSoluciones();
     InicializaTablero(Tablero);
     MuestraTitulosCredito();
