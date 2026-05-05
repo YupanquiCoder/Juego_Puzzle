@@ -51,7 +51,7 @@ int MeteEnListaSoluciones(struct ListaSoluciones_ BuffCheck,long int NumPrueba)
             }
         }
         if(SolucionYaExiste){
-            printf("Solución ya estaba en la lista -> No se añade\r\n");
+            printf("Solución ya estaba en la lista -> No se añade\n");
             return NUMMAXSOLUCIONES;
         }
            
@@ -73,7 +73,7 @@ void PintaSituacionBloquesSoluciones(void)
 {
     int i;
     int divisor = DivisorSimetrias();
-    printf("De las %u Posiciones de la 'chincheta' este es el listado de las probadas:\n\r",NUMMAXPOSCHINCHETA);
+    printf("De las %u Posiciones de la 'chincheta' este es el listado de las probadas:\n",NUMMAXPOSCHINCHETA);
     for(i=0;i<NUMMAXPOSCHINCHETA;i++){
         printf("\nPos Chincheta <%u>: [%u-%u] ",i,BloquesSoluciones[i].PosicionesChincheta.FilaChin,BloquesSoluciones[i].PosicionesChincheta.ColumnChin);
         if(BloquesSoluciones[i].ContadorSoluciones==0)
@@ -112,7 +112,7 @@ void PintaListaSoluciones(void)
                 printf("[%u-%u] ",
                        BloquesSoluciones[PosChinchetaActual].ListaSoluciones[j].CombinacionSolucion[i].BuffPieza,
                        BloquesSoluciones[PosChinchetaActual].ListaSoluciones[j].CombinacionSolucion[i].BuffOri);
-            printf("\r\n");
+            printf("\n");
         }
     }
 }
@@ -129,16 +129,16 @@ int PintaUnaSolucion(int pNumSolucion, int DebugCompleto)
     printf("Mostramos Solución [%u]: ",pNumSolucion);
     for(i=0;i<CANTIDADPIEZAS;i++)
         printf("[%u-%u] ",BloquesSoluciones[PosChinchetaActual].ListaSoluciones[pNumSolucion].CombinacionSolucion[i].BuffPieza, BloquesSoluciones[PosChinchetaActual].ListaSoluciones[pNumSolucion].CombinacionSolucion[i].BuffOri);
-    printf("\r\n");
+    printf("\n");
     InicializaTablero(TableroSoluciones);
-    if(!DebugCompleto) printf("Debug reducido- solo Tablero final\r");
+    if(!DebugCompleto) printf("Debug reducido- solo Tablero final\n");
     
     if(DebugCompleto) PintaTablero(TableroSoluciones);
     for(i=0;i<CANTIDADPIEZAS;i++){
         pPuntPieza= BloquesSoluciones[PosChinchetaActual].ListaSoluciones[pNumSolucion].CombinacionSolucion[i].BuffPieza;
         pPuntOri=BloquesSoluciones[PosChinchetaActual].ListaSoluciones[pNumSolucion].CombinacionSolucion[i].BuffOri;
         BuscaHuecoEnTablero(TableroSoluciones,&pfilaTab,&pcolTab);
-        if(DebugCompleto) printf("Coloca la pieza [%u-%u] en fila:%u, columna: %u\r\n",pPuntPieza,pPuntOri,pfilaTab,pcolTab);
+        if(DebugCompleto) printf("Coloca la pieza [%u-%u] en fila:%u, columna: %u\n",pPuntPieza,pPuntOri,pfilaTab,pcolTab);
         tmp=ColocaPieza(pfilaTab,pcolTab,pPuntPieza,pPuntOri,TableroSoluciones,DebugCompleto);
         /*Si tmp =0 colocada, otros valores NO cabe*/
         if(tmp==0)
@@ -153,13 +153,13 @@ int PintaUnaSolucion(int pNumSolucion, int DebugCompleto)
             }else{
                 if(tmpTab>50){
                     /*Tablero Bloqueado */
-                    printf("ERROR: Al pintar una solución se bloquea el Tablero\r");
+                    printf("ERROR: Al pintar una solución se bloquea el Tablero\n");
                     return 55;
                 }
             }
         }
         else{
-            printf("ERROR: Al pintar una solución hay una pieza que no entra\r");
+            printf("ERROR: Al pintar una solución hay una pieza que no entra\n");
             return 0xff;
         }
     }
@@ -173,7 +173,7 @@ void PintaArrayUnaSolucion(int NumSolucion)
     printf("Solución <%u>: ",NumSolucion);
     for(i=0;i<9;i++)
         printf("[%u-%u] ",BloquesSoluciones[PosChinchetaActual].ListaSoluciones[NumSolucion].CombinacionSolucion[i].BuffPieza,BloquesSoluciones[PosChinchetaActual].ListaSoluciones[NumSolucion].CombinacionSolucion[i].BuffOri);
-    printf("\r\n");
+    printf("\n");
 }
 
 int EsDuplicadoSimetrico(int solTest, int solRef, int piezasSim[], int *numSim)

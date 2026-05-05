@@ -191,7 +191,7 @@ void PintaBufferPuntero()
     printf("Combinación Actual: ");
     for(i=0;i<9;i++)
         printf("[%u-%u] ",BufferPuntero[i].BuffPieza,BufferPuntero[i].BuffOri);
-    printf("\r\n");
+    printf("\n");
 }
 
 

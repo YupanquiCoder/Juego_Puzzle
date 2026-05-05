@@ -217,11 +217,11 @@ int PintaPieza(int NumPieza,int NumOrienta){
     int col=0;
     int caracter;
     if(NumPieza>8 || NumOrienta>3){
-        printf("PintaPieza:ERROR Parametros\r\n");
+        printf("PintaPieza:ERROR Parametros\n");
         return 1;
     }
-    printf("Pieza: [%u-%u]\r", NumPieza, NumOrienta);
-    printf("┌─────────────────┐\r");
+    printf("Pieza: [%u-%u]\n", NumPieza, NumOrienta);
+    printf("┌─────────────────┐\n");
     for(fila=0;fila<FilPiezas;fila++){
         printf("│ ");
         for(col=0;col<ColPiezas;col++){
@@ -230,9 +230,9 @@ int PintaPieza(int NumPieza,int NumOrienta){
             if(!caracter) printf("° ");
             else printf("%u ",caracter);
         }
-        printf(" │\r\n");
+        printf(" │\n");
     }
-    printf("└─────────────────┘\r");
+    printf("└─────────────────┘\n");
     
     return 0;
 }
@@ -246,9 +246,9 @@ void PintaTodasPiezas()
     
     for(tmpNumPieza=0;tmpNumPieza<9;tmpNumPieza++)
     {
-        printf("Pieza: [%u]\r", tmpNumPieza);
-        printf("Orienta [%u-0]        [%u-1]                [%u-2]                [%u-3] \r",tmpNumPieza,tmpNumPieza,tmpNumPieza,tmpNumPieza);
-        printf("┌─────────────────┐  ┌─────────────────┐  ┌─────────────────┐  ┌─────────────────┐ \r");
+        printf("Pieza: [%u]\n", tmpNumPieza);
+        printf("Orienta [%u-0]        [%u-1]                [%u-2]                [%u-3] \n",tmpNumPieza,tmpNumPieza,tmpNumPieza,tmpNumPieza);
+        printf("┌─────────────────┐  ┌─────────────────┐  ┌─────────────────┐  ┌─────────────────┐ \n");
         
         for(fila=0;fila<FilPiezas;fila++)
         {
@@ -280,10 +280,10 @@ void PintaTodasPiezas()
                 if(!caracter) printf("° ");
                 else printf("%u ",caracter);
             }
-            printf(" │\r\n");
+            printf(" │\n");
         }
         
-        printf("└─────────────────┘  └─────────────────┘  └─────────────────┘  └─────────────────┘\r");
+        printf("└─────────────────┘  └─────────────────┘  └─────────────────┘  └─────────────────┘\n");
     }
     
 }
@@ -337,13 +337,13 @@ int ColocaPieza(int tFil, int tCol, int pNum, int pOri, int pTablero[][COLTABLER
             }
             tmp2=pTablero[tFil+i][tCol+j-DesplaIzq];
             if(tmp1!=0 && tmp2!=0) Entra++; /* Entra dirá el número de piezas que NO entran */
-            //            printf("Tablero [%u][%u]=%u\r",tFil+i,tCol+j,tmp2 );
-            //            printf("Pieza[%u][%u][%u][%u]=%u\r",pNum,pOri,i,j,tmp1);
+            //            printf("Tablero [%u][%u]=%u\n",tFil+i,tCol+j,tmp2 );
+            //            printf("Pieza[%u][%u][%u][%u]=%u\n",pNum,pOri,i,j,tmp1);
         }
     if(contTestDemo<TESTDEDEMO || DEBUGPINTAFICHAS || DebugCompleto)
     {
-        if(Entra!=0) printf("Hay %u Casillas que no entran\n\r",Entra);
-        else printf("Sí entra\n\r");
+        if(Entra!=0) printf("Hay %u Casillas que no entran\n",Entra);
+        else printf("Sí entra\n");
     }
     if(Entra==0){
         /* Cabe, entonces la colocamos*/
@@ -489,7 +489,7 @@ void PintaInfoSimetrias(void)
         divisor *= factor;
     }
     if (haySimetrias)
-        printf("  => Cada solucion unica aparece %d veces en los resultados\n\r", divisor);
+        printf("  => Cada solucion unica aparece %d veces en los resultados\n", divisor);
     else
-        printf("  => Ninguna pieza simetrica. Todas las soluciones son unicas.\n\r");
+        printf("  => Ninguna pieza simetrica. Todas las soluciones son unicas.\n");
 }

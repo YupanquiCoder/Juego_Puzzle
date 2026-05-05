@@ -73,8 +73,8 @@ int PintaTablero(int pTablero[][COLTABLERO])
     int col=0;
     int tmp;
     
-    printf(" TABLERO\r");
-    printf(" ┌─────────────────────┐\r");
+    printf(" TABLERO\n");
+    printf(" ┌─────────────────────┐\n");
     for(fila=0;fila<7;fila++){
         printf(" │");
         for(col=0;col<7;col++){
@@ -83,9 +83,9 @@ int PintaTablero(int pTablero[][COLTABLERO])
             if(!tmp) printf("° ");
             else printf("%u ",tmp);
         }
-        printf("│\r\n");
+        printf("│\n");
     }
-    printf(" └─────────────────────┘\n\r");
+    printf(" └─────────────────────┘\n");
     return 0;
     
 }
@@ -193,7 +193,7 @@ int ResuelveTablero()
             if(BuscaHuecoEnTablero(Tablero,&tmpfilaTab,&tmpcolTab))
             {
                 if(contTestDemo<TESTDEDEMO || DEBUGPINTAFICHAS)
-                    printf("Coloca la pieza [%u-%u] en fila:%u, columna%u\r\n",PuntPieza,PuntOri,tmpfilaTab,tmpcolTab);
+                    printf("Coloca la pieza [%u-%u] en fila:%u, columna%u\n",PuntPieza,PuntOri,tmpfilaTab,tmpcolTab);
                 tmp=ColocaPieza(tmpfilaTab,tmpcolTab,PuntPieza,PuntOri,Tablero,0);
                 
                 /*Apuntamos el resultado*/
@@ -244,7 +244,7 @@ int ResuelveTablero()
             {
                 /* Busca Hueco devuelve algo distinto de 0 => NO hay hueco, no se va a poder colcoar nada*/
                 SeHaFinalizadoLaCuenta=1;
-                printf("ERROR: No se ha encontrado hueco para colocar mas piezas -> Caso RARO\r");
+                printf("ERROR: No se ha encontrado hueco para colocar mas piezas -> Caso RARO\n");
                 DumpError();
                 return 77;
             }
@@ -333,14 +333,14 @@ int PintaTestResumen(long int NumTest)
         {
             printf("[%u-%u] ",ListaPruebas[NumTest].CombinacionPrueba[i].PiezaPrueba,ListaPruebas[NumTest].CombinacionPrueba[i].OrientaPrueba);
         }
-        printf( "\r");
+        printf( "\n");
         ContPiezas=ListaPruebas[NumTest].NumPiezasColocadas;
         printf("               %u Piezas colocadas: ",ContPiezas);
         for (i=0;i<ContPiezas;i++)
         {
             printf("[%u-%u] ",ListaPruebas[NumTest].CombinacionColocadas[i].PiezaColocada,ListaPruebas[NumTest].CombinacionColocadas[i].OrientaColocada);
         }
-        printf( "\r\r");
+        printf( "\n");
         return 0;
     }
     return 0xffff;/* ERROR de parámetros*/

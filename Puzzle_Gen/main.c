@@ -88,7 +88,7 @@ int main(int argc, const char * argv[]) {
                 break;
             case '2':
                 if(BloquesSoluciones[PosChinchetaActual].ContadorSoluciones==0)
-                    printf("No hay Soluciones todavía en listado\r");
+                    printf("No hay Soluciones todavía en listado\n");
                 else
                     PintaListaSoluciones();
                 break;
@@ -97,7 +97,7 @@ int main(int argc, const char * argv[]) {
                 break;
             case '4':
                 ContMuestraPruebas=NUMMUESTRAPRUEBAS;
-                printf( "OJO este proceso continua hasta finalizar todas las pruebas, sin detenerse\r" );
+                printf( "OJO este proceso continua hasta finalizar todas las pruebas, sin detenerse\n" );
                 printf( "Se mostrará la solución por la que va cada %u Pruebas. ¿Comenzamos? S/N ",ContMuestraPruebas );
                 printf( "¿Qué bloque de soluciones hacemos? (0-%u) ",NUMMAXPOSCHINCHETA-1 );
                 fflush( stdin );
@@ -228,7 +228,7 @@ void PintaCombinacionColocadas(int NumTest){
     {
         printf("[%u-%u] ",ListaPruebas[NumTest].CombinacionColocadas[i].PiezaColocada,ListaPruebas[NumTest].CombinacionColocadas[i].OrientaColocada);
     }
-    printf( "\r");
+    printf( "\n");
 }
 
 int MuestraListaResultPruebas(long int PuntInicial)
@@ -252,7 +252,7 @@ int MuestraListaResultPruebas(long int PuntInicial)
         {
             printf("[%u-%u] ",ListaPruebas[TmpContPrueba].CombinacionColocadas[i].PiezaColocada,ListaPruebas[TmpContPrueba].CombinacionColocadas[i].OrientaColocada);
         }
-        printf( "\r");
+        printf( "\n");
         
     }
     return 0;
@@ -300,10 +300,10 @@ int MuestraListado (long int NumPrueba){
                 printf ("    [200] Se paró la prueba por haber probado ya %u Piezas",NUMMAXPIEZASPROBADAS);
                 break;
             case 400:
-                printf("    [400] Se para porque ya se ha probado la misma combinación %u veces \r\n",NUMMAXPRUEBACOMBINACION);
+                printf("    [400] Se para porque ya se ha probado la misma combinación %u veces \n",NUMMAXPRUEBACOMBINACION);
                 break;
             case 500:
-                printf("    [500] Se han probado el resto de piezas y no caben \r\n");
+                printf("    [500] Se han probado el resto de piezas y no caben \n");
                 break;
             default:
                 printf ("    Resultado Extraño - Revisar");
@@ -332,7 +332,7 @@ int MuestraListado (long int NumPrueba){
         }
     }
     else{
-        printf("No hay tantas pruebas solo hay %u programadas\n\r",NUMMAXPRUEBAS);
+        printf("No hay tantas pruebas solo hay %u programadas\n",NUMMAXPRUEBAS);
     }
     
     return 0;
@@ -342,18 +342,18 @@ int MuestraListado (long int NumPrueba){
 
 void MuestraTitulosCredito()
 {
-    printf("PROGRAMA para 'decodificar' un puzzle ***********\n\r");
-    printf("(c) Miguel Ruiz - 2022 -\n\r");
+    printf("PROGRAMA para 'decodificar' un puzzle ***********\n");
+    printf("(c) Miguel Ruiz - 2022 -\n");
     
     printf("Consiste en un tablero de %ux%u\n",FILTABLERO,COLTABLERO);
-    printf("en el que hay que colocar %u Piezas, las cuales se pueden colocar en %u Orientaciones\n\r",CANTIDADPIEZAS,CANTIDADORIENTACIONES);
-    printf("El Tablero tiene una pieza que se puede colocar en distintas coordenadas (Se marca con '9')\r");
-    printf("El tablero es:\n\r");
+    printf("en el que hay que colocar %u Piezas, las cuales se pueden colocar en %u Orientaciones\n",CANTIDADPIEZAS,CANTIDADORIENTACIONES);
+    printf("El Tablero tiene una pieza que se puede colocar en distintas coordenadas (Se marca con '9')\n");
+    printf("El tablero es:\n");
     PintaTablero(Tablero);
-    printf("y las piezas son: \n\r");
+    printf("y las piezas son: \n");
     PintaTodasPiezas();
     PintaInfoSimetrias();
-    printf("Estan preparadas %u pruebas\n\r",NUMMAXPRUEBAS);
+    printf("Estan preparadas %u pruebas\n",NUMMAXPRUEBAS);
     printf("\nComenzamos con el puntero de pruebas en: \n");
     PintaBufferPuntero();
     
@@ -365,15 +365,15 @@ void MuestraTitulosCredito()
         PintaListaSoluciones();
     }
     
-    printf("\r\n");
+    printf("\n");
     
 }
 
 void DumpError(void){
     /* Se llama cuando hay un error para ver en qué estado está todo*/
     printf("DUMP ERROR: \n");
-    printf("NúmeroPrueba Actual: %ld\r",PuntPruebas);
+    printf("NúmeroPrueba Actual: %ld\n",PuntPruebas);
     PintaTestResumen(PuntPruebas);
-    printf("Últimas 5 pruebas realizadas\r");
+    printf("Últimas 5 pruebas realizadas\n");
     MuestraListaResultPruebas(PuntPruebas-5);
 }
