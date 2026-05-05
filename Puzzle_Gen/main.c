@@ -50,6 +50,7 @@ int main(int argc, const char * argv[]) {
     int SalirBucle;
     
     InicializaChinchetas();
+    AnalizaSimetrias();
     InicializaPunteros();
     InicializaSoluciones();
     InicializaRutaArchivo(argv[0]);
@@ -337,6 +338,7 @@ void MuestraTitulosCredito()
     PintaTablero(Tablero);
     printf("y las piezas son: \n\r");
     PintaTodasPiezas();
+    PintaInfoSimetrias();
     printf("Estan preparadas %u pruebas\n\r",NUMMAXPRUEBAS);
     printf("\nComenzamos con el puntero de pruebas en: \n");
     PintaBufferPuntero();

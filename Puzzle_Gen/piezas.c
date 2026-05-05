@@ -8,6 +8,8 @@
 #include "piezas.h" // Definición de las Piezas
 
 
+int UnicosPorPieza[CANTIDADPIEZAS]; /* Relleno por AnalizaSimetrias() */
+
 int Piezas [CANTIDADPIEZAS][CANTIDADORIENTACIONES][FilPiezas][ColPiezas]={
     {//    Pieza 0
     /*N*/  {{01,01,01,00,00},
@@ -427,4 +429,67 @@ void DecrementaOrienta(int* pPieza, int* pOrienta)
         }
         else *pOrienta=*pOrienta-1;
     }
+}
+
+/* ---- Análisis de simetrías ---- */
+
+static int OrientacionesIguales(int pieza, int ori1, int ori2)
+{
+    /* Compara el patrón booleano (!=0) de dos orientaciones de la misma pieza.
+       Devuelve 1 si son idénticas en forma, 0 si difieren. */
+    int i, j;
+    for (i = 0; i < FilPiezas; i++)
+        for (j = 0; j < ColPiezas; j++)
+            if ((Piezas[pieza][ori1][i][j] != 0) != (Piezas[pieza][ori2][i][j] != 0))
+                return 0;
+    return 1;
+}
+
+void AnalizaSimetrias(void)
+{
+    /* Para cada pieza, cuenta cuántas orientaciones son realmente distintas.
+       Rellena el array global UnicosPorPieza[]. */
+    int p, o, o2, duplicado, unicos;
+    for (p = 0; p < CANTIDADPIEZAS; p++) {
+        unicos = 0;
+        for (o = 0; o < CANTIDADORIENTACIONES; o++) {
+            duplicado = 0;
+            for (o2 = 0; o2 < o; o2++) {
+                if (OrientacionesIguales(p, o, o2)) {
+                    duplicado = 1;
+                    break;
+                }
+            }
+            if (!duplicado) unicos++;
+        }
+        UnicosPorPieza[p] = unicos;
+    }
+}
+
+int DivisorSimetrias(void)
+{
+    /* Devuelve el factor por el que hay que dividir el total de soluciones
+       para obtener las soluciones únicas reales. */
+    int p, divisor = 1;
+    for (p = 0; p < CANTIDADPIEZAS; p++)
+        divisor *= (CANTIDADORIENTACIONES / UnicosPorPieza[p]);
+    return divisor;
+}
+
+void PintaInfoSimetrias(void)
+{
+    int p, factor, divisor = 1, haySimetrias = 0;
+    printf("Simetría de piezas:\n");
+    for (p = 0; p < CANTIDADPIEZAS; p++) {
+        factor = CANTIDADORIENTACIONES / UnicosPorPieza[p];
+        printf("  Pieza %d: %d orientaciones únicas de %d",
+               p, UnicosPorPieza[p], CANTIDADORIENTACIONES);
+        if (factor > 1) { printf(" -> factor x%d", factor); haySimetrias = 1; }
+        printf("\n");
+        divisor *= factor;
+    }
+    if (haySimetrias)
+        printf("  => Cada solucion unica aparece %d veces en los resultados\n\r", divisor);
+    else
+        printf("  => Ninguna pieza simetrica. Todas las soluciones son unicas.\n\r");
 }

@@ -8,6 +8,10 @@
 #include "Soluciones.h"
 #include "main.h"
 
+/* Simetría — definidas en piezas.c */
+extern int UnicosPorPieza[];
+int DivisorSimetrias(void);
+
 struct BloquesSoluciones_ BloquesSoluciones[NUMMAXPOSCHINCHETA];
 
 
@@ -68,26 +72,32 @@ int MeteEnListaSoluciones(struct ListaSoluciones_ BuffCheck,long int NumPrueba)
 void PintaSituacionBloquesSoluciones(void)
 {
     int i;
+    int divisor = DivisorSimetrias();
     printf("De las %u Posiciones de la 'chincheta' este es el listado de las probadas:\n\r",NUMMAXPOSCHINCHETA);
     for(i=0;i<NUMMAXPOSCHINCHETA;i++){
         printf("\nPos Chincheta <%u>: [%u-%u] ",i,BloquesSoluciones[i].PosicionesChincheta.FilaChin,BloquesSoluciones[i].PosicionesChincheta.ColumnChin);
         if(BloquesSoluciones[i].ContadorSoluciones==0)
             printf(" NO se han buscado soluciones");
         else
-            printf("Encontradas %u soluciones en %ld Pruebas",BloquesSoluciones[i].ContadorSoluciones,BloquesSoluciones[i].NumeroPruebasRealizadas);
+            printf("Encontradas %u soluciones (%u unicas) en %ld Pruebas",
+                   BloquesSoluciones[i].ContadorSoluciones,
+                   BloquesSoluciones[i].ContadorSoluciones / divisor,
+                   BloquesSoluciones[i].NumeroPruebasRealizadas);
     }
+    printf("\n");
 }
 void PintaListaSoluciones(void)
 {
-    int i,j;
-    printf("Hay <%u> Soluciones que son: \n",BloquesSoluciones[PosChinchetaActual].ContadorSoluciones);
-    for(j=0;j<BloquesSoluciones[PosChinchetaActual].ContadorSoluciones;j++){
-        printf("Solución [%u]: ",j);
+    int i, j;
+    unsigned int total = BloquesSoluciones[PosChinchetaActual].ContadorSoluciones;
+    int divisor = DivisorSimetrias();
+    printf("Hay <%u> Soluciones (%u unicas, divisor simetria x%d):\n", total, total / divisor, divisor);
+    for(j=0;j<(int)total;j++){
+        printf("Solucion [%u]: ",j);
         for(i=0;i<CANTIDADPIEZAS;i++)
             printf("[%u-%u] ",BloquesSoluciones[PosChinchetaActual].ListaSoluciones[j].CombinacionSolucion[i].BuffPieza, BloquesSoluciones[PosChinchetaActual].ListaSoluciones[j].CombinacionSolucion[i].BuffOri);
         printf("\r\n");
     }
-    
 }
 
 int PintaUnaSolucion(int pNumSolucion, int DebugCompleto)

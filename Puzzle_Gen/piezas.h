@@ -15,8 +15,7 @@
 #include "Tablero.h"
 
 extern int Piezas [CANTIDADPIEZAS][CANTIDADORIENTACIONES][FilPiezas][ColPiezas];
-
-
+extern int UnicosPorPieza[CANTIDADPIEZAS];
 
 int PintaPieza(int NumPieza,int NumOrienta);
 void PintaTodasPiezas(void);
@@ -25,5 +24,9 @@ int PiezaEsMayor(int NumPieza1,int NumOrienta1,int NumPieza2, int NumOrienta2);
 void IncrementaPieza(int* pPieza, int* pOrienta);
 void IncrementaOrienta(int* pPieza, int* pOrienta);
 void DecrementaOrienta(int* pPieza, int* pOrienta);
+
+void AnalizaSimetrias(void);
+int  DivisorSimetrias(void);
+void PintaInfoSimetrias(void);
 
 #endif /* piezas_h */
