@@ -88,15 +88,32 @@ void PintaSituacionBloquesSoluciones(void)
 }
 void PintaListaSoluciones(void)
 {
-    int i, j;
+    int i, j, k, esdup, solOrigen, numSim;
+    int piezasSim[CANTIDADPIEZAS];
     unsigned int total = BloquesSoluciones[PosChinchetaActual].ContadorSoluciones;
     int divisor = DivisorSimetrias();
     printf("Hay <%u> Soluciones (%u unicas, divisor simetria x%d):\n", total, total / divisor, divisor);
-    for(j=0;j<(int)total;j++){
-        printf("Solucion [%u]: ",j);
-        for(i=0;i<CANTIDADPIEZAS;i++)
-            printf("[%u-%u] ",BloquesSoluciones[PosChinchetaActual].ListaSoluciones[j].CombinacionSolucion[i].BuffPieza, BloquesSoluciones[PosChinchetaActual].ListaSoluciones[j].CombinacionSolucion[i].BuffOri);
-        printf("\r\n");
+    for (j = 0; j < (int)total; j++) {
+        /* Buscar si es duplicado simétrico de alguna anterior */
+        esdup = 0; solOrigen = -1; numSim = 0;
+        for (k = 0; k < j && !esdup; k++) {
+            numSim = 0;
+            if (EsDuplicadoSimetrico(j, k, piezasSim, &numSim)) {
+                esdup = 1; solOrigen = k;
+            }
+        }
+        if (esdup) {
+            printf("  [%u] = igual a [%d] — pieza(s) simetrica(s):", j, solOrigen);
+            for (i = 0; i < numSim; i++) printf(" [%d]", piezasSim[i]);
+            printf("\n");
+        } else {
+            printf("Solucion [%u]: ", j);
+            for (i = 0; i < CANTIDADPIEZAS; i++)
+                printf("[%u-%u] ",
+                       BloquesSoluciones[PosChinchetaActual].ListaSoluciones[j].CombinacionSolucion[i].BuffPieza,
+                       BloquesSoluciones[PosChinchetaActual].ListaSoluciones[j].CombinacionSolucion[i].BuffOri);
+            printf("\r\n");
+        }
     }
 }
 
@@ -157,4 +174,27 @@ void PintaArrayUnaSolucion(int NumSolucion)
     for(i=0;i<9;i++)
         printf("[%u-%u] ",BloquesSoluciones[PosChinchetaActual].ListaSoluciones[NumSolucion].CombinacionSolucion[i].BuffPieza,BloquesSoluciones[PosChinchetaActual].ListaSoluciones[NumSolucion].CombinacionSolucion[i].BuffOri);
     printf("\r\n");
+}
+
+int EsDuplicadoSimetrico(int solTest, int solRef, int piezasSim[], int *numSim)
+{
+    /* Compara solTest contra solRef.
+       Si todas las diferencias se deben a orientaciones equivalentes de la misma pieza
+       (misma forma, distinto número de orientación), devuelve 1.
+       piezasSim[] se rellena con los índices de esas piezas. */
+    int i, p1, o1, p2, o2;
+    *numSim = 0;
+    for (i = 0; i < CANTIDADPIEZAS; i++) {
+        p1 = BloquesSoluciones[PosChinchetaActual].ListaSoluciones[solRef].CombinacionSolucion[i].BuffPieza;
+        o1 = BloquesSoluciones[PosChinchetaActual].ListaSoluciones[solRef].CombinacionSolucion[i].BuffOri;
+        p2 = BloquesSoluciones[PosChinchetaActual].ListaSoluciones[solTest].CombinacionSolucion[i].BuffPieza;
+        o2 = BloquesSoluciones[PosChinchetaActual].ListaSoluciones[solTest].CombinacionSolucion[i].BuffOri;
+
+        if (p1 != p2) return 0;          /* pieza distinta — no es duplicado simétrico */
+        if (o1 != o2) {
+            if (!OrientacionesIguales(p1, o1, o2)) return 0; /* forma distinta — no es dup */
+            piezasSim[(*numSim)++] = p1;
+        }
+    }
+    return (*numSim > 0) ? 1 : 0;
 }

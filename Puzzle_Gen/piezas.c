@@ -433,7 +433,7 @@ void DecrementaOrienta(int* pPieza, int* pOrienta)
 
 /* ---- Análisis de simetrías ---- */
 
-static int OrientacionesIguales(int pieza, int ori1, int ori2)
+int OrientacionesIguales(int pieza, int ori1, int ori2)
 {
     /* Compara el patrón booleano (!=0) de dos orientaciones de la misma pieza.
        Devuelve 1 si son idénticas en forma, 0 si difieren. */

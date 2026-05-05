@@ -25,6 +25,7 @@ void IncrementaPieza(int* pPieza, int* pOrienta);
 void IncrementaOrienta(int* pPieza, int* pOrienta);
 void DecrementaOrienta(int* pPieza, int* pOrienta);
 
+int  OrientacionesIguales(int pieza, int ori1, int ori2);
 void AnalizaSimetrias(void);
 int  DivisorSimetrias(void);
 void PintaInfoSimetrias(void);
