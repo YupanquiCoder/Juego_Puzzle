@@ -117,10 +117,7 @@ int RevisaTablero(int pTablero[][7]){
         }
     
     if(resultado==0) {
-        resultado=99; /* Tablero completado EXITO*/
-        //        printf("!!! Solución !!!!!\n");
-        //        MuestraListado(PuntPruebas);
-        //        PintaTablero(Tablero);
+        resultado=99;
     }
     else
         if(imposible==1)resultado+=50;

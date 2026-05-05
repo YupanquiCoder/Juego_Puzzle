@@ -46,10 +46,13 @@ int main(int argc, const char * argv[]) {
     char opcion;
     char caracter;
     int NumEntrada;
-    int i,NumSolucion;
+    int i, s, NumSolucion;
     int SalirBucle;
+    int piezasSim[CANTIDADPIEZAS];
+    int numSim, esdup, solOrigen;
     
     InicializaChinchetas();
+    AnalizaSimetrias();
     InicializaPunteros();
     InicializaSoluciones();
     InicializaRutaArchivo(argv[0]);
@@ -138,17 +141,29 @@ int main(int argc, const char * argv[]) {
                     printf("No hay soluciones encontradas!\n");
                 else
                     do{
-                        PintaUnaSolucion(NumSolucion,1);
-                        PintaArrayUnaSolucion(NumSolucion);
+                        /* Comprobar si es duplicado simétrico de alguna anterior */
+                        esdup = 0; solOrigen = -1; numSim = 0;
+                        for(s = 0; s < NumSolucion && !esdup; s++) {
+                            numSim = 0;
+                            if(EsDuplicadoSimetrico(NumSolucion, s, piezasSim, &numSim)) {
+                                esdup = 1; solOrigen = s;
+                            }
+                        }
+                        if(esdup) {
+                            printf("Solución [%u]: igual a la solución [%d] — pieza(s) simétrica(s):",
+                                   NumSolucion, solOrigen);
+                            for(i = 0; i < numSim; i++) printf(" [%d]", piezasSim[i]);
+                            printf("\n");
+                        } else {
+                            PintaUnaSolucion(NumSolucion,1);
+                            PintaArrayUnaSolucion(NumSolucion);
+                        }
                         printf( "Esta es la Solución %u ¿Seguimos con la siguiente? S/N ",NumSolucion );
-                        
                         scanf( " %c", &caracter );
                         if(caracter == 'N' || caracter == 'n') SalirBucle=1;
-                        
                         NumSolucion=NumSolucion+1;
-                        
                     }while(NumSolucion<BloquesSoluciones[PosChinchetaActual].ContadorSoluciones && SalirBucle==0);
-                
+
                 break;
                 
             case '6': printf( "Demostración de como se incrementa el puntero 1.000 veces:\n" );
@@ -244,8 +259,10 @@ int MuestraListaResultPruebas(long int PuntInicial)
     
 }
 int MuestraListado (long int NumPrueba){
+    /* lista el resultado de una prueba*/
     int i,tmp;
     int ContPiezas=0;
+    
     if(NumPrueba<NUMMAXPRUEBAS)
     {
         printf("Mostramos los registros de la prueba [%ld] \n",NumPrueba);
@@ -335,6 +352,7 @@ void MuestraTitulosCredito()
     PintaTablero(Tablero);
     printf("y las piezas son: \n\r");
     PintaTodasPiezas();
+    PintaInfoSimetrias();
     printf("Estan preparadas %u pruebas\n\r",NUMMAXPRUEBAS);
     printf("\nComenzamos con el puntero de pruebas en: \n");
     PintaBufferPuntero();

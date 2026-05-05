@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		86703A442FA875CC003A1319 /* Archivo.c in Sources */ = {isa = PBXBuildFile; fileRef = 86703A432FA875CC003A1319 /* Archivo.c */; };
 		8688A2412A97B518006BCA6C /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 8688A2472A97B518006BCA6C /* main.c */; };
 		8688A2422A97B518006BCA6C /* piezas.c in Sources */ = {isa = PBXBuildFile; fileRef = 8688A2492A97B518006BCA6C /* piezas.c */; };
 		8688A2432A97B518006BCA6C /* Punteros.c in Sources */ = {isa = PBXBuildFile; fileRef = 8688A24B2A97B518006BCA6C /* Punteros.c */; };
@@ -27,6 +28,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		86703A422FA875CC003A1319 /* Archivo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Archivo.h; sourceTree = "<group>"; };
+		86703A432FA875CC003A1319 /* Archivo.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = Archivo.c; sourceTree = "<group>"; };
 		8688A2252A97B0EF006BCA6C /* Puzzle_Gen */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Puzzle_Gen; sourceTree = BUILT_PRODUCTS_DIR; };
 		8688A2472A97B518006BCA6C /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		8688A2482A97B518006BCA6C /* main.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = main.h; sourceTree = "<group>"; };
@@ -80,6 +83,8 @@
 				8688A24D2A97B518006BCA6C /* Tablero.c */,
 				8688A2502A97B518006BCA6C /* Soluciones.h */,
 				8688A24F2A97B518006BCA6C /* Soluciones.c */,
+				86703A422FA875CC003A1319 /* Archivo.h */,
+				86703A432FA875CC003A1319 /* Archivo.c */,
 			);
 			path = Puzzle_Gen;
 			sourceTree = "<group>";
@@ -143,6 +148,7 @@
 			files = (
 				8688A2412A97B518006BCA6C /* main.c in Sources */,
 				8688A2422A97B518006BCA6C /* piezas.c in Sources */,
+				86703A442FA875CC003A1319 /* Archivo.c in Sources */,
 				8688A2432A97B518006BCA6C /* Punteros.c in Sources */,
 				8688A2442A97B518006BCA6C /* Tablero.c in Sources */,
 				8688A2452A97B518006BCA6C /* Soluciones.c in Sources */,

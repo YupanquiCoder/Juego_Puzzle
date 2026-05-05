@@ -1,0 +1,12 @@
+# Archivo de datos de soluciones (binario, no va al repo)
+Archivo_Dat/
+
+# Imágenes sueltas
+*.JPG
+*.jpg
+*.PNG
+*.png
+
+# Xcode
+*.xcuserstate
+xcuserdata/

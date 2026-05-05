@@ -161,6 +161,7 @@ int IncrementaBufferPuntero(void)
     int PuntBuffPiezas=0;
     
     Posicion=IncrementaPiezaBuffer(8);
+    /* Devuelve la Posición de la última pieza incrementada*/
     if(Posicion==99)
         SeHaFinalizadoLaCuenta=1;
     else

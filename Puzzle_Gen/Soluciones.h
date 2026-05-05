@@ -37,4 +37,10 @@ void PintaArrayUnaSolucion(int NumSolucion);
 void InicializaSoluciones(void);
 void PintaSituacionBloquesSoluciones(void);
 
+/* Detecta si solTest es duplicado simétrico de solRef.
+   piezasSim[] recibe los índices de las piezas que difieren simétricamente.
+   *numSim recibe cuántas hay.
+   Devuelve 1 si es duplicado, 0 si no. */
+int EsDuplicadoSimetrico(int solTest, int solRef, int piezasSim[], int *numSim);
+
 #endif /* Soluciones_h */
