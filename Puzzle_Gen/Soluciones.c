@@ -88,44 +88,59 @@ void PintaSituacionBloquesSoluciones(void)
 }
 void PintaListaSoluciones(void)
 {
-    int i, j, k, esdup, numSim, numVariantes;
+    int bloque, i, j, k, esdup, numSim, numVariantes;
     int piezasSim[CANTIDADPIEZAS];
-    unsigned int total = BloquesSoluciones[PosChinchetaActual].ContadorSoluciones;
+    int bloqueOriginal = PosChinchetaActual;
     int divisor = DivisorSimetrias();
-    printf("Puntero en posicion [%d-%d] (bloque %d):\n",
-           BloquesSoluciones[PosChinchetaActual].PosicionesChincheta.FilaChin,
-           BloquesSoluciones[PosChinchetaActual].PosicionesChincheta.ColumnChin,
-           PosChinchetaActual);
-    printf("Hay <%u> Soluciones (%u unicas, divisor simetria x%d):\n", total, total / divisor, divisor);
-    for (j = 0; j < (int)total; j++) {
-        /* Si es duplicado de alguna anterior, saltar */
-        esdup = 0;
-        for (k = 0; k < j && !esdup; k++) {
-            numSim = 0;
-            if (EsDuplicadoSimetrico(j, k, piezasSim, &numSim)) esdup = 1;
-        }
-        if (esdup) continue;
+    int totalSoluciones = 0;
 
-        /* Contar variantes simétricas que genera esta solución canónica */
-        numVariantes = 0;
-        for (k = j + 1; k < (int)total; k++) {
-            numSim = 0;
-            if (EsDuplicadoSimetrico(k, j, piezasSim, &numSim)) numVariantes++;
-        }
+    for (bloque = 0; bloque < NUMMAXPOSCHINCHETA; bloque++)
+        totalSoluciones += BloquesSoluciones[bloque].ContadorSoluciones;
 
-        /* Imprimir: (*) en piezas simétricas, + variantes si las hay */
-        printf("Solucion [%u]: ", j);
-        for (i = 0; i < CANTIDADPIEZAS; i++) {
-            int p = BloquesSoluciones[PosChinchetaActual].ListaSoluciones[j].CombinacionSolucion[i].BuffPieza;
-            int o = BloquesSoluciones[PosChinchetaActual].ListaSoluciones[j].CombinacionSolucion[i].BuffOri;
-            if (UnicosPorPieza[p] < CANTIDADORIENTACIONES)
-                printf("[%u-%u(*)] ", p, o);
-            else
-                printf("[%u-%u] ", p, o);
+    printf("Total: %d soluciones (%d unicas) en todos los bloques:\n",
+           totalSoluciones, totalSoluciones / divisor);
+
+    for (bloque = 0; bloque < NUMMAXPOSCHINCHETA; bloque++) {
+        unsigned int total = BloquesSoluciones[bloque].ContadorSoluciones;
+        if (total == 0) continue;
+
+        /* EsDuplicadoSimetrico usa PosChinchetaActual internamente */
+        PosChinchetaActual = bloque;
+
+        printf("\nPosicion [%d-%d] (bloque %d): %u soluciones (%u unicas)\n",
+               BloquesSoluciones[bloque].PosicionesChincheta.FilaChin,
+               BloquesSoluciones[bloque].PosicionesChincheta.ColumnChin,
+               bloque, total, total / divisor);
+
+        for (j = 0; j < (int)total; j++) {
+            esdup = 0;
+            for (k = 0; k < j && !esdup; k++) {
+                numSim = 0;
+                if (EsDuplicadoSimetrico(j, k, piezasSim, &numSim)) esdup = 1;
+            }
+            if (esdup) continue;
+
+            numVariantes = 0;
+            for (k = j + 1; k < (int)total; k++) {
+                numSim = 0;
+                if (EsDuplicadoSimetrico(k, j, piezasSim, &numSim)) numVariantes++;
+            }
+
+            printf("  [%u]: ", j);
+            for (i = 0; i < CANTIDADPIEZAS; i++) {
+                int p = BloquesSoluciones[bloque].ListaSoluciones[j].CombinacionSolucion[i].BuffPieza;
+                int o = BloquesSoluciones[bloque].ListaSoluciones[j].CombinacionSolucion[i].BuffOri;
+                if (UnicosPorPieza[p] < CANTIDADORIENTACIONES)
+                    printf("[%u-%u(*)] ", p, o);
+                else
+                    printf("[%u-%u] ", p, o);
+            }
+            if (numVariantes > 0) printf("-> +%d variantes", numVariantes);
+            printf("\n");
         }
-        if (numVariantes > 0) printf("-> +%d variantes", numVariantes);
-        printf("\n");
     }
+
+    PosChinchetaActual = bloqueOriginal;
 }
 
 int PintaUnaSolucion(int pNumSolucion, int DebugCompleto)

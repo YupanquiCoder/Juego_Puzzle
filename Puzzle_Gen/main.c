@@ -87,10 +87,15 @@ int main(int argc, const char * argv[]) {
                 MuestraTitulosCredito();
                 break;
             case '2':
-                if(BloquesSoluciones[PosChinchetaActual].ContadorSoluciones==0)
-                    printf("No hay Soluciones todavía en listado\n");
-                else
-                    PintaListaSoluciones();
+                {
+                    int _hayAlguna = 0, _b;
+                    for (_b = 0; _b < NUMMAXPOSCHINCHETA; _b++)
+                        if (BloquesSoluciones[_b].ContadorSoluciones > 0) { _hayAlguna = 1; break; }
+                    if (!_hayAlguna)
+                        printf("No hay Soluciones todavía en ningún bloque.\n");
+                    else
+                        PintaListaSoluciones();
+                }
                 break;
             case '3':
                 PintaSituacionBloquesSoluciones();
