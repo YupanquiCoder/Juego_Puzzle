@@ -92,6 +92,10 @@ void PintaListaSoluciones(void)
     int piezasSim[CANTIDADPIEZAS];
     unsigned int total = BloquesSoluciones[PosChinchetaActual].ContadorSoluciones;
     int divisor = DivisorSimetrias();
+    printf("Puntero en posicion [%d-%d] (bloque %d):\n",
+           BloquesSoluciones[PosChinchetaActual].PosicionesChincheta.FilaChin,
+           BloquesSoluciones[PosChinchetaActual].PosicionesChincheta.ColumnChin,
+           PosChinchetaActual);
     printf("Hay <%u> Soluciones (%u unicas, divisor simetria x%d):\n", total, total / divisor, divisor);
     for (j = 0; j < (int)total; j++) {
         /* Si es duplicado de alguna anterior, saltar */
