@@ -49,7 +49,7 @@ int main(int argc, const char * argv[]) {
     int i, s, NumSolucion;
     int SalirBucle;
     int piezasSim[CANTIDADPIEZAS];
-    int numSim, esdup, solOrigen;
+    int numSim, esdup;
     
     InicializaChinchetas();
     AnalizaSimetrias();
@@ -141,26 +141,20 @@ int main(int argc, const char * argv[]) {
                     printf("No hay soluciones encontradas!\n");
                 else
                     do{
-                        /* Comprobar si es duplicado simétrico de alguna anterior */
-                        esdup = 0; solOrigen = -1; numSim = 0;
+                        /* Si es duplicado simétrico de alguna anterior, saltar sin preguntar */
+                        esdup = 0;
                         for(s = 0; s < NumSolucion && !esdup; s++) {
                             numSim = 0;
-                            if(EsDuplicadoSimetrico(NumSolucion, s, piezasSim, &numSim)) {
-                                esdup = 1; solOrigen = s;
-                            }
+                            if(EsDuplicadoSimetrico(NumSolucion, s, piezasSim, &numSim))
+                                esdup = 1;
                         }
-                        if(esdup) {
-                            printf("Solución [%u]: igual a la solución [%d] — pieza(s) simétrica(s):",
-                                   NumSolucion, solOrigen);
-                            for(i = 0; i < numSim; i++) printf(" [%d]", piezasSim[i]);
-                            printf("\n");
-                        } else {
+                        if(!esdup) {
                             PintaUnaSolucion(NumSolucion,1);
                             PintaArrayUnaSolucion(NumSolucion);
+                            printf( "Esta es la Solución %u ¿Seguimos con la siguiente? S/N ",NumSolucion );
+                            scanf( " %c", &caracter );
+                            if(caracter == 'N' || caracter == 'n') SalirBucle=1;
                         }
-                        printf( "Esta es la Solución %u ¿Seguimos con la siguiente? S/N ",NumSolucion );
-                        scanf( " %c", &caracter );
-                        if(caracter == 'N' || caracter == 'n') SalirBucle=1;
                         NumSolucion=NumSolucion+1;
                     }while(NumSolucion<BloquesSoluciones[PosChinchetaActual].ContadorSoluciones && SalirBucle==0);
 

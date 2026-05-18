@@ -88,32 +88,39 @@ void PintaSituacionBloquesSoluciones(void)
 }
 void PintaListaSoluciones(void)
 {
-    int i, j, k, esdup, solOrigen, numSim;
+    int i, j, k, esdup, numSim, numVariantes;
     int piezasSim[CANTIDADPIEZAS];
     unsigned int total = BloquesSoluciones[PosChinchetaActual].ContadorSoluciones;
     int divisor = DivisorSimetrias();
     printf("Hay <%u> Soluciones (%u unicas, divisor simetria x%d):\n", total, total / divisor, divisor);
     for (j = 0; j < (int)total; j++) {
-        /* Buscar si es duplicado simétrico de alguna anterior */
-        esdup = 0; solOrigen = -1; numSim = 0;
+        /* Si es duplicado de alguna anterior, saltar */
+        esdup = 0;
         for (k = 0; k < j && !esdup; k++) {
             numSim = 0;
-            if (EsDuplicadoSimetrico(j, k, piezasSim, &numSim)) {
-                esdup = 1; solOrigen = k;
-            }
+            if (EsDuplicadoSimetrico(j, k, piezasSim, &numSim)) esdup = 1;
         }
-        if (esdup) {
-            printf("  [%u] = igual a [%d] — pieza(s) simetrica(s):", j, solOrigen);
-            for (i = 0; i < numSim; i++) printf(" [%d]", piezasSim[i]);
-            printf("\n");
-        } else {
-            printf("Solucion [%u]: ", j);
-            for (i = 0; i < CANTIDADPIEZAS; i++)
-                printf("[%u-%u] ",
-                       BloquesSoluciones[PosChinchetaActual].ListaSoluciones[j].CombinacionSolucion[i].BuffPieza,
-                       BloquesSoluciones[PosChinchetaActual].ListaSoluciones[j].CombinacionSolucion[i].BuffOri);
-            printf("\n");
+        if (esdup) continue;
+
+        /* Contar variantes simétricas que genera esta solución canónica */
+        numVariantes = 0;
+        for (k = j + 1; k < (int)total; k++) {
+            numSim = 0;
+            if (EsDuplicadoSimetrico(k, j, piezasSim, &numSim)) numVariantes++;
         }
+
+        /* Imprimir: (*) en piezas simétricas, + variantes si las hay */
+        printf("Solucion [%u]: ", j);
+        for (i = 0; i < CANTIDADPIEZAS; i++) {
+            int p = BloquesSoluciones[PosChinchetaActual].ListaSoluciones[j].CombinacionSolucion[i].BuffPieza;
+            int o = BloquesSoluciones[PosChinchetaActual].ListaSoluciones[j].CombinacionSolucion[i].BuffOri;
+            if (UnicosPorPieza[p] < CANTIDADORIENTACIONES)
+                printf("[%u-%u(*)] ", p, o);
+            else
+                printf("[%u-%u] ", p, o);
+        }
+        if (numVariantes > 0) printf("-> +%d variantes", numVariantes);
+        printf("\n");
     }
 }
 
@@ -169,10 +176,16 @@ int PintaUnaSolucion(int pNumSolucion, int DebugCompleto)
 
 void PintaArrayUnaSolucion(int NumSolucion)
 {
-    int i;
-    printf("Solución <%u>: ",NumSolucion);
-    for(i=0;i<9;i++)
-        printf("[%u-%u] ",BloquesSoluciones[PosChinchetaActual].ListaSoluciones[NumSolucion].CombinacionSolucion[i].BuffPieza,BloquesSoluciones[PosChinchetaActual].ListaSoluciones[NumSolucion].CombinacionSolucion[i].BuffOri);
+    int i, p, o;
+    printf("Solucion <%u>: ", NumSolucion);
+    for (i = 0; i < 9; i++) {
+        p = BloquesSoluciones[PosChinchetaActual].ListaSoluciones[NumSolucion].CombinacionSolucion[i].BuffPieza;
+        o = BloquesSoluciones[PosChinchetaActual].ListaSoluciones[NumSolucion].CombinacionSolucion[i].BuffOri;
+        if (UnicosPorPieza[p] < CANTIDADORIENTACIONES)
+            printf("[%u-%u(*)] ", p, o);
+        else
+            printf("[%u-%u] ", p, o);
+    }
     printf("\n");
 }
 
