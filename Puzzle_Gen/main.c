@@ -353,12 +353,16 @@ void MuestraTitulosCredito()
     
     printf("\n");
     
-    if(BloquesSoluciones[PosChinchetaActual].ContadorSoluciones!=0)
     {
-        printf("\nSe Inicializa el Array de soluciones con las ya conocidas: \n");
-        PintaListaSoluciones();
+        int _i, _posAnalizadas = 0, _totalSoluciones = 0, _divisor = DivisorSimetrias();
+        for (_i = 0; _i < NUMMAXPOSCHINCHETA; _i++) {
+            if (BloquesSoluciones[_i].NumeroPruebasRealizadas > 0) _posAnalizadas++;
+            _totalSoluciones += BloquesSoluciones[_i].ContadorSoluciones;
+        }
+        if (_totalSoluciones > 0)
+            printf("\nEstado actual: analizadas %d posiciones de %d posibles — %d soluciones unicas encontradas.\n",
+                   _posAnalizadas, NUMMAXPOSCHINCHETA, _totalSoluciones / _divisor);
     }
-    
     printf("\n");
     
 }
