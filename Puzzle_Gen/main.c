@@ -140,29 +140,53 @@ int main(int argc, const char * argv[]) {
                 
                 break;
             case '5':
-                NumSolucion=0;
-                SalirBucle=0;
-                if(BloquesSoluciones[PosChinchetaActual].ContadorSoluciones==0)
-                    printf("No hay soluciones encontradas!\n");
-                else
-                    do{
-                        /* Si es duplicado simétrico de alguna anterior, saltar sin preguntar */
-                        esdup = 0;
-                        for(s = 0; s < NumSolucion && !esdup; s++) {
-                            numSim = 0;
-                            if(EsDuplicadoSimetrico(NumSolucion, s, piezasSim, &numSim))
-                                esdup = 1;
-                        }
-                        if(!esdup) {
-                            PintaUnaSolucion(NumSolucion,1);
-                            PintaArrayUnaSolucion(NumSolucion);
-                            printf( "Esta es la Solución %u ¿Seguimos con la siguiente? S/N ",NumSolucion );
-                            scanf( " %c", &caracter );
-                            if(caracter == 'N' || caracter == 'n') SalirBucle=1;
-                        }
-                        NumSolucion=NumSolucion+1;
-                    }while(NumSolucion<BloquesSoluciones[PosChinchetaActual].ContadorSoluciones && SalirBucle==0);
+                {
+                    int _b, _hayAlguna5 = 0;
+                    for (_b = 0; _b < NUMMAXPOSCHINCHETA; _b++)
+                        if (BloquesSoluciones[_b].ContadorSoluciones > 0) { _hayAlguna5 = 1; break; }
 
+                    if (!_hayAlguna5) {
+                        printf("No hay soluciones encontradas en ningún bloque.\n");
+                    } else {
+                        /* Mostrar bloques disponibles y pedir elección */
+                        printf("Bloques con soluciones:\n");
+                        for (_b = 0; _b < NUMMAXPOSCHINCHETA; _b++)
+                            if (BloquesSoluciones[_b].ContadorSoluciones > 0)
+                                printf("  [%d] Posicion [%d-%d] — %u soluciones (%u unicas)\n",
+                                       _b,
+                                       BloquesSoluciones[_b].PosicionesChincheta.FilaChin,
+                                       BloquesSoluciones[_b].PosicionesChincheta.ColumnChin,
+                                       BloquesSoluciones[_b].ContadorSoluciones,
+                                       BloquesSoluciones[_b].ContadorSoluciones / DivisorSimetrias());
+                        printf("¿Qué bloque quieres ver? (0-%u) ", NUMMAXPOSCHINCHETA-1);
+                        scanf("%u", &NumEntrada);
+
+                        if (NumEntrada < NUMMAXPOSCHINCHETA && BloquesSoluciones[NumEntrada].ContadorSoluciones > 0) {
+                            PosChinchetaActual = NumEntrada;
+                            NumSolucion = 0;
+                            SalirBucle = 0;
+                            do {
+                                /* Saltar duplicados simétricos */
+                                esdup = 0;
+                                for(s = 0; s < NumSolucion && !esdup; s++) {
+                                    numSim = 0;
+                                    if(EsDuplicadoSimetrico(NumSolucion, s, piezasSim, &numSim))
+                                        esdup = 1;
+                                }
+                                if(!esdup) {
+                                    PintaUnaSolucion(NumSolucion, 1);
+                                    PintaArrayUnaSolucion(NumSolucion);
+                                    printf("Esta es la Solución %u ¿Seguimos con la siguiente? S/N ", NumSolucion);
+                                    scanf(" %c", &caracter);
+                                    if(caracter == 'N' || caracter == 'n') SalirBucle = 1;
+                                }
+                                NumSolucion++;
+                            } while(NumSolucion < BloquesSoluciones[PosChinchetaActual].ContadorSoluciones && SalirBucle == 0);
+                        } else {
+                            printf("Bloque no válido o sin soluciones.\n");
+                        }
+                    }
+                }
                 break;
                 
             case '6': printf( "Demostración de como se incrementa el puntero 1.000 veces:\n" );
