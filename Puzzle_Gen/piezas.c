@@ -360,6 +360,24 @@ int ColocaPieza(int tFil, int tCol, int pNum, int pOri, int pTablero[][COLTABLER
     return Entra;
 }
 
+int QuitaPieza(int tFil, int tCol, int pNum, int pOri, int pTablero[][COLTABLERO]){
+    /* Deshace la colocación hecha por ColocaPieza (misma pieza/orientación/posición) */
+    int i,j,tmp1;
+    int DesplaIzq=0;
+
+    for(j=0;j<ColPiezas;j++){
+        if(Piezas[pNum][pOri][0][j]==0) DesplaIzq++;
+        else break;
+    }
+
+    for(i=0;i<FilPiezas;i++)
+        for(j=0;j<ColPiezas;j++){
+            tmp1=Piezas[pNum][pOri][i][j];
+            if(tmp1!=0) pTablero[tFil+i][tCol+j-DesplaIzq]=0;
+        }
+    return 0;
+}
+
 int PiezaEsMayor(int NumPieza1,int NumOrienta1,int NumPieza2, int NumOrienta2){
     /* Se le pasan dos piezas y devuelve:
      0 - La pieza 1 NO es mayor que la Pieza 2

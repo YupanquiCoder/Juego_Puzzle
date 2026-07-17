@@ -11,51 +11,32 @@
 
 #include "main.h"
 #include "Soluciones.h"
-#include "Punteros.h"
 #include "Tablero.h"
 #include "piezas.h"
 #include "Archivo.h"
 
 /* Variables que controlan el DEBUG*/
-int MostrarCadaIncrementoDePuntero=0;
-int MostrarCadaPunteroValido=0;
 int contTestDemo=TESTDEDEMO;
 int ContMuestraPruebas=1; /* Si es 0 NO se muestra ninguna prueba*/
 
-struct ListaPruebas_ ListaPruebas[NUMMAXPRUEBAS];
-
-long int PuntPruebas; /* Indica en qué prueba estamos ejecutando*/
-int PuntPieza; /* Indica el puntero a la pieza que se va a colocar*/
-int PuntOri; /* Indica el puntero a la orientación de la pieza que se va a colocar*/
-int PuntPiezasProbadas; /*Es el número de piezas que se ha probado */
-int PuntOrdenPieza; /* Es el Orden la pieza que se quiere colocar*/
-int PuntContColocadas; /*cuenta el número de piezas colocadas en la prueba en curso */
-int FaseProceso=0;
-int ProfundidadFunc=0;
-int PrepararNuevaPrueba=0;
-
-
-struct CasillaPieza_ BufferPiezasAColocar[9];
-int PuntBuf=0xffff;
+long int PuntPruebas; /* Número de combinaciones pieza/orientación probadas en la búsqueda actual*/
 
 
 /***************/
 int main(int argc, const char * argv[]) {
-    
-    int MostrarResumen=0;
+
     char opcion;
     char caracter;
     int NumEntrada;
-    int i, s, NumSolucion;
+    int s, NumSolucion;
     int SalirBucle;
     int piezasSim[CANTIDADPIEZAS];
     int numSim, esdup;
-    
+
     InicializaChinchetas();
     AnalizaSimetrias();
-    InicializaPunteros();
     InicializaSoluciones();
-    InicializaRutaArchivo(argv[0]);
+    InicializaRutaArchivo();
     CargaSoluciones();
     InicializaTablero(Tablero);
     MuestraTitulosCredito();
@@ -66,17 +47,16 @@ int main(int argc, const char * argv[]) {
         printf( "\n   3. Cuadro de Soluciones Probadas");
         printf( "\n   4. Comenzar a encontrar soluciones");
         printf( "\n   5. Pinta una solución ya encontrada");
-        printf( "\n   6. Demo 1.000 incrementos de puntero");
-        printf( "\n   7. Borrar soluciones de un bloque (para volver a buscar)");
-        printf( "\n   8. Borrar el archivo completo de soluciones");
-        printf( "\n   9. Salir");
+        printf( "\n   6. Borrar soluciones de un bloque (para volver a buscar)");
+        printf( "\n   7. Borrar el archivo completo de soluciones");
+        printf( "\n   8. Salir");
 
         do
         {
-            printf( "\n   ¿Qué hacemos? (1-9) ");
+            printf( "\n   ¿Qué hacemos? (1-8) ");
             scanf( " %c", &opcion );
 
-        } while ( opcion != '1' && opcion != '2' && opcion != '3' && opcion != '4' && opcion != '5' && opcion != '6' && opcion != '7' && opcion != '8' && opcion != '9' );
+        } while ( opcion != '1' && opcion != '2' && opcion != '3' && opcion != '4' && opcion != '5' && opcion != '6' && opcion != '7' && opcion != '8' );
         
         
         /* Inicio del anidamiento */
@@ -103,41 +83,31 @@ int main(int argc, const char * argv[]) {
             case '4':
                 ContMuestraPruebas=NUMMUESTRAPRUEBAS;
                 printf( "OJO este proceso continua hasta finalizar todas las pruebas, sin detenerse\n" );
-                printf( "Se mostrará la solución por la que va cada %u Pruebas. ¿Comenzamos? S/N ",ContMuestraPruebas );
+                printf( "Se mostrará el progreso cada %u combinaciones probadas.\n",NUMMUESTRAPRUEBAS );
                 printf( "¿Qué bloque de soluciones hacemos? (0-%u) ",NUMMAXPOSCHINCHETA-1 );
                 fflush( stdin );
                 scanf( "%u", &NumEntrada );
                 if(NumEntrada>=0 && NumEntrada<NUMMAXPOSCHINCHETA)
                 {
-                    
-                    if(BloquesSoluciones[NumEntrada].ContadorSoluciones==0){
-                        
+
+                    if(BloquesSoluciones[NumEntrada].NumeroPruebasRealizadas==0){
+
                         PosChinchetaActual=NumEntrada;
-                        
+
                         InicializaBloque();
-                
-                        do
-                        {
-                            ResuelveTablero();
-                            
-                            if(MostrarResumen)
-                            {
-                                MostrarResumen=0;
-                                PintaListaSoluciones();
-                            }
-                            
-                        }while (!SeHaFinalizadoLaCuenta);
-                        SeHaFinalizadoLaCuenta=0;
+
+                        ResuelveTableroBacktracking();
+
                         BloquesSoluciones[PosChinchetaActual].NumeroPruebasRealizadas=PuntPruebas;
-                        
+
                         printf("FIN. Se acaban de buscar las soluciones del Bloque: <%u> Posición [%u-%u] \n",PosChinchetaActual,BloquesSoluciones[PosChinchetaActual].PosicionesChincheta.FilaChin,BloquesSoluciones[PosChinchetaActual].PosicionesChincheta.ColumnChin);
-                        printf(" Se han hecho %ld pruebas. Se han encontrado %u Soluciones \n",BloquesSoluciones[PosChinchetaActual].NumeroPruebasRealizadas, BloquesSoluciones[PosChinchetaActual].ContadorSoluciones);
+                        printf(" Se han probado %ld combinaciones. Se han encontrado %u Soluciones \n",BloquesSoluciones[PosChinchetaActual].NumeroPruebasRealizadas, BloquesSoluciones[PosChinchetaActual].ContadorSoluciones);
                         GuardaSoluciones();
                     }
                     else
-                        printf("La Posición <%u> ya se ha probado y se encontraron %u soluciones\n",NumEntrada,BloquesSoluciones[NumEntrada].ContadorSoluciones);
+                        printf("La Posición <%u> ya se ha probado (%ld pruebas) y se encontraron %u soluciones\n",NumEntrada,BloquesSoluciones[NumEntrada].NumeroPruebasRealizadas,BloquesSoluciones[NumEntrada].ContadorSoluciones);
                 }
-                
+
                 break;
             case '5':
                 {
@@ -189,18 +159,7 @@ int main(int argc, const char * argv[]) {
                 }
                 break;
                 
-            case '6': printf( "Demostración de como se incrementa el puntero 1.000 veces:\n" );
-                i=1000;
-                printf("Empezamos con el Puntero en: ");
-                PintaBufferPuntero();
-                do{
-                    IncrementaBufferPuntero();
-                    PintaBufferPuntero();
-                    i--;
-                }while(i>0);
-                break;
-
-            case '7':
+            case '6':
                 PintaSituacionBloquesSoluciones();
                 printf( "\n   ¿Qué bloque quieres borrar? (0-%u) ", NUMMAXPOSCHINCHETA-1 );
                 fflush( stdin );
@@ -218,14 +177,14 @@ int main(int argc, const char * argv[]) {
                 }
                 break;
 
-            case '8':
+            case '7':
                 printf("¿Seguro que quieres borrar TODAS las soluciones? (S/N) ");
                 scanf( " %c", &caracter );
                 if(caracter == 'S' || caracter == 's')
                     BorraArchivoSoluciones();
                 break;
 
-            case '9': printf( "¿Realmente quieres salir? (S/N) ");
+            case '8': printf( "¿Realmente quieres salir? (S/N) ");
                 scanf( " %c", &caracter );
                 if(caracter == 'S' || caracter == 's') opcion=99;
                 break;
@@ -238,128 +197,6 @@ int main(int argc, const char * argv[]) {
     } while ( opcion != 99 );
     
     return 0;
-}
-
-
-void PintaCombinacionColocadas(int NumTest){
-    int i;
-    int ContPiezas=0;
-    
-    ContPiezas=ListaPruebas[NumTest].NumPiezasColocadas;
-    printf("   %u Piezas colocadas: ",ContPiezas);
-    for (i=0;i<ContPiezas;i++)
-    {
-        printf("[%u-%u] ",ListaPruebas[NumTest].CombinacionColocadas[i].PiezaColocada,ListaPruebas[NumTest].CombinacionColocadas[i].OrientaColocada);
-    }
-    printf( "\n");
-}
-
-int MuestraListaResultPruebas(long int PuntInicial)
-{
-    /* Muestra el listado de los resultados de las pruebas realizadas
-     Desde PuntInicial hasta PuntPruebas actual*/
-    long int TmpContPrueba;
-    int i,ContPiezas=0;
-    
-    
-    for(TmpContPrueba=PuntInicial;TmpContPrueba<=PuntPruebas;TmpContPrueba++){
-        
-        printf(" PRUEBA: %ld Result: %u  ", TmpContPrueba,ListaPruebas[TmpContPrueba].ResultadoPrueba);
-        for (i=0,ContPiezas=0;i<9;i++)
-        {
-            if(ListaPruebas[TmpContPrueba].Piezascolocadas[i]==0xffff)
-                ContPiezas=ContPiezas+1;
-        }
-        printf("-%u Piezas colocadas: ",ContPiezas);
-        for (i=0;i<ContPiezas;i++)
-        {
-            printf("[%u-%u] ",ListaPruebas[TmpContPrueba].CombinacionColocadas[i].PiezaColocada,ListaPruebas[TmpContPrueba].CombinacionColocadas[i].OrientaColocada);
-        }
-        printf( "\n");
-        
-    }
-    return 0;
-    
-}
-int MuestraListado (long int NumPrueba){
-    /* lista el resultado de una prueba*/
-    int i,tmp;
-    int ContPiezas=0;
-    
-    if(NumPrueba<NUMMAXPRUEBAS)
-    {
-        printf("Mostramos los registros de la prueba [%ld] \n",NumPrueba);
-        printf(" Se han Usado las piezas: \n");
-        for (i=0;i<9;i++)
-        {
-            printf("   Pieza %u: ",i);
-            if(ListaPruebas[NumPrueba].Piezascolocadas[i]==0xffff) {
-                ContPiezas=ContPiezas+1;
-                printf("Sí");
-            }
-            
-            else printf("No");
-            printf("\n");
-        }
-        printf(" La combinación de piezas colocadas ha sido: \n");
-        printf("   Piezas colocadas: ");
-        for (i=0;i<ContPiezas;i++)
-        {
-            printf("[%u-%u] ",ListaPruebas[NumPrueba].CombinacionColocadas[i].PiezaColocada,ListaPruebas[NumPrueba].CombinacionColocadas[i].OrientaColocada);
-        }
-        printf("\n");
-        printf(" El resultado de la prueba ha sido: \n");
-        switch (ListaPruebas[NumPrueba].ResultadoPrueba) {
-            case 0:
-                printf ("    [0] La Prueba No ha finalizado");
-                break;
-            case 55:
-                printf ("    [55] El Tablero quedó bloqueado");
-                break;
-            case 99:
-                printf ("    [99] El Tablero finalizó!!!! CONSEGUIDO");
-                break;
-            case 200:
-                printf ("    [200] Se paró la prueba por haber probado ya %u Piezas",NUMMAXPIEZASPROBADAS);
-                break;
-            case 400:
-                printf("    [400] Se para porque ya se ha probado la misma combinación %u veces \n",NUMMAXPRUEBACOMBINACION);
-                break;
-            case 500:
-                printf("    [500] Se han probado el resto de piezas y no caben \n");
-                break;
-            default:
-                printf ("    Resultado Extraño - Revisar");
-                break;
-        }
-        printf("\n");
-        printf(" Las Pruebas que se han hecho han sido: \n");
-        for (i=0;i<NUMMAXPIEZASPROBADAS;i++)
-        {
-            if(ListaPruebas[NumPrueba].PiezaProbada[i].OrdenPieza!=0){
-                printf("    La Pieza: [%u-%u] Orden: %u  ",ListaPruebas[NumPrueba].PiezaProbada[i].numPieza,ListaPruebas[NumPrueba].PiezaProbada[i].OrientaPieza,ListaPruebas[NumPrueba].PiezaProbada[i].OrdenPieza);
-                printf("Result: ");
-                tmp=ListaPruebas[NumPrueba].PiezaProbada[i].ResultadoPieza;
-                switch (tmp) {
-                    case 0:
-                        printf("Pieza COLOCADA\n");
-                        break;
-                    default:
-                        printf("Pieza No se coloco porque ");
-                        if(tmp<100) printf("Había %u casillas que no cabían\n",tmp);
-                        else printf("La pieza se salia del tablero\n");
-                        
-                        break;
-                }
-            }
-        }
-    }
-    else{
-        printf("No hay tantas pruebas solo hay %u programadas\n",NUMMAXPRUEBAS);
-    }
-    
-    return 0;
-    
 }
 
 
@@ -376,10 +213,7 @@ void MuestraTitulosCredito()
     printf("y las piezas son: \n");
     PintaTodasPiezas();
     PintaInfoSimetrias();
-    printf("Estan preparadas %u pruebas\n",NUMMAXPRUEBAS);
-    printf("\nComenzamos con el puntero de pruebas en: \n");
-    PintaBufferPuntero();
-    
+
     printf("\n");
     
     {
@@ -393,14 +227,5 @@ void MuestraTitulosCredito()
                    _posAnalizadas, NUMMAXPOSCHINCHETA, _totalSoluciones / _divisor);
     }
     printf("\n");
-    
-}
 
-void DumpError(void){
-    /* Se llama cuando hay un error para ver en qué estado está todo*/
-    printf("DUMP ERROR: \n");
-    printf("NúmeroPrueba Actual: %ld\n",PuntPruebas);
-    PintaTestResumen(PuntPruebas);
-    printf("Últimas 5 pruebas realizadas\n");
-    MuestraListaResultPruebas(PuntPruebas-5);
 }

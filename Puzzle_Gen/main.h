@@ -23,73 +23,25 @@ struct PosicionesChincheta_ {
 #define COLTABLERO 7
 
 
-#define NUMMAXPRUEBAS 4000000
-#define NUMMAXPIEZASPROBADAS 10
-#define NUMMAXPRUEBACOMBINACION 2 /* El número de veces que se probará la misma combinación tras una PIEZA COLOCADA*/
-
 #define FilPiezas 5
 #define ColPiezas 5
 #define CANTIDADPIEZAS 9
 #define CANTIDADORIENTACIONES 4
 
 
-#define NUMMAXSOLUCIONES 700
+#define NUMMAXSOLUCIONES 5000
 #define NUMMAXPOSCHINCHETA 49
 
 /* DEMO */
 #define DEBUGPINTAFICHAS 0
 #define TESTDEDEMO 2
 extern int contTestDemo;
-extern int MostrarCadaIncrementoDePuntero;
-extern int MostrarCadaPunteroValido;
-#define NUMMUESTRAPRUEBAS 10000 /* Cuando esté probando se mostrará la prueba cada esas pruebas*/
+#define NUMMUESTRAPRUEBAS 10000 /* Cada cuántas combinaciones probadas se muestra el progreso */
 extern int ContMuestraPruebas;
 
-
-struct ListaPruebas_ {
-    double NumPrueba;
-    struct {
-        int PiezaPrueba;
-        int OrientaPrueba;
-    } CombinacionPrueba[9];
-    int Piezascolocadas[9];
-    int NumPiezasColocadas;
-    struct {
-        int PiezaColocada;
-        int OrientaColocada;
-    } CombinacionColocadas[9];
-    struct {
-        int OrdenPieza;
-        int numPieza;
-        int OrientaPieza;
-        int ResultadoPieza;
-    }PiezaProbada[NUMMAXPIEZASPROBADAS];
-    int ResultadoPrueba;
-};
-
-extern struct ListaPruebas_ ListaPruebas[NUMMAXPRUEBAS];
-
-extern long int PuntPruebas; /* Indica en qué prueba estamos ejecutando*/
-extern int PuntPieza; /* Indica el puntero a la pieza que se va a colocar*/
-extern int PuntOri; /* Indica el puntero a la orientación de la pieza que se va a colocar*/
-extern int PuntPiezasProbadas; /*Es el número de piezas que se ha probado */
-extern int PuntOrdenPieza; /* Es el Orden la pieza que se quiere colocar*/
-extern int PuntContColocadas; /*cuenta el número de piezas colocadas en la prueba en curso */
-extern int FaseProceso;
-extern int ProfundidadFunc;
-extern int PrepararNuevaPrueba;
+extern long int PuntPruebas; /* Número de combinaciones pieza/orientación probadas en la búsqueda actual */
 
 /* Prototipos de funciones*/
-void LimpiaBuffPiezasAColocar(void);
-
-void IniciaBuffActual(void);
-void PintaBuffActual(void);
 void MuestraTitulosCredito(void);
-void MuestraPanelPruebasClave(void);
-int ResuelveTablero(void);
-
-int MuestraListaResultPruebas(long int PuntInicial);
-int MuestraListado (long int NumPrueba);
-void DumpError(void);
 
 #endif /* main_h */

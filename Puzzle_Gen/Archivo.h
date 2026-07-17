@@ -8,9 +8,10 @@
 #ifndef Archivo_h
 #define Archivo_h
 
-/* Debe llamarse al inicio de main() con argv[0].
-   Calcula la ruta del archivo junto al ejecutable. */
-void InicializaRutaArchivo(const char* rutaEjecutable);
+/* Debe llamarse al inicio de main().
+   Calcula la ruta del archivo en Archivo_Dat/, junto al código fuente del proyecto
+   (no junto al ejecutable, que cambia de sitio según cómo se compile/ejecute). */
+void InicializaRutaArchivo(void);
 
 /* Guarda BloquesSoluciones completo en binario.
    Devuelve 1 si OK, 0 si error. */

@@ -6,6 +6,7 @@
 //
 
 #include "Tablero.h"
+#include "Soluciones.h"
 
 int Tablero[FILTABLERO][COLTABLERO];
 int TableroSoluciones[FILTABLERO][COLTABLERO];
@@ -148,202 +149,71 @@ int BuscaHuecoEnTablero(int pTablero[][7],int* pFila, int* pColumna){
     return 1;
 }
 
-int ResuelveTablero()
-{ /* Esta función se llama cíclicamente
-   En cada ciclo, se crea una nueva PRUEBA
-   Se incrementa los punteros
-   Se toma una combinación posible
-   Se prueba pieza a pieza
-   Y se actualiza la Lista Negra y el puntero */
-    /* La función devuelve:
-     400: Desde colocar una pieza, se ha probado NUMMAXPRUEBACOMBINACION la misma combinación
-     500: Se han probado el resto de piezas y no caben
-     55: Esta prueba se debe parar porque el Tablero resultante se ha bloqueado
-     99: El Tablero se ha terminado ¡ÉXITO!
-     77: Se devuelve cuando no se encuentra hueco para colocar piezas -> CASO Raro
-     */
-    int i,j;
-    int PuntBuffColoca=0;
-    int tmpfilaTab,tmpcolTab;/*Usados para buscar hueco*/
-    int tmp,tmpTab;
-    int ResultadoColoca=0;
-    struct CombinacionFallida_ CombFallida;
+long int PruebasBacktracking; /* Cuenta las combinaciones pieza/orientación probadas en la búsqueda actual */
+
+static int ResuelveBacktrackRec(int piezasUsadas[CANTIDADPIEZAS], struct CasillaPieza_ combinacion[CANTIDADPIEZAS], int numColocadas)
+{
+    /* Backtracking recursivo clásico:
+     Busca el primer hueco, prueba cada pieza/orientación no usada aún.
+     Si encaja: sigue colocando piezas; si el tablero termina, se guarda como solución.
+     Al volver de la recursión siempre se deshace la colocación (QuitaPieza) para probar la siguiente combinación. */
+    int fila,col,p,o,tmp,tmpTab,i;
     struct ListaSoluciones_ CeldaSoluciones;
-    
-    /*Preparamos la nueva Prueba*/
-    PuntPiezasProbadas=0;
-    PuntContColocadas=0;
-    ListaPruebas[PuntPruebas].NumPiezasColocadas=0;
-    
-    if(!DameSiguientePunteroValido())
-    {
-        /* el siguiente puntero válido está en: CasillaPieza_ BufferPuntero*/
-        /* Estamos comenzando una prueba Rellenamos cual es la combinación que se va a probar*/
-        for(i=0;i<CANTIDADPIEZAS;i++){
-            ListaPruebas[PuntPruebas].CombinacionPrueba[i].PiezaPrueba=BufferPuntero[i].BuffPieza;
-            ListaPruebas[PuntPruebas].CombinacionPrueba[i].OrientaPrueba=BufferPuntero[i].BuffOri;
-        }
-        
-        /* Comenzamos a probar piezas: son las que apunta PuntBuffColoca*/
-        for(PuntBuffColoca=0;PuntBuffColoca<CANTIDADPIEZAS;PuntBuffColoca++){
-            
-            PuntPieza=BufferPuntero[PuntBuffColoca].BuffPieza;
-            PuntOri=BufferPuntero[PuntBuffColoca].BuffOri;
-            
-            if(BuscaHuecoEnTablero(Tablero,&tmpfilaTab,&tmpcolTab))
+
+    if(!BuscaHuecoEnTablero(Tablero,&fila,&col))
+        return 0; /* Tablero ya lleno: no debería llegar aquí, RevisaTablero ya habría dado 99 antes */
+
+    for(p=0;p<CANTIDADPIEZAS;p++){
+        if(piezasUsadas[p]) continue;
+        for(o=0;o<CANTIDADORIENTACIONES;o++){
+
+            PruebasBacktracking=PruebasBacktracking+1;
+            tmp=ColocaPieza(fila,col,p,o,Tablero,0);
+
+            if(tmp==0){
+                piezasUsadas[p]=1;
+                combinacion[numColocadas].BuffPieza=p;
+                combinacion[numColocadas].BuffOri=o;
+
+                tmpTab=RevisaTablero(Tablero);
+                if(tmpTab==99){
+                    for(i=0;i<CANTIDADPIEZAS;i++)
+                        CeldaSoluciones.CombinacionSolucion[i]=combinacion[i];
+                    PuntPruebas=PruebasBacktracking;
+                    MeteEnListaSoluciones(CeldaSoluciones,PruebasBacktracking);
+                } else if(tmpTab<=50){
+                    /* No está bloqueado: seguimos colocando piezas */
+                    ResuelveBacktrackRec(piezasUsadas,combinacion,numColocadas+1);
+                }
+                /* Si tmpTab>50 el tablero ha quedado bloqueado: no seguimos, deshacemos abajo */
+
+                QuitaPieza(fila,col,p,o,Tablero);
+                piezasUsadas[p]=0;
+            }
+
+            if(ContMuestraPruebas!=0)
             {
-                if(contTestDemo<TESTDEDEMO || DEBUGPINTAFICHAS)
-                    printf("Coloca la pieza [%u-%u] en fila:%u, columna%u\n",PuntPieza,PuntOri,tmpfilaTab,tmpcolTab);
-                tmp=ColocaPieza(tmpfilaTab,tmpcolTab,PuntPieza,PuntOri,Tablero,0);
-                
-                /*Apuntamos el resultado*/
-                /*La pieza [PuntPieza-PuntOri] se ha intentado colocar*/
-                ListaPruebas[PuntPruebas].PiezaProbada[PuntPiezasProbadas].numPieza=PuntPieza;
-                ListaPruebas[PuntPruebas].PiezaProbada[PuntPiezasProbadas].OrientaPieza=PuntOri;
-                ListaPruebas[PuntPruebas].PiezaProbada[PuntPiezasProbadas].ResultadoPieza=tmp;
-                ListaPruebas[PuntPruebas].PiezaProbada[PuntPiezasProbadas].OrdenPieza=PuntOrdenPieza;
-                PuntPiezasProbadas=PuntPiezasProbadas+1;
-                /*Si tmp =0 colocada, otros valores NO cabe*/
-                if(tmp==0)
+                ContMuestraPruebas=ContMuestraPruebas+1;
+                if(ContMuestraPruebas>NUMMUESTRAPRUEBAS)
                 {
-                    /*La pieza se ha colocado */
-                    
-                    /*Marcamos FFFF en las casillas donde se ha usado piezas*/
-                    ListaPruebas[PuntPruebas].Piezascolocadas[PuntPieza]=0xffff;
-                    
-                    ListaPruebas[PuntPruebas].CombinacionColocadas[PuntContColocadas].PiezaColocada=PuntPieza;
-                    ListaPruebas[PuntPruebas].CombinacionColocadas[PuntContColocadas].OrientaColocada=PuntOri;
-                    PuntContColocadas=PuntContColocadas+1;
-                    ListaPruebas[PuntPruebas].NumPiezasColocadas=PuntContColocadas;
-                    
-                    /* Vamos a ver si el tablero está bien */
-                    tmpTab=RevisaTablero(Tablero);
-                    if(tmpTab==99){
-                        /*Tablero terminado!!!*/
-                        ResultadoColoca=99;
-                    }else{
-                        if(tmpTab>50){
-                            /*Tablero Bloqueado */
-                            ResultadoColoca=55;
-                        }
-                    }
-                    
-                }
-                else
-                {
-                    /* Tmp!=0 => La pieza no se ha colocado*/
-                    ResultadoColoca=66; /* La pieza NO se ha colocado*/
-                }
-                if(ResultadoColoca!=0) /* No se continua probando*/
-                {
-                    ListaPruebas[PuntPruebas].ResultadoPrueba=ResultadoColoca;
-                    break; /* Se sale del bucle FOR*/
+                    printf(" ... %ld combinaciones probadas\n",PruebasBacktracking);
+                    ContMuestraPruebas=1;
                 }
             }
-            else
-            {
-                /* Busca Hueco devuelve algo distinto de 0 => NO hay hueco, no se va a poder colcoar nada*/
-                SeHaFinalizadoLaCuenta=1;
-                printf("ERROR: No se ha encontrado hueco para colocar mas piezas -> Caso RARO\n");
-                DumpError();
-                return 77;
-            }
         }
-        /* Se ha finalizado */
-        switch(ResultadoColoca){
-            case 55:
-                /* El Tablero Se ha bloqueado - saltamos al siguiente punto a probar*/
-                j=ListaPruebas[PuntPruebas].NumPiezasColocadas;
-                for(i=0;i<j;i++)
-                {
-                    CombFallida.Combinacion[i].BuffPieza=ListaPruebas[PuntPruebas].CombinacionColocadas[i].PiezaColocada;
-                    CombFallida.Combinacion[i].BuffOri=ListaPruebas[PuntPruebas].CombinacionColocadas[i].OrientaColocada;
-                }
-                CombFallida.NumPiezas=j;
-                SaltaPunteroTrasFallo(CombFallida);
-                break;
-            case 66:
-                /* La última pieza NO se ha colocado - saltamos al siguiente punto a probar*/
-                j=ListaPruebas[PuntPruebas].NumPiezasColocadas;
-                for(i=0;i<j;i++)
-                {
-                    CombFallida.Combinacion[i].BuffPieza=ListaPruebas[PuntPruebas].CombinacionColocadas[i].PiezaColocada;
-                    CombFallida.Combinacion[i].BuffOri=ListaPruebas[PuntPruebas].CombinacionColocadas[i].OrientaColocada;
-                }
-                CombFallida.Combinacion[j].BuffPieza=PuntPieza;
-                CombFallida.Combinacion[j].BuffOri=PuntOri;
-                CombFallida.NumPiezas=j+1;
-                SaltaPunteroTrasFallo(CombFallida);
-                break;
-            case 99:
-                /* El tablero se ha completado*/
-                /* Tablero completado EXITO*/
-                /* Tenemos que añadir a la lista de Soluciones las piezas colocadas */
-                j=ListaPruebas[PuntPruebas].NumPiezasColocadas; /*Deberían ser 9*/
-                for(i=0;i<j;i++)
-                {
-                    CeldaSoluciones.CombinacionSolucion[i].BuffPieza=ListaPruebas[PuntPruebas].CombinacionColocadas[i].PiezaColocada;
-                    CeldaSoluciones.CombinacionSolucion[i].BuffOri=ListaPruebas[PuntPruebas].CombinacionColocadas[i].OrientaColocada;
-                }
-                MeteEnListaSoluciones(CeldaSoluciones,j);
-                printf("!!! Solución !!!!!\n");
-                PintaBufferPuntero();
-                PintaTablero(Tablero);
-                break;
-        }
-        /* Preparar NUEVA Prueba*/
-        if(ContMuestraPruebas!=0)
-        {
-            ContMuestraPruebas=ContMuestraPruebas+1;
-            if(ContMuestraPruebas>NUMMUESTRAPRUEBAS)
-            {
-                PintaTestResumen(PuntPruebas);
-                ContMuestraPruebas=1;
-            }
-        }
-        
-        
-        PuntPruebas=PuntPruebas+1;
-        
-        PuntOrdenPieza=0;
-        PuntContColocadas=0;
-        PuntPiezasProbadas=0;
-        
-        contTestDemo=contTestDemo+1;
-        InicializaTablero(Tablero);
-        
-        return 0;
     }
-    else
-        return 1; /* Se finalizó la cuenta de punteros*/
+    return 0;
 }
 
-int PintaTestResumen(long int NumTest)
+int ResuelveTableroBacktracking(void)
 {
-    
-    int ContPiezas=0;
-    int i;
-    
-    if(NumTest<=PuntPruebas)
-    {
-        /*Se pinta un resumen del Test NumTest*/
-        printf(" PRUEBA: %ld Result: <%u> ", NumTest,ListaPruebas[NumTest].ResultadoPrueba);
-        printf("Combinación Probada: ");
-        for (i=0;i<CANTIDADPIEZAS;i++)
-        {
-            printf("[%u-%u] ",ListaPruebas[NumTest].CombinacionPrueba[i].PiezaPrueba,ListaPruebas[NumTest].CombinacionPrueba[i].OrientaPrueba);
-        }
-        printf( "\n");
-        ContPiezas=ListaPruebas[NumTest].NumPiezasColocadas;
-        printf("               %u Piezas colocadas: ",ContPiezas);
-        for (i=0;i<ContPiezas;i++)
-        {
-            printf("[%u-%u] ",ListaPruebas[NumTest].CombinacionColocadas[i].PiezaColocada,ListaPruebas[NumTest].CombinacionColocadas[i].OrientaColocada);
-        }
-        printf( "\n");
-        return 0;
-    }
-    return 0xffff;/* ERROR de parámetros*/
+    int piezasUsadas[CANTIDADPIEZAS]={0};
+    struct CasillaPieza_ combinacion[CANTIDADPIEZAS];
+
+    PruebasBacktracking=0;
+    ResuelveBacktrackRec(piezasUsadas,combinacion,0);
+    PuntPruebas=PruebasBacktracking;
+    return 0;
 }
 
 

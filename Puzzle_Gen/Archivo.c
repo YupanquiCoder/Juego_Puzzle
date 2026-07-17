@@ -11,18 +11,27 @@
 #include "Archivo.h"
 #include "Soluciones.h"
 
-static char rutaArchivo[2048] = "soluciones.dat"; /* fallback si falla realpath */
+static char rutaArchivo[2048] = "soluciones.dat"; /* fallback si falla la construcción de la ruta */
 
-void InicializaRutaArchivo(const char* rutaEjecutable)
+void InicializaRutaArchivo(void)
 {
-    char *rutaReal = realpath(rutaEjecutable, NULL);
-    if (rutaReal) {
-        char *ultimo = strrchr(rutaReal, '/');
+    /* __FILE__ es la ruta de este archivo fuente en tiempo de compilación: apunta siempre
+       a Puzzle_Gen/Puzzle_Gen/Archivo.c dentro del proyecto, sin importar dónde se compile
+       o desde dónde se ejecute el binario resultante. Subimos dos niveles (quitamos el
+       nombre del archivo y la carpeta Puzzle_Gen) para llegar a la raíz del proyecto,
+       donde vive Archivo_Dat/. */
+    char rutaFuente[2048];
+    char *ultimo;
+
+    snprintf(rutaFuente, sizeof(rutaFuente), "%s", __FILE__);
+    ultimo = strrchr(rutaFuente, '/');
+    if (ultimo) {
+        *ultimo = '\0';
+        ultimo = strrchr(rutaFuente, '/');
         if (ultimo) {
             *ultimo = '\0';
-            snprintf(rutaArchivo, sizeof(rutaArchivo), "%s/soluciones.dat", rutaReal);
+            snprintf(rutaArchivo, sizeof(rutaArchivo), "%s/Archivo_Dat/soluciones.dat", rutaFuente);
         }
-        free(rutaReal);
     }
     printf("Archivo de soluciones: %s\n", rutaArchivo);
 }

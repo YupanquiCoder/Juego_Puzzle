@@ -11,7 +11,6 @@
 #include <stdio.h>
 #include "main.h"
 #include "piezas.h"
-#include "Punteros.h"
 #include "Tablero.h"
 
 

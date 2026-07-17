@@ -20,6 +20,7 @@ extern int UnicosPorPieza[CANTIDADPIEZAS];
 int PintaPieza(int NumPieza,int NumOrienta);
 void PintaTodasPiezas(void);
 int ColocaPieza(int tFil, int tCol, int pNum, int pOri, int pTablero[][COLTABLERO],int DebugCompleto);
+int QuitaPieza(int tFil, int tCol, int pNum, int pOri, int pTablero[][COLTABLERO]);
 int PiezaEsMayor(int NumPieza1,int NumOrienta1,int NumPieza2, int NumOrienta2);
 void IncrementaPieza(int* pPieza, int* pOrienta);
 void IncrementaOrienta(int* pPieza, int* pOrienta);

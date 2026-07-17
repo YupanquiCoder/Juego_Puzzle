@@ -24,13 +24,8 @@ void InicializaSoluciones(void)
 
 void InicializaBloque(void){
     /* Se llama cuando vamos a comenzar a probar un nuevo bloque*/
-    InicializaPunteros();
     InicializaTablero(Tablero);
-    SeHaFinalizadoLaCuenta=0;
     contTestDemo=TESTDEDEMO;
-    MostrarCadaPunteroValido=0;
-    MostrarCadaIncrementoDePuntero=0;
-
 }
 int MeteEnListaSoluciones(struct ListaSoluciones_ BuffCheck,long int NumPrueba)
 {
@@ -38,8 +33,13 @@ int MeteEnListaSoluciones(struct ListaSoluciones_ BuffCheck,long int NumPrueba)
     int SolucionYaExiste=0;
     /* Mete en lista de soluciones, incrementando el Contador de Soluciones:
      Devuelve: El número de solución que se ha añadido
-     NUMMAXSOLUCIONES: Si la solución ya existía */
-    
+     NUMMAXSOLUCIONES: Si la solución ya existía, o si no cabe más en el array */
+
+    if(BloquesSoluciones[PosChinchetaActual].ContadorSoluciones>=NUMMAXSOLUCIONES){
+        printf("AVISO: Bloque <%d> ha alcanzado el máximo de %d soluciones almacenables -> se descarta esta (faltan por guardar)\n",PosChinchetaActual,NUMMAXSOLUCIONES);
+        return NUMMAXSOLUCIONES;
+    }
+
     for(j=0;j<BloquesSoluciones[PosChinchetaActual].ContadorSoluciones;j++){
         SolucionYaExiste=1;
         for(i=0;i<CANTIDADPIEZAS;i++){
@@ -76,8 +76,11 @@ void PintaSituacionBloquesSoluciones(void)
     printf("De las %u Posiciones de la 'chincheta' este es el listado de las probadas:\n",NUMMAXPOSCHINCHETA);
     for(i=0;i<NUMMAXPOSCHINCHETA;i++){
         printf("\nPos Chincheta <%u>: [%u-%u] ",i,BloquesSoluciones[i].PosicionesChincheta.FilaChin,BloquesSoluciones[i].PosicionesChincheta.ColumnChin);
-        if(BloquesSoluciones[i].ContadorSoluciones==0)
+        if(BloquesSoluciones[i].NumeroPruebasRealizadas==0)
             printf(" NO se han buscado soluciones");
+        else if(BloquesSoluciones[i].ContadorSoluciones==0)
+            printf("Buscado, SIN soluciones (%ld Pruebas)",
+                   BloquesSoluciones[i].NumeroPruebasRealizadas);
         else
             printf("Encontradas %u soluciones (%u unicas) en %ld Pruebas",
                    BloquesSoluciones[i].ContadorSoluciones,
