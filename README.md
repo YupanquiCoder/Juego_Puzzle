@@ -67,4 +67,6 @@ El código está siendo revisado y mejorado progresivamente — es un proyecto v
 
 Esto es un proyecto de aprendizaje y disfrute personal. El código tiene sus "chapuzas" (reconocidas y en proceso de mejora), pero funciona. Si te resulta útil, curioso, o tienes sugerencias, eres bienvenido.
 
+Con la llegada de Claude (la IA de Anthropic) revisé el código a fondo y solucioné un crash que arrastraba desde hacía tiempo. Sigue siendo un proyecto amateur — y así va a seguir.
+
 *Madrid, España — Miguel*
