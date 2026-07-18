@@ -69,4 +69,6 @@ Esto es un proyecto de aprendizaje y disfrute personal. El código tiene sus "ch
 
 Con la llegada de Claude (la IA de Anthropic) revisé el código a fondo y solucioné un crash que arrastraba desde hacía tiempo. Sigue siendo un proyecto amateur — y así va a seguir.
 
+En [cosasdemiguel.com/juego-puzzle/](https://cosasdemiguel.com/juego-puzzle/) cuento la historia de este proyecto.
+
 *Madrid, España — Miguel*
